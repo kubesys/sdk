@@ -56,9 +56,6 @@ public class KubeStackClient extends KubernetesClient {
         super(file);
     }
 
-    public KubeStackClient(String config) throws Exception {
-        super(config);
-    }
 
     public KubeStackClient(String url, String token, KubernetesAnalyzer analyzer) throws Exception {
         super(url, token, analyzer);
