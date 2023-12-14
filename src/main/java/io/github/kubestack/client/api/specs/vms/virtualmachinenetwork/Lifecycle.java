@@ -31,43 +31,43 @@ public class Lifecycle {
 	 *      L2 Network
 	 * 
 	 ***************************************************************/
-	@FunctionDescriber(shortName = "创建二层桥接网络，用于vlan场景", description = "创建二层桥接，" 
-			+ AnnotationUtils.DESC_FUNCTION_DESC, 
-		prerequisite = "", 
-		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
-	protected CreateBridge createBridge;
-	
-	@FunctionDescriber(shortName = "删除二层桥接网络", description = "删除二层桥接," 
-			+ AnnotationUtils.DESC_FUNCTION_DESC, 
-		prerequisite = AnnotationUtils.DESC_FUNCTION_VMN, 
-		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
-	protected DeleteBridge deleteBridge;
-	
-	@FunctionDescriber(shortName = "设置二层网桥的vlan ID", description = "适用于OpenvSwitch二层网桥，" 
-			+ AnnotationUtils.DESC_FUNCTION_DESC, 
-		prerequisite = AnnotationUtils.DESC_FUNCTION_VMN, 
-		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
-	protected SetBridgeVlan setBridgeVlan;
-	
-	@FunctionDescriber(shortName = "删除二层网桥的vlan ID", description = "适用于OpenvSwitch二层网桥，" 
-			+ AnnotationUtils.DESC_FUNCTION_DESC, 
-		prerequisite = AnnotationUtils.DESC_FUNCTION_VMN, 
-		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
-	protected DelBridgeVlan delBridgeVlan;
-	
-	@FunctionDescriber(shortName = "给虚拟机绑定vlan ID", description = "适用于OpenvSwitch二层网桥，更换虚拟机的vlan" 
-			+ AnnotationUtils.DESC_FUNCTION_DESC, 
-		prerequisite = AnnotationUtils.DESC_FUNCTION_VMN, 
-		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
-	@Deprecated
-	protected BindPortVlan bindPortVlan;
-	
-	@FunctionDescriber(shortName = "解除虚拟机的vlan ID", description = "适用于OpenvSwitch二层网桥，更换虚拟机的vlan" 
-			+ AnnotationUtils.DESC_FUNCTION_DESC, 
-		prerequisite = AnnotationUtils.DESC_FUNCTION_VMN, 
-		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
-	@Deprecated
-	protected UnbindPortVlan unbindPortVlan;
+//	@FunctionDescriber(shortName = "创建二层桥接网络，用于vlan场景", description = "创建二层桥接，" 
+//			+ AnnotationUtils.DESC_FUNCTION_DESC, 
+//		prerequisite = "", 
+//		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
+//	protected CreateBridge createBridge;
+//	
+//	@FunctionDescriber(shortName = "删除二层桥接网络", description = "删除二层桥接," 
+//			+ AnnotationUtils.DESC_FUNCTION_DESC, 
+//		prerequisite = AnnotationUtils.DESC_FUNCTION_VMN, 
+//		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
+//	protected DeleteBridge deleteBridge;
+//	
+//	@FunctionDescriber(shortName = "设置二层网桥的vlan ID", description = "适用于OpenvSwitch二层网桥，" 
+//			+ AnnotationUtils.DESC_FUNCTION_DESC, 
+//		prerequisite = AnnotationUtils.DESC_FUNCTION_VMN, 
+//		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
+//	protected SetBridgeVlan setBridgeVlan;
+//	
+//	@FunctionDescriber(shortName = "删除二层网桥的vlan ID", description = "适用于OpenvSwitch二层网桥，" 
+//			+ AnnotationUtils.DESC_FUNCTION_DESC, 
+//		prerequisite = AnnotationUtils.DESC_FUNCTION_VMN, 
+//		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
+//	protected DelBridgeVlan delBridgeVlan;
+//	
+//	@FunctionDescriber(shortName = "给虚拟机绑定vlan ID", description = "适用于OpenvSwitch二层网桥，更换虚拟机的vlan" 
+//			+ AnnotationUtils.DESC_FUNCTION_DESC, 
+//		prerequisite = AnnotationUtils.DESC_FUNCTION_VMN, 
+//		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
+//	@Deprecated
+//	protected BindPortVlan bindPortVlan;
+//	
+//	@FunctionDescriber(shortName = "解除虚拟机的vlan ID", description = "适用于OpenvSwitch二层网桥，更换虚拟机的vlan" 
+//			+ AnnotationUtils.DESC_FUNCTION_DESC, 
+//		prerequisite = AnnotationUtils.DESC_FUNCTION_VMN, 
+//		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
+//	@Deprecated
+//	protected UnbindPortVlan unbindPortVlan;
 	
 	
 	/**************************************************************
@@ -75,23 +75,97 @@ public class Lifecycle {
 	 *      L3 Network
 	 * 
 	 ***************************************************************/
-	@FunctionDescriber(shortName = "创建三层网络交换机", description = "创建三层网络交换机，" 
-			+ AnnotationUtils.DESC_FUNCTION_DESC, 
-		prerequisite = "", 
-		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
-	protected CreateSwitch createSwitch;
+//	@FunctionDescriber(shortName = "创建三层网络交换机", description = "创建三层网络交换机，" 
+//			+ AnnotationUtils.DESC_FUNCTION_DESC, 
+//		prerequisite = "", 
+//		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
+//	protected CreateSwitch createSwitch;
+//	
+//	@FunctionDescriber(shortName = "删除三层网络交换机", description = "删除三层网络交换机，" 
+//			+ AnnotationUtils.DESC_FUNCTION_DESC, 
+//		prerequisite = AnnotationUtils.DESC_FUNCTION_VMN, 
+//		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
+//	protected DeleteSwitch deleteSwitch;
+//	
+//	@FunctionDescriber(shortName = "修改三层网络交换机配置", description = "修改三层网络交换机配置，" 
+//			+ AnnotationUtils.DESC_FUNCTION_DESC, 
+//		prerequisite = "", 
+//		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
+//	protected ModifySwitch modifySwitch;
 	
-	@FunctionDescriber(shortName = "删除三层网络交换机", description = "删除三层网络交换机，" 
-			+ AnnotationUtils.DESC_FUNCTION_DESC, 
-		prerequisite = AnnotationUtils.DESC_FUNCTION_VMN, 
-		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
-	protected DeleteSwitch deleteSwitch;
+//	public ModifySwitch getModifySwitch() {
+//		return modifySwitch;
+//	}
+//
+//	public void setModifySwitch(ModifySwitch modifySwitch) {
+//		this.modifySwitch = modifySwitch;
+//	}
+//
+//	public CreateSwitch getCreateSwitch() {
+//		return createSwitch;
+//	}
+//
+//	public void setCreateSwitch(CreateSwitch createSwitch) {
+//		this.createSwitch = createSwitch;
+//	}
+//
+//	public DeleteSwitch getDeleteSwitch() {
+//		return deleteSwitch;
+//	}
+//
+//	public void setDeleteSwitch(DeleteSwitch deleteSwitch) {
+//		this.deleteSwitch = deleteSwitch;
+//	}
+//
+//	public CreateBridge getCreateBridge() {
+//		return createBridge;
+//	}
+//
+//	public void setCreateBridge(CreateBridge createBridge) {
+//		this.createBridge = createBridge;
+//	}
+//
+//	public DeleteBridge getDeleteBridge() {
+//		return deleteBridge;
+//	}
+//
+//	public void setDeleteBridge(DeleteBridge deleteBridge) {
+//		this.deleteBridge = deleteBridge;
+//	}
+//
+//
+//	public SetBridgeVlan getSetBridgeVlan() {
+//		return setBridgeVlan;
+//	}
+//
+//	public void setSetBridgeVlan(SetBridgeVlan setBridgeVlan) {
+//		this.setBridgeVlan = setBridgeVlan;
+//	}
+//
+//	public DelBridgeVlan getDelBridgeVlan() {
+//		return delBridgeVlan;
+//	}
+//
+//	public void setDelBridgeVlan(DelBridgeVlan delBridgeVlan) {
+//		this.delBridgeVlan = delBridgeVlan;
+//	}
+
+//	public BindPortVlan getBindPortVlan() {
+//		return bindPortVlan;
+//  }
+//
+//  public void setBindPortVlan(BindPortVlan bindPortVlan) {
+//		this.bindPortVlan = bindPortVlan;
+//  }
+//
+//  public UnbindPortVlan getUnbindPortVlan() {
+//		return unbindPortVlan;
+//  }
+//
+//  public void setUnbindPortVlan(UnbindPortVlan unbindPortVlan) {
+//		this.unbindPortVlan = unbindPortVlan;
+//  }
 	
-	@FunctionDescriber(shortName = "修改三层网络交换机配置", description = "修改三层网络交换机配置，" 
-			+ AnnotationUtils.DESC_FUNCTION_DESC, 
-		prerequisite = "", 
-		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
-	protected ModifySwitch modifySwitch;
 	
 	@FunctionDescriber(shortName = "创建地址列表", description = "创建地址列表，" 
 			+ AnnotationUtils.DESC_FUNCTION_DESC, 
@@ -111,63 +185,6 @@ public class Lifecycle {
 		exception = AnnotationUtils.DESC_FUNCTION_EXEC)
 	protected ModifyAddress modifyAddress;
 	
-	public ModifySwitch getModifySwitch() {
-		return modifySwitch;
-	}
-
-	public void setModifySwitch(ModifySwitch modifySwitch) {
-		this.modifySwitch = modifySwitch;
-	}
-
-	public CreateSwitch getCreateSwitch() {
-		return createSwitch;
-	}
-
-	public void setCreateSwitch(CreateSwitch createSwitch) {
-		this.createSwitch = createSwitch;
-	}
-
-	public DeleteSwitch getDeleteSwitch() {
-		return deleteSwitch;
-	}
-
-	public void setDeleteSwitch(DeleteSwitch deleteSwitch) {
-		this.deleteSwitch = deleteSwitch;
-	}
-
-	public CreateBridge getCreateBridge() {
-		return createBridge;
-	}
-
-	public void setCreateBridge(CreateBridge createBridge) {
-		this.createBridge = createBridge;
-	}
-
-	public DeleteBridge getDeleteBridge() {
-		return deleteBridge;
-	}
-
-	public void setDeleteBridge(DeleteBridge deleteBridge) {
-		this.deleteBridge = deleteBridge;
-	}
-
-
-	public SetBridgeVlan getSetBridgeVlan() {
-		return setBridgeVlan;
-	}
-
-	public void setSetBridgeVlan(SetBridgeVlan setBridgeVlan) {
-		this.setBridgeVlan = setBridgeVlan;
-	}
-
-	public DelBridgeVlan getDelBridgeVlan() {
-		return delBridgeVlan;
-	}
-
-	public void setDelBridgeVlan(DelBridgeVlan delBridgeVlan) {
-		this.delBridgeVlan = delBridgeVlan;
-	}
-
 	public CreateAddress getCreateAddress() {
 		return createAddress;
 	}
@@ -192,25 +209,10 @@ public class Lifecycle {
 		this.modifyAddress = modifyAddress;
 	}
 
-	public BindPortVlan getBindPortVlan() {
-		return bindPortVlan;
-	}
-
-	public void setBindPortVlan(BindPortVlan bindPortVlan) {
-		this.bindPortVlan = bindPortVlan;
-	}
-
-	public UnbindPortVlan getUnbindPortVlan() {
-		return unbindPortVlan;
-	}
-
-	public void setUnbindPortVlan(UnbindPortVlan unbindPortVlan) {
-		this.unbindPortVlan = unbindPortVlan;
-	}
-
 
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@JsonDeserialize(using = com.fasterxml.jackson.databind.JsonDeserializer.None.class)
+	@Deprecated
 	public static class CreateSwitch {
 
 		@ParameterDescriber(required = true, description = "网段，这里后台只会做形式，不会做逻辑判断，只要符合xx.xx.xx.xx/y形式即可，请确保传入正确的数值, y的取值必须是8,16,24之一", constraint = "网段和掩码", example = "192.168.5.1/24")
@@ -326,6 +328,7 @@ public class Lifecycle {
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@JsonDeserialize(using = com.fasterxml.jackson.databind.JsonDeserializer.None.class)
+	@Deprecated
 	public static class ModifySwitch {
 
 		@ParameterDescriber(required = false, description = "网关地址", constraint = "IP", example = "192.168.5.5")
