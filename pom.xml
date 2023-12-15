@@ -17,7 +17,8 @@
 		<kubernetes-client>1.0.5</kubernetes-client>
 		<kubernetes-model>6.7.2</kubernetes-model>
 		<validation-api>2.0.1.Final</validation-api>
-		
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<maven.assembly.version>3.6.0</maven.assembly.version>
 		<maven.dependency.version>3.6.0</maven.dependency.version>
 		<maven.compiler.version>3.11.0</maven.compiler.version>

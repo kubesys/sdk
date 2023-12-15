@@ -16,13 +16,13 @@
 ## 1.1 CreateAndStartVMFromISO(通过ISO装虚拟机)
 
 **接口功能:**
-	通过光驱安装云OS，光驱必须存在只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+通过光驱安装云OS，光驱必须存在只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	
+
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.CreateAndStartVMFromISO
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.CreateAndStartVMFromISO
 
 **参数描述:**
 
@@ -42,7 +42,7 @@
 | graphics|String|true|虚拟机VNC/SPICE及其密码|取值范围：<vnc/spice,listen=0.0.0.0>,password=xxx（<必填>，选填），密码为4-16位，是小写字母、数字和中划线组合|vnc,listen=0.0.0.0,password=abcdefg|
 | disk|String|true|虚拟机磁盘，包括硬盘和光驱|硬盘的约束：/var/lib/libvirt/images/test3.qcow2,target=hda,read_bytes_sec=1024000000,write_bytes_sec=1024000000，光驱的约束：/opt/ISO/CentOS-7-x86_64-Minimal-1511.iso,device=cdrom,perms=ro，支持多个硬盘，第一个硬盘无需添加--disk，后续的需要|/var/lib/libvirt/images/test3.qcow2,read_bytes_sec=1024000000,write_bytes_sec=1024000000 --disk /opt/ISO/CentOS-7-x86_64-Minimal-1511.iso,device=cdrom,perms=ro|
 | memory|String|true|虚拟机内存大小，单位为MiB|取值范围：100~99999|2048|
-| network|String|true|虚拟机网络|type=bridge（libvirt默认网桥virbr0）/ l2bridge（ovs网桥）/ l3bridge（支持ovn的ovs网桥），source=源网桥（必填），inbound=网络输入带宽QoS限制，单位为KiB，outbound=网络输出带宽QoS限制，单位为KiB，ip=IP地址（选填，只有type=l3bridge类型支持该参数），switch=ovn交换机名称（选填，只有type=l3bridge类型支持该参数），model=virtio/e1000/rtl8139（windows虚拟机），inbound=io入带宽，outbound=io出带宽，mac=mac地址（选填），参数顺序必须是type,source,ip,switch,model,inbound,outbound,mac|type=l3bridge,source=br-int,ip=192.168.5.9,switch=switch8888,model=e1000,inbound=102400,outbound=102400|
+| network|String|true|虚拟机网络|type=bridge（libvirt默认网桥virbr0）/ l2bridge（ovs网桥）/ l3bridge（支持ovn的ovs网桥），source=源网桥（必填），inbound=网络输入带宽QoS限制，单位为KiB，outbound=网络输出带宽QoS限制，单位为KiB，ip=IP地址（选填，只有type=l3bridge类型支持该参数），vlan=VLAN号（选填，只有type=l2bridge类型支持该参数）.switch=ovn交换机名称（选填，只有type=l3bridge类型支持该参数），model=virtio/e1000/rtl8139（windows虚拟机），inbound=io入带宽，outbound=io出带宽，mac=mac地址（选填），参数顺序必须是type,source,ip,vlan,switch,model,inbound,outbound,mac|type=l3bridge,source=br-int,ip=192.168.5.9,switch=switch8888,model=e1000,inbound=102400,outbound=102400|
 | virt_type|String|false|虚拟化类型|取值范围：kvm, xen|kvm|
 | boot|String|false|设置启动顺序|hd|cdrom，分别表示硬盘和光驱启动|hd|
 | redirdev|String|false|支持USB重定向|协议,类型=，服务器=IP：端口|usb,type=tcp,server=192.168.1.1:4000|
@@ -75,13 +75,13 @@
 ## 1.2 CreateAndStartVMFromImage(通过镜像复制虚拟机)
 
 **接口功能:**
-	通过虚拟机镜像VirtualMachineImage创建云OS只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+通过虚拟机镜像VirtualMachineImage创建云OS只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	
+
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.CreateAndStartVMFromImage
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.CreateAndStartVMFromImage
 
 **参数描述:**
 
@@ -101,7 +101,7 @@
 | graphics|String|true|虚拟机VNC/SPICE及其密码|取值范围：<vnc/spice,listen=0.0.0.0>,password=xxx（<必填>，选填），密码为4-16位，是小写字母、数字和中划线组合|vnc,listen=0.0.0.0,password=abcdefg|
 | disk|String|true|虚拟机磁盘，包括硬盘和光驱|硬盘的约束：/var/lib/libvirt/images/test3.qcow2,target=hda,read_bytes_sec=1024000000,write_bytes_sec=1024000000，光驱的约束：/opt/ISO/CentOS-7-x86_64-Minimal-1511.iso,device=cdrom,perms=ro，支持多个硬盘，第一个硬盘无需添加--disk，后续的需要|/var/lib/libvirt/images/test3.qcow2,read_bytes_sec=1024000000,write_bytes_sec=1024000000 --disk /opt/ISO/CentOS-7-x86_64-Minimal-1511.iso,device=cdrom,perms=ro|
 | memory|String|true|虚拟机内存大小，单位为MiB|取值范围：100~99999|2048|
-| network|String|true|虚拟机网络|type=bridge（libvirt默认网桥virbr0）/ l2bridge（ovs网桥）/ l3bridge（支持ovn的ovs网桥），source=源网桥（必填），inbound=网络输入带宽QoS限制，单位为KiB，outbound=网络输出带宽QoS限制，单位为KiB，ip=IP地址（选填，只有type=l3bridge类型支持该参数），switch=ovn交换机名称（选填，只有type=l3bridge类型支持该参数），model=virtio/e1000/rtl8139（windows虚拟机），inbound=io入带宽，outbound=io出带宽，mac=mac地址（选填），参数顺序必须是type,source,ip,switch,model,inbound,outbound,mac|type=l3bridge,source=br-int,ip=192.168.5.9,switch=switch8888,model=e1000,inbound=102400,outbound=102400|
+| network|String|true|虚拟机网络|type=bridge（libvirt默认网桥virbr0）/ l2bridge（ovs网桥）/ l3bridge（支持ovn的ovs网桥），source=源网桥（必填），inbound=网络输入带宽QoS限制，单位为KiB，outbound=网络输出带宽QoS限制，单位为KiB，ip=IP地址（选填，只有type=l3bridge类型支持该参数），vlan=VLAN号（选填，只有type=l2bridge类型支持该参数）.switch=ovn交换机名称（选填，只有type=l3bridge类型支持该参数），model=virtio/e1000/rtl8139（windows虚拟机），inbound=io入带宽，outbound=io出带宽，mac=mac地址（选填），参数顺序必须是type,source,ip,vlan,switch,model,inbound,outbound,mac|type=l3bridge,source=br-int,ip=192.168.5.9,switch=switch8888,model=e1000,inbound=102400,outbound=102400|
 | virt_type|String|false|虚拟化类型|取值范围：kvm, xen|kvm|
 | boot|String|false|设置启动顺序|hd|cdrom，分别表示硬盘和光驱启动|hd|
 | redirdev|String|false|支持USB重定向|协议,类型=，服务器=IP：端口|usb,type=tcp,server=192.168.1.1:4000|
@@ -134,13 +134,13 @@
 ## 1.3 SuspendVM(暂停虚机)
 
 **接口功能:**
-	对运行的虚拟机进行暂停操作，已经暂停虚拟机执行暂停会报错只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+对运行的虚拟机进行暂停操作，已经暂停虚拟机执行暂停会报错只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.SuspendVM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.SuspendVM
 
 **参数描述:**
 
@@ -178,13 +178,13 @@
 ## 1.4 StopVMForce(强制关机)
 
 **接口功能:**
-	强制关闭虚拟机，虚拟机在某些情况下无法关闭，本质相当于拔掉电源只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+强制关闭虚拟机，虚拟机在某些情况下无法关闭，本质相当于拔掉电源只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.StopVMForce
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.StopVMForce
 
 **参数描述:**
 
@@ -222,13 +222,13 @@
 ## 1.5 UnplugDevice(卸载设备)
 
 **接口功能:**
-	卸载GPU、云盘、网卡等资源，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+卸载GPU、云盘、网卡等资源，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UnplugDevice
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UnplugDevice
 
 **参数描述:**
 
@@ -271,13 +271,13 @@
 ## 1.6 UnplugNIC(卸载网卡)
 
 **接口功能:**
-	卸载网卡，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+卸载网卡，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UnplugNIC
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UnplugNIC
 
 **参数描述:**
 
@@ -321,13 +321,13 @@
 ## 1.7 MigrateVM(虚机迁移)
 
 **接口功能:**
-	虚拟机迁移，必须依赖共享存储，且所有物理机之间免密登陆只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+虚拟机迁移，必须依赖共享存储，且所有物理机之间免密登陆只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.MigrateVM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.MigrateVM
 
 **参数描述:**
 
@@ -367,13 +367,13 @@
 ## 1.8 MigrateVMDisk(虚机存储迁移)
 
 **接口功能:**
-	虚拟机存储迁移，只支持冷迁，迁移之前虚拟机需要关机只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+虚拟机存储迁移，只支持冷迁，迁移之前虚拟机需要关机只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.MigrateVMDisk
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.MigrateVMDisk
 
 **参数描述:**
 
@@ -413,13 +413,13 @@
 ## 1.9 ChangeNumberOfCPU(CPU设置)
 
 **接口功能:**
-	修改虚拟机CPU个数只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+修改虚拟机CPU个数只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ChangeNumberOfCPU
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ChangeNumberOfCPU
 
 **参数描述:**
 
@@ -467,13 +467,13 @@
 ## 1.10 ResumeVM(恢复虚机)
 
 **接口功能:**
-	恢复暂停的虚拟机，对运行的虚拟机执行恢复会报错只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+恢复暂停的虚拟机，对运行的虚拟机执行恢复会报错只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ResumeVM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ResumeVM
 
 **参数描述:**
 
@@ -511,13 +511,13 @@
 ## 1.11 PlugDisk(添加云盘)
 
 **接口功能:**
-	添加云盘，云盘必须通过CreateVirtualMachineDisk预先创建好只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+添加云盘，云盘必须通过CreateVirtualMachineDisk预先创建好只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage,或CreateVirtualMachineDisk
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage,或CreateVirtualMachineDisk
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.PlugDisk
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.PlugDisk
 
 **参数描述:**
 
@@ -574,13 +574,13 @@
 ## 1.12 PlugDevice(添加设备)
 
 **接口功能:**
-	添加GPU、云盘、网卡等，这种方法相对于pluginDisk等可设置高级选项，如QoS只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+添加GPU、云盘、网卡等，这种方法相对于pluginDisk等可设置高级选项，如QoS只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.PlugDevice
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.PlugDevice
 
 **参数描述:**
 
@@ -623,13 +623,13 @@
 ## 1.13 ResetVM(强制重启)
 
 **接口功能:**
-	强制重置虚拟机，即强制重启虚拟机只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+强制重置虚拟机，即强制重启虚拟机只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ResetVM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ResetVM
 
 **参数描述:**
 
@@ -667,13 +667,13 @@
 ## 1.14 UnplugDisk(卸载云盘)
 
 **接口功能:**
-	卸载虚拟机云盘只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+卸载虚拟机云盘只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage,或CreateVirtualMachineDisk
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage,或CreateVirtualMachineDisk
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UnplugDisk
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UnplugDisk
 
 **参数描述:**
 
@@ -716,13 +716,13 @@
 ## 1.15 StopVM(虚机关机)
 
 **接口功能:**
-	关闭虚拟机，但不一定能关闭，如虚拟机中OS受损，对关闭虚拟机再执行关闭会报错只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+关闭虚拟机，但不一定能关闭，如虚拟机中OS受损，对关闭虚拟机再执行关闭会报错只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.StopVM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.StopVM
 
 **参数描述:**
 
@@ -760,13 +760,13 @@
 ## 1.16 StartVM(启动虚机)
 
 **接口功能:**
-	启动虚拟机，能否正常启动取决于虚拟机OS是否受损，对运行虚拟机执行启动会报错只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+启动虚拟机，能否正常启动取决于虚拟机OS是否受损，对运行虚拟机执行启动会报错只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.StartVM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.StartVM
 
 **参数描述:**
 
@@ -804,13 +804,13 @@
 ## 1.17 DeleteVM(删除虚机)
 
 **接口功能:**
-	删除虚拟机，需要先关闭虚拟机只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除虚拟机，需要先关闭虚拟机只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage或StopVM，或StopVMForce
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage或StopVM，或StopVMForce
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.DeleteVM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.DeleteVM
 
 **参数描述:**
 
@@ -852,13 +852,13 @@
 ## 1.18 RebootVM(虚机重启)
 
 **接口功能:**
-	重启虚拟机，能否正常重新启动取决于虚拟机OS是否受损只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+重启虚拟机，能否正常重新启动取决于虚拟机OS是否受损只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.RebootVM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.RebootVM
 
 **参数描述:**
 
@@ -896,13 +896,13 @@
 ## 1.19 PlugNIC(添加网卡)
 
 **接口功能:**
-	给虚拟机添加网卡只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+给虚拟机添加网卡只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.PlugNIC
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.PlugNIC
 
 **参数描述:**
 
@@ -923,6 +923,7 @@
 | inbound|String|false|网络输入带宽QoS限制，单位为KiB，示例参考https://libvirt.org/formatnetwork.html#elementQoS|0~99999999|1000MiB: 1024000|
 | source|String|true|网络源设置|source=源网桥（必填，默认为virbr0, br-native, br-int，以及用户自己创建的任何两层bridge名称），ip=IP地址（选填，只有type=l3bridge类型支持该参数），switch=ovn交换机名称（选填，只有type=l3bridge类型支持该参数）,顺序必须是source,ip,switch|source=br-int,ip=192.168.5.2,switch=switch|
 | type|String|true|网络源类型设置|取值范围：bridge（libvirt默认网桥virbr0）, l2bridge（ovs网桥）, l3bridge（支持ovn的ovs网桥）|bridge|
+| vlan|String|false|vlan号|取值范围：0到4094之间，0表示不设置vlan，只支持type=l2bridge时设置|0|
 | mac|String|true|mac地址|mac地址不能以fe开头|7e:0c:b0:ef:6a:04|
 | outbound|String|false|网络输出带宽QoS限制，单位为KiB，示例参考https://libvirt.org/formatnetwork.html#elementQoS|0~99999999|1000MiB: 1024000|
 |  |  |  |  |  |
@@ -949,13 +950,13 @@
 ## 1.20 ManageISO(插拔光驱)
 
 **接口功能:**
-	插入或者拔出光驱只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+插入或者拔出光驱只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage或plugDevice
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage或plugDevice
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ManageISO
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ManageISO
 
 **参数描述:**
 
@@ -1003,13 +1004,13 @@
 ## 1.21 UpdateOS(更换OS)
 
 **接口功能:**
-	更换云主机的OS，云主机必须关机只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+更换云主机的OS，云主机必须关机只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UpdateOS
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UpdateOS
 
 **参数描述:**
 
@@ -1049,13 +1050,13 @@
 ## 1.22 ConvertVMToImage(转化模板)
 
 **接口功能:**
-	转化为虚拟机镜像只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+转化为虚拟机镜像只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ConvertVMToImage
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ConvertVMToImage
 
 **参数描述:**
 
@@ -1094,13 +1095,13 @@
 ## 1.23 InsertISO(插入光驱)
 
 **接口功能:**
-	插入只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+插入只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage或plugDevice
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage或plugDevice
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.InsertISO
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.InsertISO
 
 **参数描述:**
 
@@ -1145,13 +1146,13 @@
 ## 1.24 EjectISO(拔出光驱)
 
 **接口功能:**
-	拔出光驱只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+拔出光驱只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage或plugDevice
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage或plugDevice
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.EjectISO
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.EjectISO
 
 **参数描述:**
 
@@ -1196,13 +1197,13 @@
 ## 1.25 ResizeVM(调整磁盘)
 
 **接口功能:**
-	调整虚拟机大小，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+调整虚拟机大小，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ResizeVM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ResizeVM
 
 **参数描述:**
 
@@ -1242,13 +1243,13 @@
 ## 1.26 CloneVM(克隆虚机)
 
 **接口功能:**
-	克隆虚拟机，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+克隆虚拟机，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.CloneVM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.CloneVM
 
 **参数描述:**
 
@@ -1292,13 +1293,13 @@
 ## 1.27 TuneDiskQoS(磁盘QoS)
 
 **接口功能:**
-	设置虚拟机磁盘QoS，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+设置虚拟机磁盘QoS，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.TuneDiskQoS
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.TuneDiskQoS
 
 **参数描述:**
 
@@ -1345,13 +1346,13 @@
 ## 1.28 TuneNICQoS(网卡QoS)
 
 **接口功能:**
-	设置虚拟机网卡QoS，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+设置虚拟机网卡QoS，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.TuneNICQoS
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.TuneNICQoS
 
 **参数描述:**
 
@@ -1395,13 +1396,13 @@
 ## 1.29 ResizeMaxRAM(设置虚拟机最大内存)
 
 **接口功能:**
-	设置虚拟机最大内存，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+设置虚拟机最大内存，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ResizeMaxRAM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ResizeMaxRAM
 
 **参数描述:**
 
@@ -1443,13 +1444,13 @@
 ## 1.30 SetBootOrder(启动顺序)
 
 **接口功能:**
-	设置虚拟机启动顺序，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+设置虚拟机启动顺序，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.SetBootOrder
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.SetBootOrder
 
 **参数描述:**
 
@@ -1488,13 +1489,13 @@
 ## 1.31 SetVncPassword(设置VNC密码)
 
 **接口功能:**
-	设置虚拟机VNC密码，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+设置虚拟机VNC密码，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.SetVncPassword
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.SetVncPassword
 
 **参数描述:**
 
@@ -1538,13 +1539,13 @@
 ## 1.32 UnsetVncPassword(取消VNC密码)
 
 **接口功能:**
-	取消虚拟机VNC密码，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+取消虚拟机VNC密码，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UnsetVncPassword
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UnsetVncPassword
 
 **参数描述:**
 
@@ -1587,13 +1588,13 @@
 ## 1.33 SetGuestPassword(虚机密码)
 
 **接口功能:**
-	设置虚拟机密码，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+设置虚拟机密码，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.SetGuestPassword
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.SetGuestPassword
 
 **参数描述:**
 
@@ -1634,13 +1635,13 @@
 ## 1.34 InjectSshKey(虚机ssh key)
 
 **接口功能:**
-	注入虚拟机ssh key，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+注入虚拟机ssh key，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.InjectSshKey
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.InjectSshKey
 
 **参数描述:**
 
@@ -1681,13 +1682,13 @@
 ## 1.35 ResizeRAM(内存扩容)
 
 **接口功能:**
-	对虚拟机内存扩容，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+对虚拟机内存扩容，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ResizeRAM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ResizeRAM
 
 **参数描述:**
 
@@ -1729,13 +1730,13 @@
 ## 1.36 BindFloatingIP(绑定浮动IP)
 
 **接口功能:**
-	适用浮动和虚拟IP场景，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+适用浮动和虚拟IP场景，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.BindFloatingIP
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.BindFloatingIP
 
 **参数描述:**
 
@@ -1776,13 +1777,13 @@
 ## 1.37 UnbindFloatingIP(解绑浮动IP)
 
 **接口功能:**
-	适用浮动和虚拟IP场景，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+适用浮动和虚拟IP场景，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UnbindFloatingIP
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UnbindFloatingIP
 
 **参数描述:**
 
@@ -1824,13 +1825,13 @@
 ## 1.38 AddACL(创建安全组)
 
 **接口功能:**
-	创建安全规则，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+创建安全规则，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.AddACL
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.AddACL
 
 **参数描述:**
 
@@ -1874,13 +1875,13 @@
 ## 1.39 ModifyACL(修改安全组)
 
 **接口功能:**
-	修改安全规则，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+修改安全规则，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ModifyACL
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ModifyACL
 
 **参数描述:**
 
@@ -1924,13 +1925,13 @@
 ## 1.40 DeprecatedACL(删除安全组)
 
 **接口功能:**
-	删除安全规则，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除安全规则，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.DeprecatedACL
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.DeprecatedACL
 
 **参数描述:**
 
@@ -1973,13 +1974,13 @@
 ## 1.41 BatchDeprecatedACL(批量删除安全组)
 
 **接口功能:**
-	删除安全规则，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除安全规则，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.BatchDeprecatedACL
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.BatchDeprecatedACL
 
 **参数描述:**
 
@@ -2017,13 +2018,13 @@
 ## 1.42 SetQoS(设置QoS)
 
 **接口功能:**
-	设置QoS，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+设置QoS，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.SetQoS
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.SetQoS
 
 **参数描述:**
 
@@ -2067,13 +2068,13 @@
 ## 1.43 ModifyQoS(修改QoS)
 
 **接口功能:**
-	修改QoS，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+修改QoS，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ModifyQoS
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ModifyQoS
 
 **参数描述:**
 
@@ -2117,13 +2118,13 @@
 ## 1.44 UnsetQoS(删除QoS)
 
 **接口功能:**
-	删除QoS，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除QoS，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UnsetQoS
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UnsetQoS
 
 **参数描述:**
 
@@ -2166,13 +2167,13 @@
 ## 1.45 ExportVM(导出虚拟机)
 
 **接口功能:**
-	导出虚拟机，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+导出虚拟机，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ExportVM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.ExportVM
 
 **参数描述:**
 
@@ -2211,13 +2212,13 @@
 ## 1.46 BackupVM(备份虚拟机)
 
 **接口功能:**
-	备份虚拟机，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+备份虚拟机，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.BackupVM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.BackupVM
 
 **参数描述:**
 
@@ -2263,13 +2264,13 @@
 ## 1.47 RestoreVM(恢复虚拟机)
 
 **接口功能:**
-	恢复虚拟机，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+恢复虚拟机，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.RestoreVM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.RestoreVM
 
 **参数描述:**
 
@@ -2312,13 +2313,13 @@
 ## 1.48 DeleteRemoteBackup(删除远程备份)
 
 **接口功能:**
-	删除远程备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除远程备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.DeleteRemoteBackup
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.DeleteRemoteBackup
 
 **参数描述:**
 
@@ -2362,13 +2363,13 @@
 ## 1.49 PullRemoteBackup(拉取远程备份)
 
 **接口功能:**
-	拉取远程备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+拉取远程备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.PullRemoteBackup
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.PullRemoteBackup
 
 **参数描述:**
 
@@ -2413,13 +2414,13 @@
 ## 1.50 PushRemoteBackup(上传备份)
 
 **接口功能:**
-	上传备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+上传备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.PushRemoteBackup
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.PushRemoteBackup
 
 **参数描述:**
 
@@ -2464,13 +2465,13 @@
 ## 1.51 DeleteVMBackup(删除本地备份)
 
 **接口功能:**
-	删除本地备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除本地备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.DeleteVMBackup
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.DeleteVMBackup
 
 **参数描述:**
 
@@ -2510,13 +2511,13 @@
 ## 1.52 PassthroughDevice(设备透传)
 
 **接口功能:**
-	设备透传，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+设备透传，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.PassthroughDevice
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.PassthroughDevice
 
 **参数描述:**
 
@@ -2560,13 +2561,13 @@
 ## 1.53 RedirectUsb(usb重定向，需搭配SPICE终端使用)
 
 **接口功能:**
-	usb重定向，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+usb重定向，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.RedirectUsb
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.RedirectUsb
 
 **参数描述:**
 
@@ -2606,13 +2607,13 @@
 ## 1.54 UpdateGraphic(更新虚拟机远程终端)
 
 **接口功能:**
-	更新虚拟机远程终端，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+更新虚拟机远程终端，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UpdateGraphic
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.UpdateGraphic
 
 **参数描述:**
 
@@ -2653,13 +2654,13 @@
 ## 1.55 AutoStartVM(设置虚拟机高可用，对于正在运行的虚拟机重启后生效)
 
 **接口功能:**
-	设置虚拟机高可用，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+设置虚拟机高可用，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.AutoStartVM
+io.github.kubestack.client.api.specs.vms.virtualmachine.Lifecycle.AutoStartVM
 
 **参数描述:**
 
@@ -2698,7 +2699,7 @@
 ## **返回值:**
 
 ```
-{"spec":{"domain":{"metadata":{},"memory":{"_unit":"String","text":"String","_dumpCore":"String"},"vcpu":{"_current":"String","_cpuset":"String","_placement":"String","text":"String"},"seclabel":[{"imagelabel":{"text":"String"},"_type":"String","baselabel":{"text":"String"},"_model":"String","label":{"text":"String"},"_relabel":"String"},{"imagelabel":{"text":"String"},"_type":"String","baselabel":{"text":"String"},"_model":"String","label":{"text":"String"},"_relabel":"String"}],"description":{"text":"String"},"title":{"text":"String"},"maxMemory":{"_unit":"String","_slots":"String","text":"String"},"uuid":{"text":"String"},"iothreadids":{"iothread":[{"_id":"String"},{"_id":"String"}]},"features":{"gic":{"_version":"String"},"htm":{"_state":"String"},"capabilities":{"dac_read_Search":{"_state":"String"},"fsetid":{"_state":"String"},"dac_override":{"_state":"String"},"syslog":{"_state":"String"},"_policy":"String","net_raw":{"_state":"String"},"mac_override":{"_state":"String"},"setfcap":{"_state":"String"},"mknod":{"_state":"String"},"sys_time":{"_state":"String"},"sys_tty_config":{"_state":"String"},"net_broadcast":{"_state":"String"},"setpcap":{"_state":"String"},"ipc_lock":{"_state":"String"},"net_bind_service":{"_state":"String"},"wake_alarm":{"_state":"String"},"linux_immutable":{"_state":"String"},"sys_pacct":{"_state":"String"},"ipc_owner":{"_state":"String"},"net_admin":{"_state":"String"},"setgid":{"_state":"String"},"sys_ptrace":{"_state":"String"},"chown":{"_state":"String"},"sys_admin":{"_state":"String"},"sys_module":{"_state":"String"},"sys_nice":{"_state":"String"},"kill":{"_state":"String"},"audit_control":{"_state":"String"},"setuid":{"_state":"String"},"fowner":{"_state":"String"},"sys_resource":{"_state":"String"},"sys_chroot":{"_state":"String"},"sys_rawio":{"_state":"String"},"audit_write":{"_state":"String"},"block_suspend":{"_state":"String"},"lease":{"_state":"String"},"sys_boot":{"_state":"String"},"mac_admin":{"_state":"String"}},"kvm":{"hidden":{"_state":"String"}},"apic":{"_eoi":"String"},"viridian":{},"pvspinlock":{"_state":"String"},"vmport":{"_state":"String"},"vmcoreinfo":{"_state":"String"},"hpt":{"maxpagesize":{"_unit":"String","text":"String"},"_resizing":"String"},"nested_hv":{"_state":"String"},"privnet":{},"smm":{"_state":"String","tseg":{"_unit":"String","text":"String"}},"msrs":{"_unknown":"String"},"pae":{},"acpi":{},"hap":{"_state":"String"},"ioapic":{"_driver":"String"},"pmu":{"_state":"String"},"hyperv":{"vpindex":{"_state":"String"},"ipi":{"_state":"String"},"stimer":{"_state":"String"},"reenlightenment":{"_state":"String"},"runtime":{"_state":"String"},"evmcs":{"_state":"String"},"spinlocks":{"_retries":"String","_state":"String"},"tlbflush":{"_state":"String"},"synic":{"_state":"String"},"relaxed":{"_state":"String"},"vapic":{"_state":"String"},"vendor_id":{"_value":"String"},"reset":{"_state":"String"},"frequencies":{"_state":"String"}}},"on_crash":{"text":"String"},"blkiotune":{"weight":{"text":"String"},"device":[{"path":{"text":"String"},"write_bytes_sec":{"text":"String"},"write_iops_sec":{"text":"String"},"weight":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"}},{"path":{"text":"String"},"write_bytes_sec":{"text":"String"},"write_iops_sec":{"text":"String"},"weight":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"}}]},"bootloader":{"text":"String"},"idmap":{"uid":[{"_count":"String","_start":"String","_target":"String"},{"_count":"String","_start":"String","_target":"String"}],"gid":[{"_count":"String","_start":"String","_target":"String"},{"_count":"String","_start":"String","_target":"String"}]},"sysinfo":{"memory":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}],"system":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"baseBoard":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}],"bios":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"_type":"String","chassis":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"oemStrings":{"entry":{"text":"String"}},"processor":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}]},"memtune":{"soft_limit":{"_unit":"String","text":"String"},"min_guarantee":{"_unit":"String","text":"String"},"swap_hard_limit":{"_unit":"String","text":"String"},"hard_limit":{"_unit":"String","text":"String"}},"numatune":{"memnode":[{"_nodeset":"String","_cellid":"String","_mode":"String"},{"_nodeset":"String","_cellid":"String","_mode":"String"}],"memory":{"_nodeset":"String","_placement":"String","_mode":"String"}},"keywrap":{"cipher":[{"_name":"String","_state":"String"},{"_name":"String","_state":"String"}]},"memoryBacking":{"hugepages":{"page":[{"_size":"String","_unit":"String","_nodeset":"String"},{"_size":"String","_unit":"String","_nodeset":"String"}]},"discard":{},"allocation":{"_mode":"String"},"access":{"_mode":"String"},"nosharepages":{},"source":{"_type":"String"},"locked":{}},"perf":{"event":[{"_name":"String","_enabled":"String"},{"_name":"String","_enabled":"String"}]},"launchSecurity":{},"on_poweroff":{"text":"String"},"bootloader_args":{"text":"String"},"os":{"init":{"text":"String"},"bios":{"_rebootTimeout":"String","_useserial":"String"},"kernel":{"text":"String"},"loader":{"text":"String","_type":"String","_readonly":"String"},"initarg":{"text":"String"},"type":{"_machine":"String","text":"String","_arch":"String"},"initrd":{"text":"String"},"smbios":{"_mode":"String"},"cmdline":{"text":"String"},"dtb":{"text":"String"},"nvram":{"text":"String"},"inituser":{"text":"String"},"acpi":{"table":[{"_type":"String","text":"String"},{"_type":"String","text":"String"}]},"bootmenu":{"_enable":"String","_timeout":"String"},"initgroup":{"text":"String"},"boot":[{"_dev":"String"},{"_dev":"String"}],"initdir":{"text":"String"},"initenv":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"devices":{"memory":[{"_discard":"String","address":{},"_access":"String","alias":{"_name":"String"},"_model":"String","source":{"path":{"text":"String"},"pmem":{},"alignsize":{"_unit":"String","text":"String"},"nodemask":{"text":"String"},"pagesize":{"_unit":"String","text":"String"}},"target":{"node":{"text":"String"},"readonly":{},"size":{"_unit":"String","text":"String"},"label":{"size":{"_unit":"String","text":"String"}}}},{"_discard":"String","address":{},"_access":"String","alias":{"_name":"String"},"_model":"String","source":{"path":{"text":"String"},"pmem":{},"alignsize":{"_unit":"String","text":"String"},"nodemask":{"text":"String"},"pagesize":{"_unit":"String","text":"String"}},"target":{"node":{"text":"String"},"readonly":{},"size":{"_unit":"String","text":"String"},"label":{"size":{"_unit":"String","text":"String"}}}}],"redirfilter":[{"usbdev":[{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"},{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"}]},{"usbdev":[{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"},{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"}]}],"sound":[{"codec":[{"_type":"String"},{"_type":"String"}],"address":{"_type":"String","_slot":"String","_bus":"String","_function":"String","_domain":"String"},"alias":{"_name":"String"},"_model":"String"},{"codec":[{"_type":"String"},{"_type":"String"}],"address":{"_type":"String","_slot":"String","_bus":"String","_function":"String","_domain":"String"},"alias":{"_name":"String"},"_model":"String"}],"channel":[{"_type":"String","protocol":{"_type":"String"},"address":{"_bus":"String","_controller":"String","_port":"String","_type":"String"},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_mode":"String","_path":"String"},"target":{"_name":"String","_state":"String","_type":"String"}},{"_type":"String","protocol":{"_type":"String"},"address":{"_bus":"String","_controller":"String","_port":"String","_type":"String"},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_mode":"String","_path":"String"},"target":{"_name":"String","_state":"String","_type":"String"}}],"memballoon":{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"stats":{"_period":"String"},"alias":{"_name":"String"},"_model":"String","_autodeflate":"String"},"graphics":[{"_autoport":"String","_listen":"String","_port":"String","_type":"String","listen":{"_address":"String","_type":"String"},"image":{"_compression":"String"}},{"_autoport":"String","_listen":"String","_port":"String","_type":"String","listen":{"_address":"String","_type":"String"},"image":{"_compression":"String"}}],"video":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_vgaconf":"String","_iommu":"String","_ats":"String"},"alias":{"_name":"String"},"model":{"_heads":"String","_vgamem":"String","acceleration":{"_accel3d":"String","_accel2d":"String"},"_ram":"String","_vram":"String","_vram64":"String","_type":"String","_primary":"String"}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_vgaconf":"String","_iommu":"String","_ats":"String"},"alias":{"_name":"String"},"model":{"_heads":"String","_vgamem":"String","acceleration":{"_accel3d":"String","_accel2d":"String"},"_ram":"String","_vram":"String","_vram64":"String","_type":"String","_primary":"String"}}],"_interface":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"bandwidth":{"inbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"},"outbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"}},"ip":[{"_address":"String","_prefix":"String","_family":"String","_peer":"String"},{"_address":"String","_prefix":"String","_family":"String","_peer":"String"}],"coalesce":{"rx":{"frames":{"_max":"String"}}},"link":{"_state":"String"},"source":{"_type":"String","_dev":"String","_path":"String","_mode":"String","_bridge":"String","_network":"String"},"filterref":{"parameter":[{"_name":"String","_value":"String"},{"_name":"String","_value":"String"}],"_filter":"String"},"mac":{"_address":"String"},"script":{"_path":"String"},"tune":{"sndbuf":{"text":"String"}},"mtu":{"_size":"String"},"target":{"_dev":"String"},"rom":{"_file":"String","_bar":"String","_enabled":"String"},"route":[{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"},{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"}],"driver":{"_name":"String","_queues":"String","_txmode":"String","_tx_queue_size":"String","_iommu":"String","host":{"_tso4":"String","_ufo":"String","_tso6":"String","_mrg_rxbuf":"String","_gso":"String","_ecn":"String","_csum":"String"},"_ioeventfd":"String","guest":{"_tso4":"String","_ufo":"String","_tso6":"String","_ecn":"String","_csum":"String"},"_event_idx":"String","_ats":"String","_rx_queue_size":"String"},"vlan":{"_trunk":"String","tag":[{"_nativeMode":"String","_id":"String"},{"_nativeMode":"String","_id":"String"}]},"_managed":"String","_trustGuestRxFilters":"String","alias":{"_name":"String"},"backend":{"_vhost":"String","_tap":"String"},"guest":{"_actual":"String","_dev":"String"},"model":{"_type":"String"},"boot":{"_loadparm":"String","_order":"String"},"_type":"String","virtualport":{"_type":"String","parameters":{"__interfaceid":"String","_profileid":"String"}}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"bandwidth":{"inbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"},"outbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"}},"ip":[{"_address":"String","_prefix":"String","_family":"String","_peer":"String"},{"_address":"String","_prefix":"String","_family":"String","_peer":"String"}],"coalesce":{"rx":{"frames":{"_max":"String"}}},"link":{"_state":"String"},"source":{"_type":"String","_dev":"String","_path":"String","_mode":"String","_bridge":"String","_network":"String"},"filterref":{"parameter":[{"_name":"String","_value":"String"},{"_name":"String","_value":"String"}],"_filter":"String"},"mac":{"_address":"String"},"script":{"_path":"String"},"tune":{"sndbuf":{"text":"String"}},"mtu":{"_size":"String"},"target":{"_dev":"String"},"rom":{"_file":"String","_bar":"String","_enabled":"String"},"route":[{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"},{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"}],"driver":{"_name":"String","_queues":"String","_txmode":"String","_tx_queue_size":"String","_iommu":"String","host":{"_tso4":"String","_ufo":"String","_tso6":"String","_mrg_rxbuf":"String","_gso":"String","_ecn":"String","_csum":"String"},"_ioeventfd":"String","guest":{"_tso4":"String","_ufo":"String","_tso6":"String","_ecn":"String","_csum":"String"},"_event_idx":"String","_ats":"String","_rx_queue_size":"String"},"vlan":{"_trunk":"String","tag":[{"_nativeMode":"String","_id":"String"},{"_nativeMode":"String","_id":"String"}]},"_managed":"String","_trustGuestRxFilters":"String","alias":{"_name":"String"},"backend":{"_vhost":"String","_tap":"String"},"guest":{"_actual":"String","_dev":"String"},"model":{"_type":"String"},"boot":{"_loadparm":"String","_order":"String"},"_type":"String","virtualport":{"_type":"String","parameters":{"__interfaceid":"String","_profileid":"String"}}}],"vsock":{"address":{},"alias":{"_name":"String"},"_model":"String","cid":{"_address":"String","_auto":"String"}},"hostdev":[{"rom":{"_file":"String","_bar":"String","_enabled":"String"},"address":{"_bus":"String","_device":"String","_type":"String","_port":"String","_domain":"String","_slot":"String","_function":"String"},"_managed":"String","alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_mode":"String","_type":"String","source":{"address":{"_bus":"String","_device":"String","_domain":"String","_slot":"String","_function":"String"}},"driver":{"_name":"String"}},{"rom":{"_file":"String","_bar":"String","_enabled":"String"},"address":{"_bus":"String","_device":"String","_type":"String","_port":"String","_domain":"String","_slot":"String","_function":"String"},"_managed":"String","alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_mode":"String","_type":"String","source":{"address":{"_bus":"String","_device":"String","_domain":"String","_slot":"String","_function":"String"}},"driver":{"_name":"String"}}],"nvram":{"address":{},"alias":{"_name":"String"}},"iommu":{"driver":{"_caching_mode":"String","_eim":"String","_iotlb":"String","_intremap":"String"},"_model":"String"},"parallel":[{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{},"target":{"_type":"String","_port":"String"}},{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{},"target":{"_type":"String","_port":"String"}}],"console":[{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"_tty":"String","_type":"String","alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","_port":"String"}},{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"_tty":"String","_type":"String","alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","_port":"String"}}],"controller":[{"master":{"_startport":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_multifunction":"String"},"_index":"String","driver":{"_max_sectors":"String","_queues":"String","_iommu":"String","_ioeventfd":"String","_iothread":"String","_cmd_per_lun":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","target":{"_chassis":"String","_chassisNr":"String","_port":"String"},"model":{"model":"String","_name":"String"}},{"master":{"_startport":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_multifunction":"String"},"_index":"String","driver":{"_max_sectors":"String","_queues":"String","_iommu":"String","_ioeventfd":"String","_iothread":"String","_cmd_per_lun":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","target":{"_chassis":"String","_chassisNr":"String","_port":"String"},"model":{"model":"String","_name":"String"}}],"shmem":[{"server":{"_path":"String"},"msi":{"_vectors":"String","_ioeventfd":"String","_enabled":"String"},"address":{},"_name":"String","size":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"model":{"_type":"String"}},{"server":{"_path":"String"},"msi":{"_vectors":"String","_ioeventfd":"String","_enabled":"String"},"address":{},"_name":"String","size":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"model":{"_type":"String"}}],"redirdev":[{"protocol":{"_type":"String"},"address":{"_bus":"String","_type":"String","_port":"String"},"alias":{"_name":"String"},"source":{},"boot":{"_loadparm":"String","_order":"String"},"_bus":"String","_type":"String"},{"protocol":{"_type":"String"},"address":{"_bus":"String","_type":"String","_port":"String"},"alias":{"_name":"String"},"source":{},"boot":{"_loadparm":"String","_order":"String"},"_bus":"String","_type":"String"}],"rng":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"rate":{"_period":"String","_bytes":"String"},"alias":{"_name":"String"},"_model":"String","backend":{"_model":"String","text":"String"}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"rate":{"_period":"String","_bytes":"String"},"alias":{"_name":"String"},"_model":"String","backend":{"_model":"String","text":"String"}}],"smartcard":[{"database":{"text":"String"},"protocol":{"_type":"String"},"address":{},"certificate":[{"text":"String"},{"text":"String"}],"alias":{"_name":"String"},"source":{}},{"database":{"text":"String"},"protocol":{"_type":"String"},"address":{},"certificate":[{"text":"String"},{"text":"String"}],"alias":{"_name":"String"},"source":{}}],"filesystem":[{"_accessmode":"String","address":{},"driver":{"_name":"String","_iommu":"String","_type":"String","_format":"String","_wrpolicy":"String","_ats":"String"},"readonly":{},"space_hard_limit":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"_model":"String","source":{},"space_soft_limit":{"_unit":"String","text":"String"},"target":{"_dir":"String"}},{"_accessmode":"String","address":{},"driver":{"_name":"String","_iommu":"String","_type":"String","_format":"String","_wrpolicy":"String","_ats":"String"},"readonly":{},"space_hard_limit":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"_model":"String","source":{},"space_soft_limit":{"_unit":"String","text":"String"},"target":{"_dir":"String"}}],"panic":[{"address":{},"alias":{"_name":"String"},"_model":"String"},{"address":{},"alias":{"_name":"String"},"_model":"String"}],"tpm":[{"address":{},"alias":{"_name":"String"},"_model":"String","backend":{}},{"address":{},"alias":{"_name":"String"},"_model":"String","backend":{}}],"emulator":{"text":"String"},"input":[{"address":{"_bus":"String","_port":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","source":{"_evdev":"String"},"_bus":"String"},{"address":{"_bus":"String","_port":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","source":{"_evdev":"String"},"_bus":"String"}],"disk":[{"_type":"String","shareable":{},"mirror":{"_job":"String","_ready":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"}},"_snapshot":"String","auth":{"_username":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"blockio":{"_physical_block_size":"String","_logical_block_size":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_controller":"String","_dev":"String"},"_transient":{},"wwn":{"text":"String"},"encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"readonly":{},"vendor":{"text":"String"},"alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_rawio":"String","iotune":{"write_iops_sec_max_length":{"text":"String"},"group_name":{"text":"String"},"write_iops_sec":{"text":"String"},"read_bytes_sec_max":{"text":"String"},"read_bytes_sec_max_length":{"text":"String"},"total_iops_sec":{"text":"String"},"write_iops_sec_max":{"text":"String"},"total_bytes_sec":{"text":"String"},"total_iops_sec_max":{"text":"String"},"total_bytes_sec_max_length":{"text":"String"},"write_bytes_sec":{"text":"String"},"total_bytes_sec_max":{"text":"String"},"write_bytes_sec_max":{"text":"String"},"read_iops_sec_max":{"text":"String"},"read_iops_sec_max_length":{"text":"String"},"size_iops_sec":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"},"total_iops_sec_max_length":{"text":"String"},"write_bytes_sec_max_length":{"text":"String"}},"product":{"text":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_controller":"String","_target":"String","_unit":"String"},"_sgio":"String","_device":"String","target":{"_removable":"String","_tray":"String","_dev":"String","_bus":"String"},"driver":{"_detect_zeroes":"String","_io":"String","_name":"String","_rerror_policy":"String","_queues":"String","_iommu":"String","_type":"String","_ats":"String","_discard":"String","_copy_on_read":"String","_error_policy":"String","_ioeventfd":"String","_iothread":"String","_event_idx":"String","_cache":"String"},"serial":{"_type":"String","text":"String"},"backingStore":{"_index":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_dev":"String"},"_type":"String","_file":"String"},"_model":"String","geometry":{"_heads":"String","_secs":"String","_cyls":"String","_trans":"String"}},{"_type":"String","shareable":{},"mirror":{"_job":"String","_ready":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"}},"_snapshot":"String","auth":{"_username":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"blockio":{"_physical_block_size":"String","_logical_block_size":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_controller":"String","_dev":"String"},"_transient":{},"wwn":{"text":"String"},"encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"readonly":{},"vendor":{"text":"String"},"alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_rawio":"String","iotune":{"write_iops_sec_max_length":{"text":"String"},"group_name":{"text":"String"},"write_iops_sec":{"text":"String"},"read_bytes_sec_max":{"text":"String"},"read_bytes_sec_max_length":{"text":"String"},"total_iops_sec":{"text":"String"},"write_iops_sec_max":{"text":"String"},"total_bytes_sec":{"text":"String"},"total_iops_sec_max":{"text":"String"},"total_bytes_sec_max_length":{"text":"String"},"write_bytes_sec":{"text":"String"},"total_bytes_sec_max":{"text":"String"},"write_bytes_sec_max":{"text":"String"},"read_iops_sec_max":{"text":"String"},"read_iops_sec_max_length":{"text":"String"},"size_iops_sec":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"},"total_iops_sec_max_length":{"text":"String"},"write_bytes_sec_max_length":{"text":"String"}},"product":{"text":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_controller":"String","_target":"String","_unit":"String"},"_sgio":"String","_device":"String","target":{"_removable":"String","_tray":"String","_dev":"String","_bus":"String"},"driver":{"_detect_zeroes":"String","_io":"String","_name":"String","_rerror_policy":"String","_queues":"String","_iommu":"String","_type":"String","_ats":"String","_discard":"String","_copy_on_read":"String","_error_policy":"String","_ioeventfd":"String","_iothread":"String","_event_idx":"String","_cache":"String"},"serial":{"_type":"String","text":"String"},"backingStore":{"_index":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_dev":"String"},"_type":"String","_file":"String"},"_model":"String","geometry":{"_heads":"String","_secs":"String","_cyls":"String","_trans":"String"}}],"watchdog":{"address":{},"alias":{"_name":"String"},"_action":"String","_model":"String"},"hub":[{"address":{"_type":"String","_bus":"String","_port":"String"},"_type":"String","alias":{"_name":"String"}},{"address":{"_type":"String","_bus":"String","_port":"String"},"_type":"String","alias":{"_name":"String"}}],"serial":[{"_type":"String","protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","model":{"_name":"String"},"_port":"String"}},{"_type":"String","protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","model":{"_name":"String"},"_port":"String"}}],"lease":[{"lockspace":{"text":"String"},"key":{"text":"String"},"target":{"_offset":"String","_path":"String"}},{"lockspace":{"text":"String"},"key":{"text":"String"},"target":{"_offset":"String","_path":"String"}}]},"resource":{"partition":{"text":"String"}},"on_reboot":{"text":"String"},"_type":"String","cpu":{"cache":{"_level":"String","_mode":"String"},"feature":[{"_name":"String","_policy":"String"},{"_name":"String","_policy":"String"}],"topology":{"_cores":"String","_sockets":"String","_threads":"String"},"vendor":{"text":"String"},"numa":{"cell":[{"_discard":"String","distances":{"sibling":[{"_value":"String","_id":"String"},{"_value":"String","_id":"String"}]},"_memory":"String","_unit":"String","_cpus":"String","_memAccess":"String","_id":"String"},{"_discard":"String","distances":{"sibling":[{"_value":"String","_id":"String"},{"_value":"String","_id":"String"}]},"_memory":"String","_unit":"String","_cpus":"String","_memAccess":"String","_id":"String"}]},"_check":"String","model":{"_fallback":"String","_vendor_id":"String","text":"String"},"_match":"String","_mode":"String"},"clock":{"_basis":"String","timer":[{"_name":"String","catchup":{"_limit":"String","_slew":"String","_threshold":"String"},"_track":"String","_frequency":"String","_present":"String","_tickpolicy":"String","_mode":"String"},{"_name":"String","catchup":{"_limit":"String","_slew":"String","_threshold":"String"},"_track":"String","_frequency":"String","_present":"String","_tickpolicy":"String","_mode":"String"}],"_offset":"String","_adjustment":"String","_timezone":"String"},"vcpus":{"vcpu":[{"_order":"String","_hotpluggable":"String","_id":"String","_enabled":"String"},{"_order":"String","_hotpluggable":"String","_id":"String","_enabled":"String"}]},"cputune":{"global_quota":{"text":"String"},"iothreadpin":[{"_cpuset":"String","_iothread":"String"},{"_cpuset":"String","_iothread":"String"}],"period":{"text":"String"},"emulator_period":{"text":"String"},"emulatorpin":{"_cpuset":"String"},"vcpusched":[{"_scheduler":"String","_vcpus":"String","_priority":"String"},{"_scheduler":"String","_vcpus":"String","_priority":"String"}],"iothreadsched":[{"_scheduler":"String","_iothreads":"String","_priority":"String"},{"_scheduler":"String","_iothreads":"String","_priority":"String"}],"iothread_period":{"text":"String"},"global_period":{"text":"String"},"emulator_quota":{"text":"String"},"shares":{"text":"String"},"vcpupin":[{"_vcpu":"String","_cpuset":"String"},{"_vcpu":"String","_cpuset":"String"}],"cachetune":[{"cache":[{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"},{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"}],"monitor":[{"_level":"String","_vcpus":"String"},{"_level":"String","_vcpus":"String"}],"_vcpus":"String"},{"cache":[{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"},{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"}],"monitor":[{"_level":"String","_vcpus":"String"},{"_level":"String","_vcpus":"String"}],"_vcpus":"String"}],"quota":{"text":"String"},"iothread_quota":{"text":"String"},"memorytune":[{"node":[{"_bandwidth":"String","_id":"String"},{"_bandwidth":"String","_id":"String"}],"_vcpus":"String"},{"node":[{"_bandwidth":"String","_id":"String"},{"_bandwidth":"String","_id":"String"}],"_vcpus":"String"}]},"genid":{"text":"String"},"iothreads":{"text":"String"},"name":{"text":"String"},"currentMemory":{"_unit":"String","text":"String"},"_id":"String","pm":{"suspend_to_disk":{"_enabled":"String"},"suspend_to_mem":{"_enabled":"String"}}},"lifecycle":{"createAndStartVMFromISO":{"container":"String","metadata":"String","livecd":"String","sound":"String","channel":"String","graphics":"String","autostart":"String","features":"String","hostdev":"String","idmap":"String","sysinfo":"String","numatune":"String","events":"String","hvm":"String","qemu_commandline":"String","resource":"String","extra_args":"String","cpu":"String","rng":"String","check":"String","clock":"String","smartcard":"String","panic":"String","input":"String","disk":"String","memorybacking":"String","dry_run":"String","memory":"String","paravirt":"String","memballoon":"String","network":"String","security":"String","blkiotune":"String","virt_type":"String","parallel":"String","memtune":"String","boot":"String","initrd_inject":"String","pxe":"String","console":"String","controller":"String","memdev":"String","redirdev":"String","os_variant":"String","vcpus":"String","cdrom":"String","cputune":"String","filesystem":"String","tpm":"String","watchdog":"String","serial":"String","machine":"String","location":"String","arch":"String","noreboot":"String","pm":"String","noautoconsole":true,"_import":true},"createAndStartVMFromImage":{"noautoconsole":true},"suspendVM":{},"stopVMForce":{},"unplugDevice":{"current":true,"persistent":true,"config":true,"live":true,"file":"String"},"unplugNIC":{"current":true,"persistent":true,"config":true,"live":true,"type":"String","mac":"String"},"migrateVM":{"suspend":true,"direct":true,"change_protection":true,"rdma_pin_all":true,"undefinesource":true,"copy_storage_all":true,"unsafe":true,"copy_storage_inc":true,"p2p":true,"auto_converge":true,"postcopy":true,"offline":true,"tunnelled":true,"domain":"String","ip":"String","abort_on_error":true,"compressed":true,"persistent":true,"live":true,"desturi":"String"},"migrateVMDisk":{"domain":"String","ip":"String","migratedisks":"String"},"changeNumberOfCPU":{"current":true,"config":true,"live":true,"hotpluggable":true,"count":"String","guest":true,"maximum":true,"cores":"String","sockets":"String","threads":"String"},"resumeVM":{},"plugDisk":{"persistent":true,"config":true,"live":true,"iothread":"String","cache":"String","address":"String","io":"String","sgio":"String","source":"String","targetbus":"String","type":"String","subdriver":"String","multifunction":true,"target":"String","wwn":"String","mode":"String","driver":"String","serial":"String","rawio":true,"sourcetype":"String","total_bytes_sec":"String","read_bytes_sec":"String","write_bytes_sec":"String","total_iops_sec":"String","read_iops_sec":"String","write_iops_sec":"String"},"plugDevice":{"current":true,"persistent":true,"config":true,"live":true,"file":"String"},"resetVM":{},"unplugDisk":{"current":true,"persistent":true,"config":true,"live":true,"target":"String"},"stopVM":{},"startVM":{},"deleteVM":{"snapshots_metadata":true,"remove_all_storage":true,"storage":"String","nvram":true},"rebootVM":{},"plugNIC":{"current":true,"persistent":true,"config":true,"live":true,"inbound":"String","source":"String","type":"String","mac":"String","script":"String","target":"String","managed":true,"outbound":"String","model":"String"},"manageISO":{"current":true,"config":true,"live":true,"path":"String","source":"String","eject":true,"insert":true,"update":true,"force":true,"block":true},"updateOS":{"source":"String","target":"String"},"convertVMToImage":{"targetPool":"String"},"insertISO":{"current":true,"config":true,"live":true,"path":"String","insert":true,"force":true,"block":true},"ejectISO":{"current":true,"config":true,"live":true,"path":"String","eject":true,"force":true,"block":true},"resizeVM":{"path":"String","size":"String"},"cloneVM":{"name":"String","file":"String","preserve_data":true,"mac":"String","nonsparse":true,"auto_clone":true},"tuneDiskQoS":{"device":"String","total_bytes_sec":"String","read_bytes_sec":"String","write_bytes_sec":"String","total_iops_sec":"String","read_iops_sec":"String","write_iops_sec":"String","config":true,"live":true},"tuneNICQoS":{"current":true,"config":true,"live":true,"inbound":"String","_interface":"String","outbound":"String"},"resizeMaxRAM":{},"setBootOrder":{"order":"String"},"setVncPassword":{"current":true,"persistent":true,"live":true,"config":true,"force":true,"password":"String"},"unsetVncPassword":{"current":true,"persistent":true,"live":true,"config":true,"force":true},"setGuestPassword":{"os_type":"String","user":"String","password":"String"},"injectSshKey":{"os_type":"String","user":"String","ssh_key":"String"},"resizeRAM":{"current":true,"size":"String","config":true,"live":true},"bindFloatingIP":{"swName":"String","outSwName":"String","vmmac":"String","fip":"String"},"unbindFloatingIP":{"swName":"String","vmmac":"String","fip":"String","vmip":"String"},"addACL":{"swName":"String","vmmac":"String","type":"String","rule":"String","operator":"String","priority":"String"},"modifyACL":{},"deprecatedACL":{"swName":"String","vmmac":"String","type":"String","rule":"String","priority":"String"},"batchDeprecatedACL":{"deprecatedACLs":[{"swName":"String","vmmac":"String","type":"String","rule":"String","priority":"String"},{"swName":"String","vmmac":"String","type":"String","rule":"String","priority":"String"}]},"setQoS":{"swName":"String","type":"String","rule":"String","rate":"String","burst":"String","priority":"String"},"modifyQoS":{},"unsetQoS":{"swName":"String","type":"String","rule":"String","priority":"String","vmmac":"String"},"exportVM":{"path":"String"},"backupVM":{"pool":"String","version":"String","all":true,"full":true,"remote":"String","port":"String","username":"String","password":"String"},"restoreVM":{"pool":"String","version":"String","all":true,"newname":"String","target":"String"},"deleteRemoteBackup":{"vol":"String","version":"String","remote":"String","port":"String","username":"String","password":"String"},"pullRemoteBackup":{"pool":"String","vol":"String","version":"String","remote":"String","port":"String","username":"String","password":"String"},"pushRemoteBackup":{"pool":"String","vol":"String","version":"String","remote":"String","port":"String","username":"String","password":"String"},"deleteVMBackup":{"pool":"String","version":"String"},"passthroughDevice":{"action":"String","bus_num":"String","sub_bus_num":"String","dev_num":"String","live":true,"dev_type":"String"},"redirectUsb":{"action":"String","number":"String"},"updateGraphic":{"password":"String","no_password":true,"type":"String"},"autoStartVM":{"disable":true}},"powerstate":"String","status":{"apiVersion":"String","kind":"String","metadata":{},"code":1,"details":{"kind":"String","causes":[{"field":"String","message":"String","reason":"String"},{"field":"String","message":"String","reason":"String"}],"group":"String","name":"String","retryAfterSeconds":1,"uid":"String"},"message":"String","reason":"String","status":"String"}}}
+{"spec":{"domain":{"metadata":{},"memory":{"_unit":"String","text":"String","_dumpCore":"String"},"vcpu":{"_current":"String","_cpuset":"String","_placement":"String","text":"String"},"seclabel":[{"imagelabel":{"text":"String"},"_type":"String","baselabel":{"text":"String"},"_model":"String","label":{"text":"String"},"_relabel":"String"},{"imagelabel":{"text":"String"},"_type":"String","baselabel":{"text":"String"},"_model":"String","label":{"text":"String"},"_relabel":"String"}],"description":{"text":"String"},"title":{"text":"String"},"maxMemory":{"_unit":"String","_slots":"String","text":"String"},"uuid":{"text":"String"},"iothreadids":{"iothread":[{"_id":"String"},{"_id":"String"}]},"features":{"gic":{"_version":"String"},"htm":{"_state":"String"},"capabilities":{"dac_read_Search":{"_state":"String"},"fsetid":{"_state":"String"},"dac_override":{"_state":"String"},"syslog":{"_state":"String"},"_policy":"String","net_raw":{"_state":"String"},"mac_override":{"_state":"String"},"setfcap":{"_state":"String"},"mknod":{"_state":"String"},"sys_time":{"_state":"String"},"sys_tty_config":{"_state":"String"},"net_broadcast":{"_state":"String"},"setpcap":{"_state":"String"},"ipc_lock":{"_state":"String"},"net_bind_service":{"_state":"String"},"wake_alarm":{"_state":"String"},"linux_immutable":{"_state":"String"},"sys_pacct":{"_state":"String"},"ipc_owner":{"_state":"String"},"net_admin":{"_state":"String"},"setgid":{"_state":"String"},"sys_ptrace":{"_state":"String"},"chown":{"_state":"String"},"sys_admin":{"_state":"String"},"sys_module":{"_state":"String"},"sys_nice":{"_state":"String"},"kill":{"_state":"String"},"audit_control":{"_state":"String"},"setuid":{"_state":"String"},"fowner":{"_state":"String"},"sys_resource":{"_state":"String"},"sys_chroot":{"_state":"String"},"sys_rawio":{"_state":"String"},"audit_write":{"_state":"String"},"block_suspend":{"_state":"String"},"lease":{"_state":"String"},"sys_boot":{"_state":"String"},"mac_admin":{"_state":"String"}},"kvm":{"hidden":{"_state":"String"}},"apic":{"_eoi":"String"},"viridian":{},"pvspinlock":{"_state":"String"},"vmport":{"_state":"String"},"vmcoreinfo":{"_state":"String"},"hpt":{"maxpagesize":{"_unit":"String","text":"String"},"_resizing":"String"},"nested_hv":{"_state":"String"},"privnet":{},"smm":{"_state":"String","tseg":{"_unit":"String","text":"String"}},"msrs":{"_unknown":"String"},"pae":{},"acpi":{},"hap":{"_state":"String"},"ioapic":{"_driver":"String"},"pmu":{"_state":"String"},"hyperv":{"vpindex":{"_state":"String"},"ipi":{"_state":"String"},"stimer":{"_state":"String"},"reenlightenment":{"_state":"String"},"runtime":{"_state":"String"},"evmcs":{"_state":"String"},"spinlocks":{"_retries":"String","_state":"String"},"tlbflush":{"_state":"String"},"synic":{"_state":"String"},"relaxed":{"_state":"String"},"vapic":{"_state":"String"},"vendor_id":{"_value":"String"},"reset":{"_state":"String"},"frequencies":{"_state":"String"}}},"on_crash":{"text":"String"},"blkiotune":{"weight":{"text":"String"},"device":[{"path":{"text":"String"},"write_bytes_sec":{"text":"String"},"write_iops_sec":{"text":"String"},"weight":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"}},{"path":{"text":"String"},"write_bytes_sec":{"text":"String"},"write_iops_sec":{"text":"String"},"weight":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"}}]},"bootloader":{"text":"String"},"idmap":{"uid":[{"_count":"String","_start":"String","_target":"String"},{"_count":"String","_start":"String","_target":"String"}],"gid":[{"_count":"String","_start":"String","_target":"String"},{"_count":"String","_start":"String","_target":"String"}]},"sysinfo":{"memory":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}],"system":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"baseBoard":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}],"bios":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"_type":"String","chassis":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"oemStrings":{"entry":{"text":"String"}},"processor":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}]},"memtune":{"soft_limit":{"_unit":"String","text":"String"},"min_guarantee":{"_unit":"String","text":"String"},"swap_hard_limit":{"_unit":"String","text":"String"},"hard_limit":{"_unit":"String","text":"String"}},"numatune":{"memnode":[{"_nodeset":"String","_cellid":"String","_mode":"String"},{"_nodeset":"String","_cellid":"String","_mode":"String"}],"memory":{"_nodeset":"String","_placement":"String","_mode":"String"}},"keywrap":{"cipher":[{"_name":"String","_state":"String"},{"_name":"String","_state":"String"}]},"memoryBacking":{"hugepages":{"page":[{"_size":"String","_unit":"String","_nodeset":"String"},{"_size":"String","_unit":"String","_nodeset":"String"}]},"discard":{},"allocation":{"_mode":"String"},"access":{"_mode":"String"},"nosharepages":{},"source":{"_type":"String"},"locked":{}},"perf":{"event":[{"_name":"String","_enabled":"String"},{"_name":"String","_enabled":"String"}]},"launchSecurity":{},"on_poweroff":{"text":"String"},"bootloader_args":{"text":"String"},"os":{"init":{"text":"String"},"bios":{"_rebootTimeout":"String","_useserial":"String"},"kernel":{"text":"String"},"loader":{"text":"String","_type":"String","_readonly":"String"},"initarg":{"text":"String"},"type":{"_machine":"String","text":"String","_arch":"String"},"initrd":{"text":"String"},"smbios":{"_mode":"String"},"cmdline":{"text":"String"},"dtb":{"text":"String"},"nvram":{"text":"String"},"inituser":{"text":"String"},"acpi":{"table":[{"_type":"String","text":"String"},{"_type":"String","text":"String"}]},"bootmenu":{"_enable":"String","_timeout":"String"},"initgroup":{"text":"String"},"boot":[{"_dev":"String"},{"_dev":"String"}],"initdir":{"text":"String"},"initenv":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"devices":{"memory":[{"_discard":"String","address":{},"_access":"String","alias":{"_name":"String"},"_model":"String","source":{"path":{"text":"String"},"pmem":{},"alignsize":{"_unit":"String","text":"String"},"nodemask":{"text":"String"},"pagesize":{"_unit":"String","text":"String"}},"target":{"node":{"text":"String"},"readonly":{},"size":{"_unit":"String","text":"String"},"label":{"size":{"_unit":"String","text":"String"}}}},{"_discard":"String","address":{},"_access":"String","alias":{"_name":"String"},"_model":"String","source":{"path":{"text":"String"},"pmem":{},"alignsize":{"_unit":"String","text":"String"},"nodemask":{"text":"String"},"pagesize":{"_unit":"String","text":"String"}},"target":{"node":{"text":"String"},"readonly":{},"size":{"_unit":"String","text":"String"},"label":{"size":{"_unit":"String","text":"String"}}}}],"redirfilter":[{"usbdev":[{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"},{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"}]},{"usbdev":[{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"},{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"}]}],"sound":[{"codec":[{"_type":"String"},{"_type":"String"}],"address":{"_type":"String","_slot":"String","_bus":"String","_function":"String","_domain":"String"},"alias":{"_name":"String"},"_model":"String"},{"codec":[{"_type":"String"},{"_type":"String"}],"address":{"_type":"String","_slot":"String","_bus":"String","_function":"String","_domain":"String"},"alias":{"_name":"String"},"_model":"String"}],"channel":[{"_type":"String","protocol":{"_type":"String"},"address":{"_bus":"String","_controller":"String","_port":"String","_type":"String"},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_mode":"String","_path":"String"},"target":{"_name":"String","_state":"String","_type":"String"}},{"_type":"String","protocol":{"_type":"String"},"address":{"_bus":"String","_controller":"String","_port":"String","_type":"String"},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_mode":"String","_path":"String"},"target":{"_name":"String","_state":"String","_type":"String"}}],"memballoon":{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"stats":{"_period":"String"},"alias":{"_name":"String"},"_model":"String","_autodeflate":"String"},"graphics":[{"_autoport":"String","_listen":"String","_port":"String","_type":"String","listen":{"_address":"String","_type":"String"},"image":{"_compression":"String"}},{"_autoport":"String","_listen":"String","_port":"String","_type":"String","listen":{"_address":"String","_type":"String"},"image":{"_compression":"String"}}],"video":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_vgaconf":"String","_iommu":"String","_ats":"String"},"alias":{"_name":"String"},"model":{"_heads":"String","_vgamem":"String","acceleration":{"_accel3d":"String","_accel2d":"String"},"_ram":"String","_vram":"String","_vram64":"String","_type":"String","_primary":"String"}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_vgaconf":"String","_iommu":"String","_ats":"String"},"alias":{"_name":"String"},"model":{"_heads":"String","_vgamem":"String","acceleration":{"_accel3d":"String","_accel2d":"String"},"_ram":"String","_vram":"String","_vram64":"String","_type":"String","_primary":"String"}}],"_interface":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"bandwidth":{"inbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"},"outbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"}},"ip":[{"_address":"String","_prefix":"String","_family":"String","_peer":"String"},{"_address":"String","_prefix":"String","_family":"String","_peer":"String"}],"coalesce":{"rx":{"frames":{"_max":"String"}}},"link":{"_state":"String"},"source":{"_type":"String","_dev":"String","_path":"String","_mode":"String","_bridge":"String","_network":"String"},"filterref":{"parameter":[{"_name":"String","_value":"String"},{"_name":"String","_value":"String"}],"_filter":"String"},"mac":{"_address":"String"},"script":{"_path":"String"},"tune":{"sndbuf":{"text":"String"}},"mtu":{"_size":"String"},"target":{"_dev":"String"},"rom":{"_file":"String","_bar":"String","_enabled":"String"},"route":[{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"},{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"}],"driver":{"_name":"String","_queues":"String","_txmode":"String","_tx_queue_size":"String","_iommu":"String","host":{"_tso4":"String","_ufo":"String","_tso6":"String","_mrg_rxbuf":"String","_gso":"String","_ecn":"String","_csum":"String"},"_ioeventfd":"String","guest":{"_tso4":"String","_ufo":"String","_tso6":"String","_ecn":"String","_csum":"String"},"_event_idx":"String","_ats":"String","_rx_queue_size":"String"},"vlan":{"_trunk":"String"},"_managed":"String","_trustGuestRxFilters":"String","alias":{"_name":"String"},"backend":{"_vhost":"String","_tap":"String"},"guest":{"_actual":"String","_dev":"String"},"model":{"_type":"String"},"boot":{"_loadparm":"String","_order":"String"},"_type":"String","virtualport":{"_type":"String","parameters":{"__interfaceid":"String","_profileid":"String"}}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"bandwidth":{"inbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"},"outbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"}},"ip":[{"_address":"String","_prefix":"String","_family":"String","_peer":"String"},{"_address":"String","_prefix":"String","_family":"String","_peer":"String"}],"coalesce":{"rx":{"frames":{"_max":"String"}}},"link":{"_state":"String"},"source":{"_type":"String","_dev":"String","_path":"String","_mode":"String","_bridge":"String","_network":"String"},"filterref":{"parameter":[{"_name":"String","_value":"String"},{"_name":"String","_value":"String"}],"_filter":"String"},"mac":{"_address":"String"},"script":{"_path":"String"},"tune":{"sndbuf":{"text":"String"}},"mtu":{"_size":"String"},"target":{"_dev":"String"},"rom":{"_file":"String","_bar":"String","_enabled":"String"},"route":[{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"},{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"}],"driver":{"_name":"String","_queues":"String","_txmode":"String","_tx_queue_size":"String","_iommu":"String","host":{"_tso4":"String","_ufo":"String","_tso6":"String","_mrg_rxbuf":"String","_gso":"String","_ecn":"String","_csum":"String"},"_ioeventfd":"String","guest":{"_tso4":"String","_ufo":"String","_tso6":"String","_ecn":"String","_csum":"String"},"_event_idx":"String","_ats":"String","_rx_queue_size":"String"},"vlan":{"_trunk":"String"},"_managed":"String","_trustGuestRxFilters":"String","alias":{"_name":"String"},"backend":{"_vhost":"String","_tap":"String"},"guest":{"_actual":"String","_dev":"String"},"model":{"_type":"String"},"boot":{"_loadparm":"String","_order":"String"},"_type":"String","virtualport":{"_type":"String","parameters":{"__interfaceid":"String","_profileid":"String"}}}],"vsock":{"address":{},"alias":{"_name":"String"},"_model":"String","cid":{"_address":"String","_auto":"String"}},"hostdev":[{"rom":{"_file":"String","_bar":"String","_enabled":"String"},"address":{"_bus":"String","_device":"String","_type":"String","_port":"String","_domain":"String","_slot":"String","_function":"String"},"_managed":"String","alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_mode":"String","_type":"String","source":{"address":{"_bus":"String","_device":"String","_domain":"String","_slot":"String","_function":"String"}},"driver":{"_name":"String"}},{"rom":{"_file":"String","_bar":"String","_enabled":"String"},"address":{"_bus":"String","_device":"String","_type":"String","_port":"String","_domain":"String","_slot":"String","_function":"String"},"_managed":"String","alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_mode":"String","_type":"String","source":{"address":{"_bus":"String","_device":"String","_domain":"String","_slot":"String","_function":"String"}},"driver":{"_name":"String"}}],"nvram":{"address":{},"alias":{"_name":"String"}},"iommu":{"driver":{"_caching_mode":"String","_eim":"String","_iotlb":"String","_intremap":"String"},"_model":"String"},"parallel":[{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{},"target":{"_type":"String","_port":"String"}},{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{},"target":{"_type":"String","_port":"String"}}],"console":[{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"_tty":"String","_type":"String","alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","_port":"String"}},{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"_tty":"String","_type":"String","alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","_port":"String"}}],"controller":[{"master":{"_startport":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_multifunction":"String"},"_index":"String","driver":{"_max_sectors":"String","_queues":"String","_iommu":"String","_ioeventfd":"String","_iothread":"String","_cmd_per_lun":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","target":{"_chassis":"String","_chassisNr":"String","_port":"String"},"model":{"model":"String","_name":"String"}},{"master":{"_startport":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_multifunction":"String"},"_index":"String","driver":{"_max_sectors":"String","_queues":"String","_iommu":"String","_ioeventfd":"String","_iothread":"String","_cmd_per_lun":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","target":{"_chassis":"String","_chassisNr":"String","_port":"String"},"model":{"model":"String","_name":"String"}}],"shmem":[{"server":{"_path":"String"},"msi":{"_vectors":"String","_ioeventfd":"String","_enabled":"String"},"address":{},"_name":"String","size":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"model":{"_type":"String"}},{"server":{"_path":"String"},"msi":{"_vectors":"String","_ioeventfd":"String","_enabled":"String"},"address":{},"_name":"String","size":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"model":{"_type":"String"}}],"redirdev":[{"protocol":{"_type":"String"},"address":{"_bus":"String","_type":"String","_port":"String"},"alias":{"_name":"String"},"source":{},"boot":{"_loadparm":"String","_order":"String"},"_bus":"String","_type":"String"},{"protocol":{"_type":"String"},"address":{"_bus":"String","_type":"String","_port":"String"},"alias":{"_name":"String"},"source":{},"boot":{"_loadparm":"String","_order":"String"},"_bus":"String","_type":"String"}],"rng":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"rate":{"_period":"String","_bytes":"String"},"alias":{"_name":"String"},"_model":"String","backend":{"_model":"String","text":"String"}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"rate":{"_period":"String","_bytes":"String"},"alias":{"_name":"String"},"_model":"String","backend":{"_model":"String","text":"String"}}],"smartcard":[{"database":{"text":"String"},"protocol":{"_type":"String"},"address":{},"certificate":[{"text":"String"},{"text":"String"}],"alias":{"_name":"String"},"source":{}},{"database":{"text":"String"},"protocol":{"_type":"String"},"address":{},"certificate":[{"text":"String"},{"text":"String"}],"alias":{"_name":"String"},"source":{}}],"filesystem":[{"_accessmode":"String","address":{},"driver":{"_name":"String","_iommu":"String","_type":"String","_format":"String","_wrpolicy":"String","_ats":"String"},"readonly":{},"space_hard_limit":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"_model":"String","source":{},"space_soft_limit":{"_unit":"String","text":"String"},"target":{"_dir":"String"}},{"_accessmode":"String","address":{},"driver":{"_name":"String","_iommu":"String","_type":"String","_format":"String","_wrpolicy":"String","_ats":"String"},"readonly":{},"space_hard_limit":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"_model":"String","source":{},"space_soft_limit":{"_unit":"String","text":"String"},"target":{"_dir":"String"}}],"panic":[{"address":{},"alias":{"_name":"String"},"_model":"String"},{"address":{},"alias":{"_name":"String"},"_model":"String"}],"tpm":[{"address":{},"alias":{"_name":"String"},"_model":"String","backend":{}},{"address":{},"alias":{"_name":"String"},"_model":"String","backend":{}}],"emulator":{"text":"String"},"input":[{"address":{"_bus":"String","_port":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","source":{"_evdev":"String"},"_bus":"String"},{"address":{"_bus":"String","_port":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","source":{"_evdev":"String"},"_bus":"String"}],"disk":[{"_type":"String","shareable":{},"mirror":{"_job":"String","_ready":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"}},"_snapshot":"String","auth":{"_username":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"blockio":{"_physical_block_size":"String","_logical_block_size":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_controller":"String","_dev":"String"},"_transient":{},"wwn":{"text":"String"},"encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"readonly":{},"vendor":{"text":"String"},"alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_rawio":"String","iotune":{"write_iops_sec_max_length":{"text":"String"},"group_name":{"text":"String"},"write_iops_sec":{"text":"String"},"read_bytes_sec_max":{"text":"String"},"read_bytes_sec_max_length":{"text":"String"},"total_iops_sec":{"text":"String"},"write_iops_sec_max":{"text":"String"},"total_bytes_sec":{"text":"String"},"total_iops_sec_max":{"text":"String"},"total_bytes_sec_max_length":{"text":"String"},"write_bytes_sec":{"text":"String"},"total_bytes_sec_max":{"text":"String"},"write_bytes_sec_max":{"text":"String"},"read_iops_sec_max":{"text":"String"},"read_iops_sec_max_length":{"text":"String"},"size_iops_sec":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"},"total_iops_sec_max_length":{"text":"String"},"write_bytes_sec_max_length":{"text":"String"}},"product":{"text":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_controller":"String","_target":"String","_unit":"String"},"_sgio":"String","_device":"String","target":{"_removable":"String","_tray":"String","_dev":"String","_bus":"String"},"driver":{"_detect_zeroes":"String","_io":"String","_name":"String","_rerror_policy":"String","_queues":"String","_iommu":"String","_type":"String","_ats":"String","_discard":"String","_copy_on_read":"String","_error_policy":"String","_ioeventfd":"String","_iothread":"String","_event_idx":"String","_cache":"String"},"serial":{"_type":"String","text":"String"},"backingStore":{"_index":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_dev":"String"},"_type":"String","_file":"String"},"_model":"String","geometry":{"_heads":"String","_secs":"String","_cyls":"String","_trans":"String"}},{"_type":"String","shareable":{},"mirror":{"_job":"String","_ready":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"}},"_snapshot":"String","auth":{"_username":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"blockio":{"_physical_block_size":"String","_logical_block_size":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_controller":"String","_dev":"String"},"_transient":{},"wwn":{"text":"String"},"encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"readonly":{},"vendor":{"text":"String"},"alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_rawio":"String","iotune":{"write_iops_sec_max_length":{"text":"String"},"group_name":{"text":"String"},"write_iops_sec":{"text":"String"},"read_bytes_sec_max":{"text":"String"},"read_bytes_sec_max_length":{"text":"String"},"total_iops_sec":{"text":"String"},"write_iops_sec_max":{"text":"String"},"total_bytes_sec":{"text":"String"},"total_iops_sec_max":{"text":"String"},"total_bytes_sec_max_length":{"text":"String"},"write_bytes_sec":{"text":"String"},"total_bytes_sec_max":{"text":"String"},"write_bytes_sec_max":{"text":"String"},"read_iops_sec_max":{"text":"String"},"read_iops_sec_max_length":{"text":"String"},"size_iops_sec":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"},"total_iops_sec_max_length":{"text":"String"},"write_bytes_sec_max_length":{"text":"String"}},"product":{"text":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_controller":"String","_target":"String","_unit":"String"},"_sgio":"String","_device":"String","target":{"_removable":"String","_tray":"String","_dev":"String","_bus":"String"},"driver":{"_detect_zeroes":"String","_io":"String","_name":"String","_rerror_policy":"String","_queues":"String","_iommu":"String","_type":"String","_ats":"String","_discard":"String","_copy_on_read":"String","_error_policy":"String","_ioeventfd":"String","_iothread":"String","_event_idx":"String","_cache":"String"},"serial":{"_type":"String","text":"String"},"backingStore":{"_index":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_dev":"String"},"_type":"String","_file":"String"},"_model":"String","geometry":{"_heads":"String","_secs":"String","_cyls":"String","_trans":"String"}}],"watchdog":{"address":{},"alias":{"_name":"String"},"_action":"String","_model":"String"},"hub":[{"address":{"_type":"String","_bus":"String","_port":"String"},"_type":"String","alias":{"_name":"String"}},{"address":{"_type":"String","_bus":"String","_port":"String"},"_type":"String","alias":{"_name":"String"}}],"serial":[{"_type":"String","protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","model":{"_name":"String"},"_port":"String"}},{"_type":"String","protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","model":{"_name":"String"},"_port":"String"}}],"lease":[{"lockspace":{"text":"String"},"key":{"text":"String"},"target":{"_offset":"String","_path":"String"}},{"lockspace":{"text":"String"},"key":{"text":"String"},"target":{"_offset":"String","_path":"String"}}]},"resource":{"partition":{"text":"String"}},"on_reboot":{"text":"String"},"_type":"String","cpu":{"cache":{"_level":"String","_mode":"String"},"feature":[{"_name":"String","_policy":"String"},{"_name":"String","_policy":"String"}],"topology":{"_cores":"String","_sockets":"String","_threads":"String"},"vendor":{"text":"String"},"numa":{"cell":[{"_discard":"String","distances":{"sibling":[{"_value":"String","_id":"String"},{"_value":"String","_id":"String"}]},"_memory":"String","_unit":"String","_cpus":"String","_memAccess":"String","_id":"String"},{"_discard":"String","distances":{"sibling":[{"_value":"String","_id":"String"},{"_value":"String","_id":"String"}]},"_memory":"String","_unit":"String","_cpus":"String","_memAccess":"String","_id":"String"}]},"_check":"String","model":{"_fallback":"String","_vendor_id":"String","text":"String"},"_match":"String","_mode":"String","_migratable":"String"},"clock":{"_basis":"String","timer":[{"_name":"String","catchup":{"_limit":"String","_slew":"String","_threshold":"String"},"_track":"String","_frequency":"String","_present":"String","_tickpolicy":"String","_mode":"String"},{"_name":"String","catchup":{"_limit":"String","_slew":"String","_threshold":"String"},"_track":"String","_frequency":"String","_present":"String","_tickpolicy":"String","_mode":"String"}],"_offset":"String","_adjustment":"String","_timezone":"String"},"vcpus":{"vcpu":[{"_order":"String","_hotpluggable":"String","_id":"String","_enabled":"String"},{"_order":"String","_hotpluggable":"String","_id":"String","_enabled":"String"}]},"cputune":{"global_quota":{"text":"String"},"iothreadpin":[{"_cpuset":"String","_iothread":"String"},{"_cpuset":"String","_iothread":"String"}],"period":{"text":"String"},"emulator_period":{"text":"String"},"emulatorpin":{"_cpuset":"String"},"vcpusched":[{"_scheduler":"String","_vcpus":"String","_priority":"String"},{"_scheduler":"String","_vcpus":"String","_priority":"String"}],"iothreadsched":[{"_scheduler":"String","_iothreads":"String","_priority":"String"},{"_scheduler":"String","_iothreads":"String","_priority":"String"}],"iothread_period":{"text":"String"},"global_period":{"text":"String"},"emulator_quota":{"text":"String"},"shares":{"text":"String"},"vcpupin":[{"_vcpu":"String","_cpuset":"String"},{"_vcpu":"String","_cpuset":"String"}],"cachetune":[{"cache":[{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"},{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"}],"monitor":[{"_level":"String","_vcpus":"String"},{"_level":"String","_vcpus":"String"}],"_vcpus":"String"},{"cache":[{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"},{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"}],"monitor":[{"_level":"String","_vcpus":"String"},{"_level":"String","_vcpus":"String"}],"_vcpus":"String"}],"quota":{"text":"String"},"iothread_quota":{"text":"String"},"memorytune":[{"node":[{"_bandwidth":"String","_id":"String"},{"_bandwidth":"String","_id":"String"}],"_vcpus":"String"},{"node":[{"_bandwidth":"String","_id":"String"},{"_bandwidth":"String","_id":"String"}],"_vcpus":"String"}]},"genid":{"text":"String"},"iothreads":{"text":"String"},"name":{"text":"String"},"currentMemory":{"_unit":"String","text":"String"},"_id":"String","pm":{"suspend_to_disk":{"_enabled":"String"},"suspend_to_mem":{"_enabled":"String"}}},"lifecycle":{"createAndStartVMFromISO":{"container":"String","metadata":"String","livecd":"String","sound":"String","channel":"String","graphics":"String","autostart":"String","features":"String","hostdev":"String","idmap":"String","sysinfo":"String","numatune":"String","events":"String","hvm":"String","qemu_commandline":"String","resource":"String","extra_args":"String","cpu":"String","rng":"String","check":"String","clock":"String","smartcard":"String","panic":"String","input":"String","disk":"String","memorybacking":"String","dry_run":"String","memory":"String","paravirt":"String","memballoon":"String","network":"String","security":"String","blkiotune":"String","virt_type":"String","parallel":"String","memtune":"String","boot":"String","initrd_inject":"String","pxe":"String","console":"String","controller":"String","memdev":"String","redirdev":"String","os_variant":"String","vcpus":"String","cdrom":"String","cputune":"String","filesystem":"String","tpm":"String","watchdog":"String","serial":"String","machine":"String","location":"String","arch":"String","noreboot":"String","pm":"String","noautoconsole":true,"_import":true},"createAndStartVMFromImage":{"noautoconsole":true},"suspendVM":{},"stopVMForce":{},"unplugDevice":{"current":true,"persistent":true,"config":true,"live":true,"file":"String"},"unplugNIC":{"current":true,"persistent":true,"config":true,"live":true,"type":"String","mac":"String"},"migrateVM":{"suspend":true,"direct":true,"change_protection":true,"rdma_pin_all":true,"undefinesource":true,"copy_storage_all":true,"unsafe":true,"copy_storage_inc":true,"p2p":true,"auto_converge":true,"postcopy":true,"offline":true,"tunnelled":true,"domain":"String","ip":"String","abort_on_error":true,"compressed":true,"persistent":true,"live":true,"desturi":"String"},"migrateVMDisk":{"domain":"String","ip":"String","migratedisks":"String"},"changeNumberOfCPU":{"current":true,"config":true,"live":true,"hotpluggable":true,"count":"String","guest":true,"maximum":true,"cores":"String","sockets":"String","threads":"String"},"resumeVM":{},"plugDisk":{"persistent":true,"config":true,"live":true,"iothread":"String","cache":"String","address":"String","io":"String","sgio":"String","source":"String","targetbus":"String","type":"String","subdriver":"String","multifunction":true,"target":"String","wwn":"String","mode":"String","driver":"String","serial":"String","rawio":true,"sourcetype":"String","total_bytes_sec":"String","read_bytes_sec":"String","write_bytes_sec":"String","total_iops_sec":"String","read_iops_sec":"String","write_iops_sec":"String"},"plugDevice":{"current":true,"persistent":true,"config":true,"live":true,"file":"String"},"resetVM":{},"unplugDisk":{"current":true,"persistent":true,"config":true,"live":true,"target":"String"},"stopVM":{},"startVM":{},"deleteVM":{"snapshots_metadata":true,"remove_all_storage":true,"storage":"String","nvram":true},"rebootVM":{},"plugNIC":{"current":true,"persistent":true,"config":true,"live":true,"inbound":"String","source":"String","type":"String","vlan":"String","mac":"String","script":"String","target":"String","managed":true,"outbound":"String","model":"String"},"manageISO":{"current":true,"config":true,"live":true,"path":"String","source":"String","eject":true,"insert":true,"update":true,"force":true,"block":true},"updateOS":{"source":"String","target":"String"},"convertVMToImage":{"targetPool":"String"},"insertISO":{"current":true,"config":true,"live":true,"path":"String","insert":true,"force":true,"block":true},"ejectISO":{"current":true,"config":true,"live":true,"path":"String","eject":true,"force":true,"block":true},"resizeVM":{"path":"String","size":"String"},"cloneVM":{"name":"String","file":"String","preserve_data":true,"mac":"String","nonsparse":true,"auto_clone":true},"tuneDiskQoS":{"device":"String","total_bytes_sec":"String","read_bytes_sec":"String","write_bytes_sec":"String","total_iops_sec":"String","read_iops_sec":"String","write_iops_sec":"String","config":true,"live":true},"tuneNICQoS":{"current":true,"config":true,"live":true,"inbound":"String","_interface":"String","outbound":"String"},"resizeMaxRAM":{},"setBootOrder":{"order":"String"},"setVncPassword":{"current":true,"persistent":true,"live":true,"config":true,"force":true,"password":"String"},"unsetVncPassword":{"current":true,"persistent":true,"live":true,"config":true,"force":true},"setGuestPassword":{"os_type":"String","user":"String","password":"String"},"injectSshKey":{"os_type":"String","user":"String","ssh_key":"String"},"resizeRAM":{"current":true,"size":"String","config":true,"live":true},"bindFloatingIP":{"swName":"String","outSwName":"String","vmmac":"String","fip":"String"},"unbindFloatingIP":{"swName":"String","vmmac":"String","fip":"String","vmip":"String"},"addACL":{"swName":"String","vmmac":"String","type":"String","rule":"String","operator":"String","priority":"String"},"modifyACL":{},"deprecatedACL":{"swName":"String","vmmac":"String","type":"String","rule":"String","priority":"String"},"batchDeprecatedACL":{"deprecatedACLs":[{"swName":"String","vmmac":"String","type":"String","rule":"String","priority":"String"},{"swName":"String","vmmac":"String","type":"String","rule":"String","priority":"String"}]},"setQoS":{"swName":"String","type":"String","rule":"String","rate":"String","burst":"String","priority":"String"},"modifyQoS":{},"unsetQoS":{"swName":"String","type":"String","rule":"String","priority":"String","vmmac":"String"},"exportVM":{"path":"String"},"backupVM":{"pool":"String","version":"String","all":true,"full":true,"remote":"String","port":"String","username":"String","password":"String"},"restoreVM":{"pool":"String","version":"String","all":true,"newname":"String","target":"String"},"deleteRemoteBackup":{"vol":"String","version":"String","remote":"String","port":"String","username":"String","password":"String"},"pullRemoteBackup":{"pool":"String","vol":"String","version":"String","remote":"String","port":"String","username":"String","password":"String"},"pushRemoteBackup":{"pool":"String","vol":"String","version":"String","remote":"String","port":"String","username":"String","password":"String"},"deleteVMBackup":{"pool":"String","version":"String"},"passthroughDevice":{"action":"String","bus_num":"String","sub_bus_num":"String","dev_num":"String","live":true,"dev_type":"String"},"redirectUsb":{"action":"String","number":"String"},"updateGraphic":{"password":"String","no_password":true,"type":"String"},"autoStartVM":{"disable":true}},"powerstate":"String","status":{"apiVersion":"String","kind":"String","metadata":{},"code":1,"details":{"kind":"String","causes":[{"field":"String","message":"String","reason":"String"},{"field":"String","message":"String","reason":"String"}],"group":"String","name":"String","retryAfterSeconds":1,"uid":"String"},"message":"String","reason":"String","status":"String"}}}
 ```
 # 2 VirtualMachineImage
 
@@ -2707,13 +2708,13 @@
 ## 2.1 CreateImage(创建虚拟机镜像)
 
 **接口功能:**
-	创建虚拟机镜像，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+创建虚拟机镜像，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	
+
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachineimage.Lifecycle.CreateImage
+io.github.kubestack.client.api.specs.vms.virtualmachineimage.Lifecycle.CreateImage
 
 **参数描述:**
 
@@ -2754,13 +2755,13 @@
 ## 2.2 DeleteImage(删除虚拟机镜像)
 
 **接口功能:**
-	删除虚拟机镜像，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除虚拟机镜像，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机镜像存在，即已调用过CreateImage/ConvertVMToImage
+虚拟机镜像存在，即已调用过CreateImage/ConvertVMToImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachineimage.Lifecycle.DeleteImage
+io.github.kubestack.client.api.specs.vms.virtualmachineimage.Lifecycle.DeleteImage
 
 **参数描述:**
 
@@ -2798,13 +2799,13 @@
 ## 2.3 ConvertImageToVM(将虚拟机镜像转化为虚拟机)
 
 **接口功能:**
-	将虚拟机镜像转化为虚拟机，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+将虚拟机镜像转化为虚拟机，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机镜像存在，即已调用过CreateImage/ConvertVMToImage
+虚拟机镜像存在，即已调用过CreateImage/ConvertVMToImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachineimage.Lifecycle.ConvertImageToVM
+io.github.kubestack.client.api.specs.vms.virtualmachineimage.Lifecycle.ConvertImageToVM
 
 **参数描述:**
 
@@ -2843,7 +2844,7 @@
 ## **返回值:**
 
 ```
-{"spec":{"domain":{"metadata":{},"memory":{"_unit":"String","text":"String","_dumpCore":"String"},"vcpu":{"_current":"String","_cpuset":"String","_placement":"String","text":"String"},"seclabel":[{"imagelabel":{"text":"String"},"_type":"String","baselabel":{"text":"String"},"_model":"String","label":{"text":"String"},"_relabel":"String"},{"imagelabel":{"text":"String"},"_type":"String","baselabel":{"text":"String"},"_model":"String","label":{"text":"String"},"_relabel":"String"}],"description":{"text":"String"},"title":{"text":"String"},"maxMemory":{"_unit":"String","_slots":"String","text":"String"},"uuid":{"text":"String"},"iothreadids":{"iothread":[{"_id":"String"},{"_id":"String"}]},"features":{"gic":{"_version":"String"},"htm":{"_state":"String"},"capabilities":{"dac_read_Search":{"_state":"String"},"fsetid":{"_state":"String"},"dac_override":{"_state":"String"},"syslog":{"_state":"String"},"_policy":"String","net_raw":{"_state":"String"},"mac_override":{"_state":"String"},"setfcap":{"_state":"String"},"mknod":{"_state":"String"},"sys_time":{"_state":"String"},"sys_tty_config":{"_state":"String"},"net_broadcast":{"_state":"String"},"setpcap":{"_state":"String"},"ipc_lock":{"_state":"String"},"net_bind_service":{"_state":"String"},"wake_alarm":{"_state":"String"},"linux_immutable":{"_state":"String"},"sys_pacct":{"_state":"String"},"ipc_owner":{"_state":"String"},"net_admin":{"_state":"String"},"setgid":{"_state":"String"},"sys_ptrace":{"_state":"String"},"chown":{"_state":"String"},"sys_admin":{"_state":"String"},"sys_module":{"_state":"String"},"sys_nice":{"_state":"String"},"kill":{"_state":"String"},"audit_control":{"_state":"String"},"setuid":{"_state":"String"},"fowner":{"_state":"String"},"sys_resource":{"_state":"String"},"sys_chroot":{"_state":"String"},"sys_rawio":{"_state":"String"},"audit_write":{"_state":"String"},"block_suspend":{"_state":"String"},"lease":{"_state":"String"},"sys_boot":{"_state":"String"},"mac_admin":{"_state":"String"}},"kvm":{"hidden":{"_state":"String"}},"apic":{"_eoi":"String"},"viridian":{},"pvspinlock":{"_state":"String"},"vmport":{"_state":"String"},"vmcoreinfo":{"_state":"String"},"hpt":{"maxpagesize":{"_unit":"String","text":"String"},"_resizing":"String"},"nested_hv":{"_state":"String"},"privnet":{},"smm":{"_state":"String","tseg":{"_unit":"String","text":"String"}},"msrs":{"_unknown":"String"},"pae":{},"acpi":{},"hap":{"_state":"String"},"ioapic":{"_driver":"String"},"pmu":{"_state":"String"},"hyperv":{"vpindex":{"_state":"String"},"ipi":{"_state":"String"},"stimer":{"_state":"String"},"reenlightenment":{"_state":"String"},"runtime":{"_state":"String"},"evmcs":{"_state":"String"},"spinlocks":{"_retries":"String","_state":"String"},"tlbflush":{"_state":"String"},"synic":{"_state":"String"},"relaxed":{"_state":"String"},"vapic":{"_state":"String"},"vendor_id":{"_value":"String"},"reset":{"_state":"String"},"frequencies":{"_state":"String"}}},"on_crash":{"text":"String"},"blkiotune":{"weight":{"text":"String"},"device":[{"path":{"text":"String"},"write_bytes_sec":{"text":"String"},"write_iops_sec":{"text":"String"},"weight":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"}},{"path":{"text":"String"},"write_bytes_sec":{"text":"String"},"write_iops_sec":{"text":"String"},"weight":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"}}]},"bootloader":{"text":"String"},"idmap":{"uid":[{"_count":"String","_start":"String","_target":"String"},{"_count":"String","_start":"String","_target":"String"}],"gid":[{"_count":"String","_start":"String","_target":"String"},{"_count":"String","_start":"String","_target":"String"}]},"sysinfo":{"memory":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}],"system":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"baseBoard":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}],"bios":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"_type":"String","chassis":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"oemStrings":{"entry":{"text":"String"}},"processor":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}]},"memtune":{"soft_limit":{"_unit":"String","text":"String"},"min_guarantee":{"_unit":"String","text":"String"},"swap_hard_limit":{"_unit":"String","text":"String"},"hard_limit":{"_unit":"String","text":"String"}},"numatune":{"memnode":[{"_nodeset":"String","_cellid":"String","_mode":"String"},{"_nodeset":"String","_cellid":"String","_mode":"String"}],"memory":{"_nodeset":"String","_placement":"String","_mode":"String"}},"keywrap":{"cipher":[{"_name":"String","_state":"String"},{"_name":"String","_state":"String"}]},"memoryBacking":{"hugepages":{"page":[{"_size":"String","_unit":"String","_nodeset":"String"},{"_size":"String","_unit":"String","_nodeset":"String"}]},"discard":{},"allocation":{"_mode":"String"},"access":{"_mode":"String"},"nosharepages":{},"source":{"_type":"String"},"locked":{}},"perf":{"event":[{"_name":"String","_enabled":"String"},{"_name":"String","_enabled":"String"}]},"launchSecurity":{},"on_poweroff":{"text":"String"},"bootloader_args":{"text":"String"},"os":{"init":{"text":"String"},"bios":{"_rebootTimeout":"String","_useserial":"String"},"kernel":{"text":"String"},"loader":{"text":"String","_type":"String","_readonly":"String"},"initarg":{"text":"String"},"type":{"_machine":"String","text":"String","_arch":"String"},"initrd":{"text":"String"},"smbios":{"_mode":"String"},"cmdline":{"text":"String"},"dtb":{"text":"String"},"nvram":{"text":"String"},"inituser":{"text":"String"},"acpi":{"table":[{"_type":"String","text":"String"},{"_type":"String","text":"String"}]},"bootmenu":{"_enable":"String","_timeout":"String"},"initgroup":{"text":"String"},"boot":[{"_dev":"String"},{"_dev":"String"}],"initdir":{"text":"String"},"initenv":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"devices":{"memory":[{"_discard":"String","address":{},"_access":"String","alias":{"_name":"String"},"_model":"String","source":{"path":{"text":"String"},"pmem":{},"alignsize":{"_unit":"String","text":"String"},"nodemask":{"text":"String"},"pagesize":{"_unit":"String","text":"String"}},"target":{"node":{"text":"String"},"readonly":{},"size":{"_unit":"String","text":"String"},"label":{"size":{"_unit":"String","text":"String"}}}},{"_discard":"String","address":{},"_access":"String","alias":{"_name":"String"},"_model":"String","source":{"path":{"text":"String"},"pmem":{},"alignsize":{"_unit":"String","text":"String"},"nodemask":{"text":"String"},"pagesize":{"_unit":"String","text":"String"}},"target":{"node":{"text":"String"},"readonly":{},"size":{"_unit":"String","text":"String"},"label":{"size":{"_unit":"String","text":"String"}}}}],"redirfilter":[{"usbdev":[{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"},{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"}]},{"usbdev":[{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"},{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"}]}],"sound":[{"codec":[{"_type":"String"},{"_type":"String"}],"address":{"_type":"String","_slot":"String","_bus":"String","_function":"String","_domain":"String"},"alias":{"_name":"String"},"_model":"String"},{"codec":[{"_type":"String"},{"_type":"String"}],"address":{"_type":"String","_slot":"String","_bus":"String","_function":"String","_domain":"String"},"alias":{"_name":"String"},"_model":"String"}],"channel":[{"_type":"String","protocol":{"_type":"String"},"address":{"_bus":"String","_controller":"String","_port":"String","_type":"String"},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_mode":"String","_path":"String"},"target":{"_name":"String","_state":"String","_type":"String"}},{"_type":"String","protocol":{"_type":"String"},"address":{"_bus":"String","_controller":"String","_port":"String","_type":"String"},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_mode":"String","_path":"String"},"target":{"_name":"String","_state":"String","_type":"String"}}],"memballoon":{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"stats":{"_period":"String"},"alias":{"_name":"String"},"_model":"String","_autodeflate":"String"},"graphics":[{"_autoport":"String","_listen":"String","_port":"String","_type":"String","listen":{"_address":"String","_type":"String"},"image":{"_compression":"String"}},{"_autoport":"String","_listen":"String","_port":"String","_type":"String","listen":{"_address":"String","_type":"String"},"image":{"_compression":"String"}}],"video":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_vgaconf":"String","_iommu":"String","_ats":"String"},"alias":{"_name":"String"},"model":{"_heads":"String","_vgamem":"String","acceleration":{"_accel3d":"String","_accel2d":"String"},"_ram":"String","_vram":"String","_vram64":"String","_type":"String","_primary":"String"}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_vgaconf":"String","_iommu":"String","_ats":"String"},"alias":{"_name":"String"},"model":{"_heads":"String","_vgamem":"String","acceleration":{"_accel3d":"String","_accel2d":"String"},"_ram":"String","_vram":"String","_vram64":"String","_type":"String","_primary":"String"}}],"_interface":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"bandwidth":{"inbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"},"outbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"}},"ip":[{"_address":"String","_prefix":"String","_family":"String","_peer":"String"},{"_address":"String","_prefix":"String","_family":"String","_peer":"String"}],"coalesce":{"rx":{"frames":{"_max":"String"}}},"link":{"_state":"String"},"source":{"_type":"String","_dev":"String","_path":"String","_mode":"String","_bridge":"String","_network":"String"},"filterref":{"parameter":[{"_name":"String","_value":"String"},{"_name":"String","_value":"String"}],"_filter":"String"},"mac":{"_address":"String"},"script":{"_path":"String"},"tune":{"sndbuf":{"text":"String"}},"mtu":{"_size":"String"},"target":{"_dev":"String"},"rom":{"_file":"String","_bar":"String","_enabled":"String"},"route":[{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"},{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"}],"driver":{"_name":"String","_queues":"String","_txmode":"String","_tx_queue_size":"String","_iommu":"String","host":{"_tso4":"String","_ufo":"String","_tso6":"String","_mrg_rxbuf":"String","_gso":"String","_ecn":"String","_csum":"String"},"_ioeventfd":"String","guest":{"_tso4":"String","_ufo":"String","_tso6":"String","_ecn":"String","_csum":"String"},"_event_idx":"String","_ats":"String","_rx_queue_size":"String"},"vlan":{"_trunk":"String","tag":[{"_nativeMode":"String","_id":"String"},{"_nativeMode":"String","_id":"String"}]},"_managed":"String","_trustGuestRxFilters":"String","alias":{"_name":"String"},"backend":{"_vhost":"String","_tap":"String"},"guest":{"_actual":"String","_dev":"String"},"model":{"_type":"String"},"boot":{"_loadparm":"String","_order":"String"},"_type":"String","virtualport":{"_type":"String","parameters":{"__interfaceid":"String","_profileid":"String"}}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"bandwidth":{"inbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"},"outbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"}},"ip":[{"_address":"String","_prefix":"String","_family":"String","_peer":"String"},{"_address":"String","_prefix":"String","_family":"String","_peer":"String"}],"coalesce":{"rx":{"frames":{"_max":"String"}}},"link":{"_state":"String"},"source":{"_type":"String","_dev":"String","_path":"String","_mode":"String","_bridge":"String","_network":"String"},"filterref":{"parameter":[{"_name":"String","_value":"String"},{"_name":"String","_value":"String"}],"_filter":"String"},"mac":{"_address":"String"},"script":{"_path":"String"},"tune":{"sndbuf":{"text":"String"}},"mtu":{"_size":"String"},"target":{"_dev":"String"},"rom":{"_file":"String","_bar":"String","_enabled":"String"},"route":[{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"},{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"}],"driver":{"_name":"String","_queues":"String","_txmode":"String","_tx_queue_size":"String","_iommu":"String","host":{"_tso4":"String","_ufo":"String","_tso6":"String","_mrg_rxbuf":"String","_gso":"String","_ecn":"String","_csum":"String"},"_ioeventfd":"String","guest":{"_tso4":"String","_ufo":"String","_tso6":"String","_ecn":"String","_csum":"String"},"_event_idx":"String","_ats":"String","_rx_queue_size":"String"},"vlan":{"_trunk":"String","tag":[{"_nativeMode":"String","_id":"String"},{"_nativeMode":"String","_id":"String"}]},"_managed":"String","_trustGuestRxFilters":"String","alias":{"_name":"String"},"backend":{"_vhost":"String","_tap":"String"},"guest":{"_actual":"String","_dev":"String"},"model":{"_type":"String"},"boot":{"_loadparm":"String","_order":"String"},"_type":"String","virtualport":{"_type":"String","parameters":{"__interfaceid":"String","_profileid":"String"}}}],"vsock":{"address":{},"alias":{"_name":"String"},"_model":"String","cid":{"_address":"String","_auto":"String"}},"hostdev":[{"rom":{"_file":"String","_bar":"String","_enabled":"String"},"address":{"_bus":"String","_device":"String","_type":"String","_port":"String","_domain":"String","_slot":"String","_function":"String"},"_managed":"String","alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_mode":"String","_type":"String","source":{"address":{"_bus":"String","_device":"String","_domain":"String","_slot":"String","_function":"String"}},"driver":{"_name":"String"}},{"rom":{"_file":"String","_bar":"String","_enabled":"String"},"address":{"_bus":"String","_device":"String","_type":"String","_port":"String","_domain":"String","_slot":"String","_function":"String"},"_managed":"String","alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_mode":"String","_type":"String","source":{"address":{"_bus":"String","_device":"String","_domain":"String","_slot":"String","_function":"String"}},"driver":{"_name":"String"}}],"nvram":{"address":{},"alias":{"_name":"String"}},"iommu":{"driver":{"_caching_mode":"String","_eim":"String","_iotlb":"String","_intremap":"String"},"_model":"String"},"parallel":[{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{},"target":{"_type":"String","_port":"String"}},{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{},"target":{"_type":"String","_port":"String"}}],"console":[{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"_tty":"String","_type":"String","alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","_port":"String"}},{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"_tty":"String","_type":"String","alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","_port":"String"}}],"controller":[{"master":{"_startport":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_multifunction":"String"},"_index":"String","driver":{"_max_sectors":"String","_queues":"String","_iommu":"String","_ioeventfd":"String","_iothread":"String","_cmd_per_lun":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","target":{"_chassis":"String","_chassisNr":"String","_port":"String"},"model":{"model":"String","_name":"String"}},{"master":{"_startport":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_multifunction":"String"},"_index":"String","driver":{"_max_sectors":"String","_queues":"String","_iommu":"String","_ioeventfd":"String","_iothread":"String","_cmd_per_lun":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","target":{"_chassis":"String","_chassisNr":"String","_port":"String"},"model":{"model":"String","_name":"String"}}],"shmem":[{"server":{"_path":"String"},"msi":{"_vectors":"String","_ioeventfd":"String","_enabled":"String"},"address":{},"_name":"String","size":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"model":{"_type":"String"}},{"server":{"_path":"String"},"msi":{"_vectors":"String","_ioeventfd":"String","_enabled":"String"},"address":{},"_name":"String","size":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"model":{"_type":"String"}}],"redirdev":[{"protocol":{"_type":"String"},"address":{"_bus":"String","_type":"String","_port":"String"},"alias":{"_name":"String"},"source":{},"boot":{"_loadparm":"String","_order":"String"},"_bus":"String","_type":"String"},{"protocol":{"_type":"String"},"address":{"_bus":"String","_type":"String","_port":"String"},"alias":{"_name":"String"},"source":{},"boot":{"_loadparm":"String","_order":"String"},"_bus":"String","_type":"String"}],"rng":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"rate":{"_period":"String","_bytes":"String"},"alias":{"_name":"String"},"_model":"String","backend":{"_model":"String","text":"String"}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"rate":{"_period":"String","_bytes":"String"},"alias":{"_name":"String"},"_model":"String","backend":{"_model":"String","text":"String"}}],"smartcard":[{"database":{"text":"String"},"protocol":{"_type":"String"},"address":{},"certificate":[{"text":"String"},{"text":"String"}],"alias":{"_name":"String"},"source":{}},{"database":{"text":"String"},"protocol":{"_type":"String"},"address":{},"certificate":[{"text":"String"},{"text":"String"}],"alias":{"_name":"String"},"source":{}}],"filesystem":[{"_accessmode":"String","address":{},"driver":{"_name":"String","_iommu":"String","_type":"String","_format":"String","_wrpolicy":"String","_ats":"String"},"readonly":{},"space_hard_limit":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"_model":"String","source":{},"space_soft_limit":{"_unit":"String","text":"String"},"target":{"_dir":"String"}},{"_accessmode":"String","address":{},"driver":{"_name":"String","_iommu":"String","_type":"String","_format":"String","_wrpolicy":"String","_ats":"String"},"readonly":{},"space_hard_limit":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"_model":"String","source":{},"space_soft_limit":{"_unit":"String","text":"String"},"target":{"_dir":"String"}}],"panic":[{"address":{},"alias":{"_name":"String"},"_model":"String"},{"address":{},"alias":{"_name":"String"},"_model":"String"}],"tpm":[{"address":{},"alias":{"_name":"String"},"_model":"String","backend":{}},{"address":{},"alias":{"_name":"String"},"_model":"String","backend":{}}],"emulator":{"text":"String"},"input":[{"address":{"_bus":"String","_port":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","source":{"_evdev":"String"},"_bus":"String"},{"address":{"_bus":"String","_port":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","source":{"_evdev":"String"},"_bus":"String"}],"disk":[{"_type":"String","shareable":{},"mirror":{"_job":"String","_ready":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"}},"_snapshot":"String","auth":{"_username":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"blockio":{"_physical_block_size":"String","_logical_block_size":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_controller":"String","_dev":"String"},"_transient":{},"wwn":{"text":"String"},"encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"readonly":{},"vendor":{"text":"String"},"alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_rawio":"String","iotune":{"write_iops_sec_max_length":{"text":"String"},"group_name":{"text":"String"},"write_iops_sec":{"text":"String"},"read_bytes_sec_max":{"text":"String"},"read_bytes_sec_max_length":{"text":"String"},"total_iops_sec":{"text":"String"},"write_iops_sec_max":{"text":"String"},"total_bytes_sec":{"text":"String"},"total_iops_sec_max":{"text":"String"},"total_bytes_sec_max_length":{"text":"String"},"write_bytes_sec":{"text":"String"},"total_bytes_sec_max":{"text":"String"},"write_bytes_sec_max":{"text":"String"},"read_iops_sec_max":{"text":"String"},"read_iops_sec_max_length":{"text":"String"},"size_iops_sec":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"},"total_iops_sec_max_length":{"text":"String"},"write_bytes_sec_max_length":{"text":"String"}},"product":{"text":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_controller":"String","_target":"String","_unit":"String"},"_sgio":"String","_device":"String","target":{"_removable":"String","_tray":"String","_dev":"String","_bus":"String"},"driver":{"_detect_zeroes":"String","_io":"String","_name":"String","_rerror_policy":"String","_queues":"String","_iommu":"String","_type":"String","_ats":"String","_discard":"String","_copy_on_read":"String","_error_policy":"String","_ioeventfd":"String","_iothread":"String","_event_idx":"String","_cache":"String"},"serial":{"_type":"String","text":"String"},"backingStore":{"_index":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_dev":"String"},"_type":"String","_file":"String"},"_model":"String","geometry":{"_heads":"String","_secs":"String","_cyls":"String","_trans":"String"}},{"_type":"String","shareable":{},"mirror":{"_job":"String","_ready":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"}},"_snapshot":"String","auth":{"_username":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"blockio":{"_physical_block_size":"String","_logical_block_size":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_controller":"String","_dev":"String"},"_transient":{},"wwn":{"text":"String"},"encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"readonly":{},"vendor":{"text":"String"},"alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_rawio":"String","iotune":{"write_iops_sec_max_length":{"text":"String"},"group_name":{"text":"String"},"write_iops_sec":{"text":"String"},"read_bytes_sec_max":{"text":"String"},"read_bytes_sec_max_length":{"text":"String"},"total_iops_sec":{"text":"String"},"write_iops_sec_max":{"text":"String"},"total_bytes_sec":{"text":"String"},"total_iops_sec_max":{"text":"String"},"total_bytes_sec_max_length":{"text":"String"},"write_bytes_sec":{"text":"String"},"total_bytes_sec_max":{"text":"String"},"write_bytes_sec_max":{"text":"String"},"read_iops_sec_max":{"text":"String"},"read_iops_sec_max_length":{"text":"String"},"size_iops_sec":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"},"total_iops_sec_max_length":{"text":"String"},"write_bytes_sec_max_length":{"text":"String"}},"product":{"text":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_controller":"String","_target":"String","_unit":"String"},"_sgio":"String","_device":"String","target":{"_removable":"String","_tray":"String","_dev":"String","_bus":"String"},"driver":{"_detect_zeroes":"String","_io":"String","_name":"String","_rerror_policy":"String","_queues":"String","_iommu":"String","_type":"String","_ats":"String","_discard":"String","_copy_on_read":"String","_error_policy":"String","_ioeventfd":"String","_iothread":"String","_event_idx":"String","_cache":"String"},"serial":{"_type":"String","text":"String"},"backingStore":{"_index":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_dev":"String"},"_type":"String","_file":"String"},"_model":"String","geometry":{"_heads":"String","_secs":"String","_cyls":"String","_trans":"String"}}],"watchdog":{"address":{},"alias":{"_name":"String"},"_action":"String","_model":"String"},"hub":[{"address":{"_type":"String","_bus":"String","_port":"String"},"_type":"String","alias":{"_name":"String"}},{"address":{"_type":"String","_bus":"String","_port":"String"},"_type":"String","alias":{"_name":"String"}}],"serial":[{"_type":"String","protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","model":{"_name":"String"},"_port":"String"}},{"_type":"String","protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","model":{"_name":"String"},"_port":"String"}}],"lease":[{"lockspace":{"text":"String"},"key":{"text":"String"},"target":{"_offset":"String","_path":"String"}},{"lockspace":{"text":"String"},"key":{"text":"String"},"target":{"_offset":"String","_path":"String"}}]},"resource":{"partition":{"text":"String"}},"on_reboot":{"text":"String"},"_type":"String","cpu":{"cache":{"_level":"String","_mode":"String"},"feature":[{"_name":"String","_policy":"String"},{"_name":"String","_policy":"String"}],"topology":{"_cores":"String","_sockets":"String","_threads":"String"},"vendor":{"text":"String"},"numa":{"cell":[{"_discard":"String","distances":{"sibling":[{"_value":"String","_id":"String"},{"_value":"String","_id":"String"}]},"_memory":"String","_unit":"String","_cpus":"String","_memAccess":"String","_id":"String"},{"_discard":"String","distances":{"sibling":[{"_value":"String","_id":"String"},{"_value":"String","_id":"String"}]},"_memory":"String","_unit":"String","_cpus":"String","_memAccess":"String","_id":"String"}]},"_check":"String","model":{"_fallback":"String","_vendor_id":"String","text":"String"},"_match":"String","_mode":"String"},"clock":{"_basis":"String","timer":[{"_name":"String","catchup":{"_limit":"String","_slew":"String","_threshold":"String"},"_track":"String","_frequency":"String","_present":"String","_tickpolicy":"String","_mode":"String"},{"_name":"String","catchup":{"_limit":"String","_slew":"String","_threshold":"String"},"_track":"String","_frequency":"String","_present":"String","_tickpolicy":"String","_mode":"String"}],"_offset":"String","_adjustment":"String","_timezone":"String"},"vcpus":{"vcpu":[{"_order":"String","_hotpluggable":"String","_id":"String","_enabled":"String"},{"_order":"String","_hotpluggable":"String","_id":"String","_enabled":"String"}]},"cputune":{"global_quota":{"text":"String"},"iothreadpin":[{"_cpuset":"String","_iothread":"String"},{"_cpuset":"String","_iothread":"String"}],"period":{"text":"String"},"emulator_period":{"text":"String"},"emulatorpin":{"_cpuset":"String"},"vcpusched":[{"_scheduler":"String","_vcpus":"String","_priority":"String"},{"_scheduler":"String","_vcpus":"String","_priority":"String"}],"iothreadsched":[{"_scheduler":"String","_iothreads":"String","_priority":"String"},{"_scheduler":"String","_iothreads":"String","_priority":"String"}],"iothread_period":{"text":"String"},"global_period":{"text":"String"},"emulator_quota":{"text":"String"},"shares":{"text":"String"},"vcpupin":[{"_vcpu":"String","_cpuset":"String"},{"_vcpu":"String","_cpuset":"String"}],"cachetune":[{"cache":[{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"},{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"}],"monitor":[{"_level":"String","_vcpus":"String"},{"_level":"String","_vcpus":"String"}],"_vcpus":"String"},{"cache":[{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"},{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"}],"monitor":[{"_level":"String","_vcpus":"String"},{"_level":"String","_vcpus":"String"}],"_vcpus":"String"}],"quota":{"text":"String"},"iothread_quota":{"text":"String"},"memorytune":[{"node":[{"_bandwidth":"String","_id":"String"},{"_bandwidth":"String","_id":"String"}],"_vcpus":"String"},{"node":[{"_bandwidth":"String","_id":"String"},{"_bandwidth":"String","_id":"String"}],"_vcpus":"String"}]},"genid":{"text":"String"},"iothreads":{"text":"String"},"name":{"text":"String"},"currentMemory":{"_unit":"String","text":"String"},"_id":"String","pm":{"suspend_to_disk":{"_enabled":"String"},"suspend_to_mem":{"_enabled":"String"}}},"lifecycle":{"createImage":{"disk":"String","targetPool":"String"},"deleteImage":{},"convertImageToVM":{"targetPool":"String"}}}}
+{"spec":{"domain":{"metadata":{},"memory":{"_unit":"String","text":"String","_dumpCore":"String"},"vcpu":{"_current":"String","_cpuset":"String","_placement":"String","text":"String"},"seclabel":[{"imagelabel":{"text":"String"},"_type":"String","baselabel":{"text":"String"},"_model":"String","label":{"text":"String"},"_relabel":"String"},{"imagelabel":{"text":"String"},"_type":"String","baselabel":{"text":"String"},"_model":"String","label":{"text":"String"},"_relabel":"String"}],"description":{"text":"String"},"title":{"text":"String"},"maxMemory":{"_unit":"String","_slots":"String","text":"String"},"uuid":{"text":"String"},"iothreadids":{"iothread":[{"_id":"String"},{"_id":"String"}]},"features":{"gic":{"_version":"String"},"htm":{"_state":"String"},"capabilities":{"dac_read_Search":{"_state":"String"},"fsetid":{"_state":"String"},"dac_override":{"_state":"String"},"syslog":{"_state":"String"},"_policy":"String","net_raw":{"_state":"String"},"mac_override":{"_state":"String"},"setfcap":{"_state":"String"},"mknod":{"_state":"String"},"sys_time":{"_state":"String"},"sys_tty_config":{"_state":"String"},"net_broadcast":{"_state":"String"},"setpcap":{"_state":"String"},"ipc_lock":{"_state":"String"},"net_bind_service":{"_state":"String"},"wake_alarm":{"_state":"String"},"linux_immutable":{"_state":"String"},"sys_pacct":{"_state":"String"},"ipc_owner":{"_state":"String"},"net_admin":{"_state":"String"},"setgid":{"_state":"String"},"sys_ptrace":{"_state":"String"},"chown":{"_state":"String"},"sys_admin":{"_state":"String"},"sys_module":{"_state":"String"},"sys_nice":{"_state":"String"},"kill":{"_state":"String"},"audit_control":{"_state":"String"},"setuid":{"_state":"String"},"fowner":{"_state":"String"},"sys_resource":{"_state":"String"},"sys_chroot":{"_state":"String"},"sys_rawio":{"_state":"String"},"audit_write":{"_state":"String"},"block_suspend":{"_state":"String"},"lease":{"_state":"String"},"sys_boot":{"_state":"String"},"mac_admin":{"_state":"String"}},"kvm":{"hidden":{"_state":"String"}},"apic":{"_eoi":"String"},"viridian":{},"pvspinlock":{"_state":"String"},"vmport":{"_state":"String"},"vmcoreinfo":{"_state":"String"},"hpt":{"maxpagesize":{"_unit":"String","text":"String"},"_resizing":"String"},"nested_hv":{"_state":"String"},"privnet":{},"smm":{"_state":"String","tseg":{"_unit":"String","text":"String"}},"msrs":{"_unknown":"String"},"pae":{},"acpi":{},"hap":{"_state":"String"},"ioapic":{"_driver":"String"},"pmu":{"_state":"String"},"hyperv":{"vpindex":{"_state":"String"},"ipi":{"_state":"String"},"stimer":{"_state":"String"},"reenlightenment":{"_state":"String"},"runtime":{"_state":"String"},"evmcs":{"_state":"String"},"spinlocks":{"_retries":"String","_state":"String"},"tlbflush":{"_state":"String"},"synic":{"_state":"String"},"relaxed":{"_state":"String"},"vapic":{"_state":"String"},"vendor_id":{"_value":"String"},"reset":{"_state":"String"},"frequencies":{"_state":"String"}}},"on_crash":{"text":"String"},"blkiotune":{"weight":{"text":"String"},"device":[{"path":{"text":"String"},"write_bytes_sec":{"text":"String"},"write_iops_sec":{"text":"String"},"weight":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"}},{"path":{"text":"String"},"write_bytes_sec":{"text":"String"},"write_iops_sec":{"text":"String"},"weight":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"}}]},"bootloader":{"text":"String"},"idmap":{"uid":[{"_count":"String","_start":"String","_target":"String"},{"_count":"String","_start":"String","_target":"String"}],"gid":[{"_count":"String","_start":"String","_target":"String"},{"_count":"String","_start":"String","_target":"String"}]},"sysinfo":{"memory":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}],"system":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"baseBoard":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}],"bios":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"_type":"String","chassis":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"oemStrings":{"entry":{"text":"String"}},"processor":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}]},"memtune":{"soft_limit":{"_unit":"String","text":"String"},"min_guarantee":{"_unit":"String","text":"String"},"swap_hard_limit":{"_unit":"String","text":"String"},"hard_limit":{"_unit":"String","text":"String"}},"numatune":{"memnode":[{"_nodeset":"String","_cellid":"String","_mode":"String"},{"_nodeset":"String","_cellid":"String","_mode":"String"}],"memory":{"_nodeset":"String","_placement":"String","_mode":"String"}},"keywrap":{"cipher":[{"_name":"String","_state":"String"},{"_name":"String","_state":"String"}]},"memoryBacking":{"hugepages":{"page":[{"_size":"String","_unit":"String","_nodeset":"String"},{"_size":"String","_unit":"String","_nodeset":"String"}]},"discard":{},"allocation":{"_mode":"String"},"access":{"_mode":"String"},"nosharepages":{},"source":{"_type":"String"},"locked":{}},"perf":{"event":[{"_name":"String","_enabled":"String"},{"_name":"String","_enabled":"String"}]},"launchSecurity":{},"on_poweroff":{"text":"String"},"bootloader_args":{"text":"String"},"os":{"init":{"text":"String"},"bios":{"_rebootTimeout":"String","_useserial":"String"},"kernel":{"text":"String"},"loader":{"text":"String","_type":"String","_readonly":"String"},"initarg":{"text":"String"},"type":{"_machine":"String","text":"String","_arch":"String"},"initrd":{"text":"String"},"smbios":{"_mode":"String"},"cmdline":{"text":"String"},"dtb":{"text":"String"},"nvram":{"text":"String"},"inituser":{"text":"String"},"acpi":{"table":[{"_type":"String","text":"String"},{"_type":"String","text":"String"}]},"bootmenu":{"_enable":"String","_timeout":"String"},"initgroup":{"text":"String"},"boot":[{"_dev":"String"},{"_dev":"String"}],"initdir":{"text":"String"},"initenv":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"devices":{"memory":[{"_discard":"String","address":{},"_access":"String","alias":{"_name":"String"},"_model":"String","source":{"path":{"text":"String"},"pmem":{},"alignsize":{"_unit":"String","text":"String"},"nodemask":{"text":"String"},"pagesize":{"_unit":"String","text":"String"}},"target":{"node":{"text":"String"},"readonly":{},"size":{"_unit":"String","text":"String"},"label":{"size":{"_unit":"String","text":"String"}}}},{"_discard":"String","address":{},"_access":"String","alias":{"_name":"String"},"_model":"String","source":{"path":{"text":"String"},"pmem":{},"alignsize":{"_unit":"String","text":"String"},"nodemask":{"text":"String"},"pagesize":{"_unit":"String","text":"String"}},"target":{"node":{"text":"String"},"readonly":{},"size":{"_unit":"String","text":"String"},"label":{"size":{"_unit":"String","text":"String"}}}}],"redirfilter":[{"usbdev":[{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"},{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"}]},{"usbdev":[{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"},{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"}]}],"sound":[{"codec":[{"_type":"String"},{"_type":"String"}],"address":{"_type":"String","_slot":"String","_bus":"String","_function":"String","_domain":"String"},"alias":{"_name":"String"},"_model":"String"},{"codec":[{"_type":"String"},{"_type":"String"}],"address":{"_type":"String","_slot":"String","_bus":"String","_function":"String","_domain":"String"},"alias":{"_name":"String"},"_model":"String"}],"channel":[{"_type":"String","protocol":{"_type":"String"},"address":{"_bus":"String","_controller":"String","_port":"String","_type":"String"},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_mode":"String","_path":"String"},"target":{"_name":"String","_state":"String","_type":"String"}},{"_type":"String","protocol":{"_type":"String"},"address":{"_bus":"String","_controller":"String","_port":"String","_type":"String"},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_mode":"String","_path":"String"},"target":{"_name":"String","_state":"String","_type":"String"}}],"memballoon":{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"stats":{"_period":"String"},"alias":{"_name":"String"},"_model":"String","_autodeflate":"String"},"graphics":[{"_autoport":"String","_listen":"String","_port":"String","_type":"String","listen":{"_address":"String","_type":"String"},"image":{"_compression":"String"}},{"_autoport":"String","_listen":"String","_port":"String","_type":"String","listen":{"_address":"String","_type":"String"},"image":{"_compression":"String"}}],"video":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_vgaconf":"String","_iommu":"String","_ats":"String"},"alias":{"_name":"String"},"model":{"_heads":"String","_vgamem":"String","acceleration":{"_accel3d":"String","_accel2d":"String"},"_ram":"String","_vram":"String","_vram64":"String","_type":"String","_primary":"String"}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_vgaconf":"String","_iommu":"String","_ats":"String"},"alias":{"_name":"String"},"model":{"_heads":"String","_vgamem":"String","acceleration":{"_accel3d":"String","_accel2d":"String"},"_ram":"String","_vram":"String","_vram64":"String","_type":"String","_primary":"String"}}],"_interface":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"bandwidth":{"inbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"},"outbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"}},"ip":[{"_address":"String","_prefix":"String","_family":"String","_peer":"String"},{"_address":"String","_prefix":"String","_family":"String","_peer":"String"}],"coalesce":{"rx":{"frames":{"_max":"String"}}},"link":{"_state":"String"},"source":{"_type":"String","_dev":"String","_path":"String","_mode":"String","_bridge":"String","_network":"String"},"filterref":{"parameter":[{"_name":"String","_value":"String"},{"_name":"String","_value":"String"}],"_filter":"String"},"mac":{"_address":"String"},"script":{"_path":"String"},"tune":{"sndbuf":{"text":"String"}},"mtu":{"_size":"String"},"target":{"_dev":"String"},"rom":{"_file":"String","_bar":"String","_enabled":"String"},"route":[{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"},{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"}],"driver":{"_name":"String","_queues":"String","_txmode":"String","_tx_queue_size":"String","_iommu":"String","host":{"_tso4":"String","_ufo":"String","_tso6":"String","_mrg_rxbuf":"String","_gso":"String","_ecn":"String","_csum":"String"},"_ioeventfd":"String","guest":{"_tso4":"String","_ufo":"String","_tso6":"String","_ecn":"String","_csum":"String"},"_event_idx":"String","_ats":"String","_rx_queue_size":"String"},"vlan":{"_trunk":"String"},"_managed":"String","_trustGuestRxFilters":"String","alias":{"_name":"String"},"backend":{"_vhost":"String","_tap":"String"},"guest":{"_actual":"String","_dev":"String"},"model":{"_type":"String"},"boot":{"_loadparm":"String","_order":"String"},"_type":"String","virtualport":{"_type":"String","parameters":{"__interfaceid":"String","_profileid":"String"}}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"bandwidth":{"inbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"},"outbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"}},"ip":[{"_address":"String","_prefix":"String","_family":"String","_peer":"String"},{"_address":"String","_prefix":"String","_family":"String","_peer":"String"}],"coalesce":{"rx":{"frames":{"_max":"String"}}},"link":{"_state":"String"},"source":{"_type":"String","_dev":"String","_path":"String","_mode":"String","_bridge":"String","_network":"String"},"filterref":{"parameter":[{"_name":"String","_value":"String"},{"_name":"String","_value":"String"}],"_filter":"String"},"mac":{"_address":"String"},"script":{"_path":"String"},"tune":{"sndbuf":{"text":"String"}},"mtu":{"_size":"String"},"target":{"_dev":"String"},"rom":{"_file":"String","_bar":"String","_enabled":"String"},"route":[{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"},{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"}],"driver":{"_name":"String","_queues":"String","_txmode":"String","_tx_queue_size":"String","_iommu":"String","host":{"_tso4":"String","_ufo":"String","_tso6":"String","_mrg_rxbuf":"String","_gso":"String","_ecn":"String","_csum":"String"},"_ioeventfd":"String","guest":{"_tso4":"String","_ufo":"String","_tso6":"String","_ecn":"String","_csum":"String"},"_event_idx":"String","_ats":"String","_rx_queue_size":"String"},"vlan":{"_trunk":"String"},"_managed":"String","_trustGuestRxFilters":"String","alias":{"_name":"String"},"backend":{"_vhost":"String","_tap":"String"},"guest":{"_actual":"String","_dev":"String"},"model":{"_type":"String"},"boot":{"_loadparm":"String","_order":"String"},"_type":"String","virtualport":{"_type":"String","parameters":{"__interfaceid":"String","_profileid":"String"}}}],"vsock":{"address":{},"alias":{"_name":"String"},"_model":"String","cid":{"_address":"String","_auto":"String"}},"hostdev":[{"rom":{"_file":"String","_bar":"String","_enabled":"String"},"address":{"_bus":"String","_device":"String","_type":"String","_port":"String","_domain":"String","_slot":"String","_function":"String"},"_managed":"String","alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_mode":"String","_type":"String","source":{"address":{"_bus":"String","_device":"String","_domain":"String","_slot":"String","_function":"String"}},"driver":{"_name":"String"}},{"rom":{"_file":"String","_bar":"String","_enabled":"String"},"address":{"_bus":"String","_device":"String","_type":"String","_port":"String","_domain":"String","_slot":"String","_function":"String"},"_managed":"String","alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_mode":"String","_type":"String","source":{"address":{"_bus":"String","_device":"String","_domain":"String","_slot":"String","_function":"String"}},"driver":{"_name":"String"}}],"nvram":{"address":{},"alias":{"_name":"String"}},"iommu":{"driver":{"_caching_mode":"String","_eim":"String","_iotlb":"String","_intremap":"String"},"_model":"String"},"parallel":[{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{},"target":{"_type":"String","_port":"String"}},{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{},"target":{"_type":"String","_port":"String"}}],"console":[{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"_tty":"String","_type":"String","alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","_port":"String"}},{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"_tty":"String","_type":"String","alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","_port":"String"}}],"controller":[{"master":{"_startport":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_multifunction":"String"},"_index":"String","driver":{"_max_sectors":"String","_queues":"String","_iommu":"String","_ioeventfd":"String","_iothread":"String","_cmd_per_lun":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","target":{"_chassis":"String","_chassisNr":"String","_port":"String"},"model":{"model":"String","_name":"String"}},{"master":{"_startport":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_multifunction":"String"},"_index":"String","driver":{"_max_sectors":"String","_queues":"String","_iommu":"String","_ioeventfd":"String","_iothread":"String","_cmd_per_lun":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","target":{"_chassis":"String","_chassisNr":"String","_port":"String"},"model":{"model":"String","_name":"String"}}],"shmem":[{"server":{"_path":"String"},"msi":{"_vectors":"String","_ioeventfd":"String","_enabled":"String"},"address":{},"_name":"String","size":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"model":{"_type":"String"}},{"server":{"_path":"String"},"msi":{"_vectors":"String","_ioeventfd":"String","_enabled":"String"},"address":{},"_name":"String","size":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"model":{"_type":"String"}}],"redirdev":[{"protocol":{"_type":"String"},"address":{"_bus":"String","_type":"String","_port":"String"},"alias":{"_name":"String"},"source":{},"boot":{"_loadparm":"String","_order":"String"},"_bus":"String","_type":"String"},{"protocol":{"_type":"String"},"address":{"_bus":"String","_type":"String","_port":"String"},"alias":{"_name":"String"},"source":{},"boot":{"_loadparm":"String","_order":"String"},"_bus":"String","_type":"String"}],"rng":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"rate":{"_period":"String","_bytes":"String"},"alias":{"_name":"String"},"_model":"String","backend":{"_model":"String","text":"String"}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"rate":{"_period":"String","_bytes":"String"},"alias":{"_name":"String"},"_model":"String","backend":{"_model":"String","text":"String"}}],"smartcard":[{"database":{"text":"String"},"protocol":{"_type":"String"},"address":{},"certificate":[{"text":"String"},{"text":"String"}],"alias":{"_name":"String"},"source":{}},{"database":{"text":"String"},"protocol":{"_type":"String"},"address":{},"certificate":[{"text":"String"},{"text":"String"}],"alias":{"_name":"String"},"source":{}}],"filesystem":[{"_accessmode":"String","address":{},"driver":{"_name":"String","_iommu":"String","_type":"String","_format":"String","_wrpolicy":"String","_ats":"String"},"readonly":{},"space_hard_limit":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"_model":"String","source":{},"space_soft_limit":{"_unit":"String","text":"String"},"target":{"_dir":"String"}},{"_accessmode":"String","address":{},"driver":{"_name":"String","_iommu":"String","_type":"String","_format":"String","_wrpolicy":"String","_ats":"String"},"readonly":{},"space_hard_limit":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"_model":"String","source":{},"space_soft_limit":{"_unit":"String","text":"String"},"target":{"_dir":"String"}}],"panic":[{"address":{},"alias":{"_name":"String"},"_model":"String"},{"address":{},"alias":{"_name":"String"},"_model":"String"}],"tpm":[{"address":{},"alias":{"_name":"String"},"_model":"String","backend":{}},{"address":{},"alias":{"_name":"String"},"_model":"String","backend":{}}],"emulator":{"text":"String"},"input":[{"address":{"_bus":"String","_port":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","source":{"_evdev":"String"},"_bus":"String"},{"address":{"_bus":"String","_port":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","source":{"_evdev":"String"},"_bus":"String"}],"disk":[{"_type":"String","shareable":{},"mirror":{"_job":"String","_ready":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"}},"_snapshot":"String","auth":{"_username":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"blockio":{"_physical_block_size":"String","_logical_block_size":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_controller":"String","_dev":"String"},"_transient":{},"wwn":{"text":"String"},"encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"readonly":{},"vendor":{"text":"String"},"alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_rawio":"String","iotune":{"write_iops_sec_max_length":{"text":"String"},"group_name":{"text":"String"},"write_iops_sec":{"text":"String"},"read_bytes_sec_max":{"text":"String"},"read_bytes_sec_max_length":{"text":"String"},"total_iops_sec":{"text":"String"},"write_iops_sec_max":{"text":"String"},"total_bytes_sec":{"text":"String"},"total_iops_sec_max":{"text":"String"},"total_bytes_sec_max_length":{"text":"String"},"write_bytes_sec":{"text":"String"},"total_bytes_sec_max":{"text":"String"},"write_bytes_sec_max":{"text":"String"},"read_iops_sec_max":{"text":"String"},"read_iops_sec_max_length":{"text":"String"},"size_iops_sec":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"},"total_iops_sec_max_length":{"text":"String"},"write_bytes_sec_max_length":{"text":"String"}},"product":{"text":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_controller":"String","_target":"String","_unit":"String"},"_sgio":"String","_device":"String","target":{"_removable":"String","_tray":"String","_dev":"String","_bus":"String"},"driver":{"_detect_zeroes":"String","_io":"String","_name":"String","_rerror_policy":"String","_queues":"String","_iommu":"String","_type":"String","_ats":"String","_discard":"String","_copy_on_read":"String","_error_policy":"String","_ioeventfd":"String","_iothread":"String","_event_idx":"String","_cache":"String"},"serial":{"_type":"String","text":"String"},"backingStore":{"_index":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_dev":"String"},"_type":"String","_file":"String"},"_model":"String","geometry":{"_heads":"String","_secs":"String","_cyls":"String","_trans":"String"}},{"_type":"String","shareable":{},"mirror":{"_job":"String","_ready":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"}},"_snapshot":"String","auth":{"_username":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"blockio":{"_physical_block_size":"String","_logical_block_size":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_controller":"String","_dev":"String"},"_transient":{},"wwn":{"text":"String"},"encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"readonly":{},"vendor":{"text":"String"},"alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_rawio":"String","iotune":{"write_iops_sec_max_length":{"text":"String"},"group_name":{"text":"String"},"write_iops_sec":{"text":"String"},"read_bytes_sec_max":{"text":"String"},"read_bytes_sec_max_length":{"text":"String"},"total_iops_sec":{"text":"String"},"write_iops_sec_max":{"text":"String"},"total_bytes_sec":{"text":"String"},"total_iops_sec_max":{"text":"String"},"total_bytes_sec_max_length":{"text":"String"},"write_bytes_sec":{"text":"String"},"total_bytes_sec_max":{"text":"String"},"write_bytes_sec_max":{"text":"String"},"read_iops_sec_max":{"text":"String"},"read_iops_sec_max_length":{"text":"String"},"size_iops_sec":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"},"total_iops_sec_max_length":{"text":"String"},"write_bytes_sec_max_length":{"text":"String"}},"product":{"text":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_controller":"String","_target":"String","_unit":"String"},"_sgio":"String","_device":"String","target":{"_removable":"String","_tray":"String","_dev":"String","_bus":"String"},"driver":{"_detect_zeroes":"String","_io":"String","_name":"String","_rerror_policy":"String","_queues":"String","_iommu":"String","_type":"String","_ats":"String","_discard":"String","_copy_on_read":"String","_error_policy":"String","_ioeventfd":"String","_iothread":"String","_event_idx":"String","_cache":"String"},"serial":{"_type":"String","text":"String"},"backingStore":{"_index":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_dev":"String"},"_type":"String","_file":"String"},"_model":"String","geometry":{"_heads":"String","_secs":"String","_cyls":"String","_trans":"String"}}],"watchdog":{"address":{},"alias":{"_name":"String"},"_action":"String","_model":"String"},"hub":[{"address":{"_type":"String","_bus":"String","_port":"String"},"_type":"String","alias":{"_name":"String"}},{"address":{"_type":"String","_bus":"String","_port":"String"},"_type":"String","alias":{"_name":"String"}}],"serial":[{"_type":"String","protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","model":{"_name":"String"},"_port":"String"}},{"_type":"String","protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","model":{"_name":"String"},"_port":"String"}}],"lease":[{"lockspace":{"text":"String"},"key":{"text":"String"},"target":{"_offset":"String","_path":"String"}},{"lockspace":{"text":"String"},"key":{"text":"String"},"target":{"_offset":"String","_path":"String"}}]},"resource":{"partition":{"text":"String"}},"on_reboot":{"text":"String"},"_type":"String","cpu":{"cache":{"_level":"String","_mode":"String"},"feature":[{"_name":"String","_policy":"String"},{"_name":"String","_policy":"String"}],"topology":{"_cores":"String","_sockets":"String","_threads":"String"},"vendor":{"text":"String"},"numa":{"cell":[{"_discard":"String","distances":{"sibling":[{"_value":"String","_id":"String"},{"_value":"String","_id":"String"}]},"_memory":"String","_unit":"String","_cpus":"String","_memAccess":"String","_id":"String"},{"_discard":"String","distances":{"sibling":[{"_value":"String","_id":"String"},{"_value":"String","_id":"String"}]},"_memory":"String","_unit":"String","_cpus":"String","_memAccess":"String","_id":"String"}]},"_check":"String","model":{"_fallback":"String","_vendor_id":"String","text":"String"},"_match":"String","_mode":"String","_migratable":"String"},"clock":{"_basis":"String","timer":[{"_name":"String","catchup":{"_limit":"String","_slew":"String","_threshold":"String"},"_track":"String","_frequency":"String","_present":"String","_tickpolicy":"String","_mode":"String"},{"_name":"String","catchup":{"_limit":"String","_slew":"String","_threshold":"String"},"_track":"String","_frequency":"String","_present":"String","_tickpolicy":"String","_mode":"String"}],"_offset":"String","_adjustment":"String","_timezone":"String"},"vcpus":{"vcpu":[{"_order":"String","_hotpluggable":"String","_id":"String","_enabled":"String"},{"_order":"String","_hotpluggable":"String","_id":"String","_enabled":"String"}]},"cputune":{"global_quota":{"text":"String"},"iothreadpin":[{"_cpuset":"String","_iothread":"String"},{"_cpuset":"String","_iothread":"String"}],"period":{"text":"String"},"emulator_period":{"text":"String"},"emulatorpin":{"_cpuset":"String"},"vcpusched":[{"_scheduler":"String","_vcpus":"String","_priority":"String"},{"_scheduler":"String","_vcpus":"String","_priority":"String"}],"iothreadsched":[{"_scheduler":"String","_iothreads":"String","_priority":"String"},{"_scheduler":"String","_iothreads":"String","_priority":"String"}],"iothread_period":{"text":"String"},"global_period":{"text":"String"},"emulator_quota":{"text":"String"},"shares":{"text":"String"},"vcpupin":[{"_vcpu":"String","_cpuset":"String"},{"_vcpu":"String","_cpuset":"String"}],"cachetune":[{"cache":[{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"},{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"}],"monitor":[{"_level":"String","_vcpus":"String"},{"_level":"String","_vcpus":"String"}],"_vcpus":"String"},{"cache":[{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"},{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"}],"monitor":[{"_level":"String","_vcpus":"String"},{"_level":"String","_vcpus":"String"}],"_vcpus":"String"}],"quota":{"text":"String"},"iothread_quota":{"text":"String"},"memorytune":[{"node":[{"_bandwidth":"String","_id":"String"},{"_bandwidth":"String","_id":"String"}],"_vcpus":"String"},{"node":[{"_bandwidth":"String","_id":"String"},{"_bandwidth":"String","_id":"String"}],"_vcpus":"String"}]},"genid":{"text":"String"},"iothreads":{"text":"String"},"name":{"text":"String"},"currentMemory":{"_unit":"String","text":"String"},"_id":"String","pm":{"suspend_to_disk":{"_enabled":"String"},"suspend_to_mem":{"_enabled":"String"}}},"lifecycle":{"createImage":{"disk":"String","targetPool":"String"},"deleteImage":{},"convertImageToVM":{"targetPool":"String"}},"status":{"apiVersion":"String","kind":"String","metadata":{},"code":1,"details":{"kind":"String","causes":[{"field":"String","message":"String","reason":"String"},{"field":"String","message":"String","reason":"String"}],"group":"String","name":"String","retryAfterSeconds":1,"uid":"String"},"message":"String","reason":"String","status":"String"}}}
 ```
 # 3 VirtualMachineDisk
 
@@ -2852,13 +2853,13 @@
 ## 3.1 DeleteDisk(删除云盘)
 
 **接口功能:**
-	删除云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
+云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.DeleteDisk
+io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.DeleteDisk
 
 **参数描述:**
 
@@ -2898,13 +2899,13 @@
 ## 3.2 ResizeDisk(调整云盘大小)
 
 **接口功能:**
-	调整云盘大小，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+调整云盘大小，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
+云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.ResizeDisk
+io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.ResizeDisk
 
 **参数描述:**
 
@@ -2945,13 +2946,13 @@
 ## 3.3 CreateDisk(创建云盘)
 
 **接口功能:**
-	创建云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+创建云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	
+
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.CreateDisk
+io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.CreateDisk
 
 **参数描述:**
 
@@ -2994,13 +2995,13 @@
 ## 3.4 CreateDiskFromDiskImage(从镜像创建云盘)
 
 **接口功能:**
-	从镜像创建云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+从镜像创建云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	
+
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.CreateDiskFromDiskImage
+io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.CreateDiskFromDiskImage
 
 **参数描述:**
 
@@ -3043,13 +3044,13 @@
 ## 3.5 CloneDisk(克隆云盘)
 
 **接口功能:**
-	克隆云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+克隆云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
+云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.CloneDisk
+io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.CloneDisk
 
 **参数描述:**
 
@@ -3091,13 +3092,13 @@
 ## 3.6 MigrateDisk(迁移云盘)
 
 **接口功能:**
-	迁移云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+迁移云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
+云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.MigrateDisk
+io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.MigrateDisk
 
 **参数描述:**
 
@@ -3136,13 +3137,13 @@
 ## 3.7 CreateDiskInternalSnapshot(创建云盘内部快照)
 
 **接口功能:**
-	创建云盘内部快照，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+创建云盘内部快照，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
+云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.CreateDiskInternalSnapshot
+io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.CreateDiskInternalSnapshot
 
 **参数描述:**
 
@@ -3184,13 +3185,13 @@
 ## 3.8 RevertDiskInternalSnapshot(从云盘内部快照恢复)
 
 **接口功能:**
-	从云盘内部快照恢复，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+从云盘内部快照恢复，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
+云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.RevertDiskInternalSnapshot
+io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.RevertDiskInternalSnapshot
 
 **参数描述:**
 
@@ -3231,13 +3232,13 @@
 ## 3.9 DeleteDiskInternalSnapshot(删除云盘内部快照)
 
 **接口功能:**
-	删除云盘内部快照，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除云盘内部快照，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
+云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.DeleteDiskInternalSnapshot
+io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.DeleteDiskInternalSnapshot
 
 **参数描述:**
 
@@ -3278,13 +3279,13 @@
 ## 3.10 BackupDisk(备份云盘)
 
 **接口功能:**
-	备份云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+备份云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
+云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.BackupDisk
+io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.BackupDisk
 
 **参数描述:**
 
@@ -3330,13 +3331,13 @@
 ## 3.11 CreateCloudInitUserDataImage(创建cloud-init的镜像文件)
 
 **接口功能:**
-	创建云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+创建云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	
+
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.CreateCloudInitUserDataImage
+io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.CreateCloudInitUserDataImage
 
 **参数描述:**
 
@@ -3377,13 +3378,13 @@
 ## 3.12 DeleteCloudInitUserDataImage(删除cloud-init的镜像文件)
 
 **接口功能:**
-	创建云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+创建云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	
+
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.DeleteCloudInitUserDataImage
+io.github.kubestack.client.api.specs.vms.virtualmachinedisk.Lifecycle.DeleteCloudInitUserDataImage
 
 **参数描述:**
 
@@ -3422,7 +3423,7 @@
 ## **返回值:**
 
 ```
-{"spec":{"volume":{"actual_size":"String","backing_filename":"String","backing_filename_format":"String","cluster_size":"String","current":"String","dirty_flag":"String","disk":"String","filename":"String","format":"String","format_specific":{"data":{"compat":"String","corrupt":true,"lazy_refcounts":true,"refcount_bits":"String"},"type":"String"},"full_backing_filename":"String","virtual_size":"String","pool":"String","uni":"String","disktype":"String","poolname":"String"},"lifecycle":{"deleteDisk":{"type":"String","pool":"String"},"resizeDisk":{"type":"String","allocate":true,"shrink":true,"delta":true,"pool":"String","capacity":"String"},"createDisk":{"type":"String","allocation":"String","prealloc_metadata":true,"format":"String","pool":"String","capacity":"String"},"createDiskFromDiskImage":{"type":"String","targetPool":"String","source":"String","full_copy":true},"cloneDisk":{"type":"String","reflink":true,"prealloc_metadata":true,"pool":"String","newname":"String","format":"String"},"migrateDisk":{"pool":"String"},"createDiskInternalSnapshot":{"type":"String","pool":"String","snapshotname":"String"},"revertDiskInternalSnapshot":{"type":"String","pool":"String","snapshotname":"String"},"deleteDiskInternalSnapshot":{"type":"String","pool":"String","snapshotname":"String"},"backupDisk":{"domain":"String","pool":"String","version":"String","full":true,"remote":"String","port":"String","username":"String","password":"String"},"createCloudInitUserDataImage":{"pool":"String","userData":"String"},"deleteCloudInitUserDataImage":{"pool":"String"},"createDiskSnapshot":{"type":"String","pool":"String","snapshotname":"String"},"revertDiskSnapshot":{"type":"String","pool":"String","snapshotname":"String"},"deleteDiskSnapshot":{"type":"String","pool":"String","snapshotname":"String"}}}}
+{"spec":{"volume":{"actual_size":"String","backing_filename":"String","backing_filename_format":"String","cluster_size":"String","current":"String","dirty_flag":"String","disk":"String","filename":"String","format":"String","format_specific":{"data":{"compat":"String","corrupt":true,"lazy_refcounts":true,"refcount_bits":"String"},"type":"String"},"full_backing_filename":"String","virtual_size":"String","pool":"String","uni":"String","disktype":"String","poolname":"String","vm":"String"},"lifecycle":{"deleteDisk":{"type":"String","pool":"String"},"resizeDisk":{"type":"String","allocate":true,"shrink":true,"delta":true,"pool":"String","capacity":"String"},"createDisk":{"type":"String","allocation":"String","prealloc_metadata":true,"format":"String","pool":"String","capacity":"String"},"createDiskFromDiskImage":{"type":"String","targetPool":"String","source":"String","full_copy":true},"cloneDisk":{"type":"String","reflink":true,"prealloc_metadata":true,"pool":"String","newname":"String","format":"String"},"migrateDisk":{"pool":"String"},"createDiskInternalSnapshot":{"type":"String","pool":"String","snapshotname":"String"},"revertDiskInternalSnapshot":{"type":"String","pool":"String","snapshotname":"String"},"deleteDiskInternalSnapshot":{"type":"String","pool":"String","snapshotname":"String"},"backupDisk":{"domain":"String","pool":"String","version":"String","full":true,"remote":"String","port":"String","username":"String","password":"String"},"createCloudInitUserDataImage":{"pool":"String","userData":"String"},"deleteCloudInitUserDataImage":{"pool":"String"},"revertDiskSnapshot":{"type":"String","pool":"String","snapshotname":"String"},"deleteDiskSnapshot":{"type":"String","pool":"String","snapshotname":"String"},"createDiskSnapshot":{"type":"String","pool":"String","snapshotname":"String"}},"status":{"apiVersion":"String","kind":"String","metadata":{},"code":1,"details":{"kind":"String","causes":[{"field":"String","message":"String","reason":"String"},{"field":"String","message":"String","reason":"String"}],"group":"String","name":"String","retryAfterSeconds":1,"uid":"String"},"message":"String","reason":"String","status":"String"}}}
 ```
 # 4 VirtualMachineDiskImage
 
@@ -3431,13 +3432,13 @@
 ## 4.1 CreateDiskImageFromDisk(从云盘创建云盘镜像)
 
 **接口功能:**
-	从云盘创建云盘镜像，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+从云盘创建云盘镜像，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
+云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinediskimage.Lifecycle.CreateDiskImageFromDisk
+io.github.kubestack.client.api.specs.vms.virtualmachinediskimage.Lifecycle.CreateDiskImageFromDisk
 
 **参数描述:**
 
@@ -3479,13 +3480,13 @@
 ## 4.2 CreateDiskImage(创建云盘镜像)
 
 **接口功能:**
-	创建云盘镜像，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+创建云盘镜像，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	
+
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinediskimage.Lifecycle.CreateDiskImage
+io.github.kubestack.client.api.specs.vms.virtualmachinediskimage.Lifecycle.CreateDiskImage
 
 **参数描述:**
 
@@ -3500,6 +3501,8 @@
 
 | name | type | required | description | constraint | example |
 | ----- | ------ | ------ | ------ | ------ | ------ |
+| imageType|String|true|磁盘镜像类型|iso or qcow2|iso|
+| source|String|true|要转化为云盘镜像的源文件路径|路径必须在/var/lib/libvirt下，18-1024位，只允许小写、字母、中划线和圆点|/var/lib/libvirt/test.qcow2|
 | targetPool|String|true|目标存储池名|由4-100位的数字和小写字母组成，已创建出的存储池|pool2|
 |  |  |  |  |  |
 
@@ -3525,13 +3528,13 @@
 ## 4.3 DeleteDiskImage(删除云盘镜像)
 
 **接口功能:**
-	删除云盘镜像，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除云盘镜像，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘镜像存在，即已调用过CreateDiskImage/ConvertDiskToDiskImage
+云盘镜像存在，即已调用过CreateDiskImage/ConvertDiskToDiskImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinediskimage.Lifecycle.DeleteDiskImage
+io.github.kubestack.client.api.specs.vms.virtualmachinediskimage.Lifecycle.DeleteDiskImage
 
 **参数描述:**
 
@@ -3570,7 +3573,7 @@
 ## **返回值:**
 
 ```
-{"spec":{"volume":{},"lifecycle":{"createDiskImageFromDisk":{"targetPool":"String","sourcePool":"String","sourceVolume":"String"},"createDiskImage":{"targetPool":"String"},"deleteDiskImage":{"sourcePool":"String"}}}}
+{"spec":{"volume":{},"lifecycle":{"createDiskImageFromDisk":{"targetPool":"String","sourcePool":"String","sourceVolume":"String"},"createDiskImage":{"imageType":"String","source":"String","targetPool":"String"},"deleteDiskImage":{"sourcePool":"String"}},"status":{"apiVersion":"String","kind":"String","metadata":{},"code":1,"details":{"kind":"String","causes":[{"field":"String","message":"String","reason":"String"},{"field":"String","message":"String","reason":"String"}],"group":"String","name":"String","retryAfterSeconds":1,"uid":"String"},"message":"String","reason":"String","status":"String"}}}
 ```
 # 5 VirtualMachineDiskSnapshot
 
@@ -3579,13 +3582,13 @@
 ## 5.1 CreateDiskExternalSnapshot(创建云盘外部快照)
 
 **接口功能:**
-	创建云盘外部快照，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+创建云盘外部快照，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘快照存在，即已调用过CreateDiskExternalSnapshot
+云盘快照存在，即已调用过CreateDiskExternalSnapshot
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinedisksnapshot.Lifecycle.CreateDiskExternalSnapshot
+io.github.kubestack.client.api.specs.vms.virtualmachinedisksnapshot.Lifecycle.CreateDiskExternalSnapshot
 
 **参数描述:**
 
@@ -3629,13 +3632,13 @@
 ## 5.2 RevertDiskExternalSnapshot(从云盘外部快照恢复)
 
 **接口功能:**
-	从云盘外部快照恢复，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+从云盘外部快照恢复，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘快照存在，即已调用过CreateDiskExternalSnapshot
+云盘快照存在，即已调用过CreateDiskExternalSnapshot
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinedisksnapshot.Lifecycle.RevertDiskExternalSnapshot
+io.github.kubestack.client.api.specs.vms.virtualmachinedisksnapshot.Lifecycle.RevertDiskExternalSnapshot
 
 **参数描述:**
 
@@ -3678,13 +3681,13 @@
 ## 5.3 DeleteDiskExternalSnapshot(删除云盘外部快照)
 
 **接口功能:**
-	删除云盘外部快照，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除云盘外部快照，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘快照存在，即已调用过CreateDiskExternalSnapshot
+云盘快照存在，即已调用过CreateDiskExternalSnapshot
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinedisksnapshot.Lifecycle.DeleteDiskExternalSnapshot
+io.github.kubestack.client.api.specs.vms.virtualmachinedisksnapshot.Lifecycle.DeleteDiskExternalSnapshot
 
 **参数描述:**
 
@@ -3726,7 +3729,7 @@
 ## **返回值:**
 
 ```
-{"spec":{"volume":{"snapshot":"String"},"lifecycle":{"createDiskExternalSnapshot":{"type":"String","pool":"String","format":"String","vol":"String","domain":"String"},"revertDiskExternalSnapshot":{"type":"String","pool":"String","vol":"String","format":"String","domain":"String"},"deleteDiskExternalSnapshot":{"type":"String","pool":"String","vol":"String","domain":"String"}}}}
+{"spec":{"volume":{"snapshot":"String"},"lifecycle":{"createDiskExternalSnapshot":{"type":"String","pool":"String","format":"String","vol":"String","domain":"String"},"revertDiskExternalSnapshot":{"type":"String","pool":"String","vol":"String","format":"String","domain":"String"},"deleteDiskExternalSnapshot":{"type":"String","pool":"String","vol":"String","domain":"String"}},"status":{"apiVersion":"String","kind":"String","metadata":{},"code":1,"details":{"kind":"String","causes":[{"field":"String","message":"String","reason":"String"},{"field":"String","message":"String","reason":"String"}],"group":"String","name":"String","retryAfterSeconds":1,"uid":"String"},"message":"String","reason":"String","status":"String"}}}
 ```
 # 6 VirtualMachineSnapshot
 
@@ -3735,13 +3738,13 @@
 ## 6.1 DeleteSnapshot(删除虚拟机和挂载到虚拟机的云盘快照)
 
 **接口功能:**
-	删除虚拟机和挂载到虚拟机的云盘快照，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除虚拟机和挂载到虚拟机的云盘快照，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机/云盘快照存在，即已调用过CreateSnapshot
+虚拟机/云盘快照存在，即已调用过CreateSnapshot
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinesnapshot.Lifecycle.DeleteSnapshot
+io.github.kubestack.client.api.specs.vms.virtualmachinesnapshot.Lifecycle.DeleteSnapshot
 
 **参数描述:**
 
@@ -3781,13 +3784,13 @@
 ## 6.2 CreateSnapshot(创建虚拟机快照和挂载到虚拟机的云盘快照)
 
 **接口功能:**
-	创建虚拟机快照和挂载到虚拟机的云盘快照，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+创建虚拟机快照和挂载到虚拟机的云盘快照，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	
+
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinesnapshot.Lifecycle.CreateSnapshot
+io.github.kubestack.client.api.specs.vms.virtualmachinesnapshot.Lifecycle.CreateSnapshot
 
 **参数描述:**
 
@@ -3829,13 +3832,13 @@
 ## 6.3 RevertVirtualMachine(恢复成虚拟机和挂载到虚拟机的云盘快照)
 
 **接口功能:**
-	恢复成虚拟机和挂载到虚拟机的云盘快照，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+恢复成虚拟机和挂载到虚拟机的云盘快照，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机/云盘快照存在，即已调用过CreateSnapshot
+虚拟机/云盘快照存在，即已调用过CreateSnapshot
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinesnapshot.Lifecycle.RevertVirtualMachine
+io.github.kubestack.client.api.specs.vms.virtualmachinesnapshot.Lifecycle.RevertVirtualMachine
 
 **参数描述:**
 
@@ -3876,13 +3879,13 @@
 ## 6.4 CopySnapshot(全拷贝快照到文件)
 
 **接口功能:**
-	全拷贝快照到文件，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+全拷贝快照到文件，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
+云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinesnapshot.Lifecycle.CopySnapshot
+io.github.kubestack.client.api.specs.vms.virtualmachinesnapshot.Lifecycle.CopySnapshot
 
 **参数描述:**
 
@@ -3923,13 +3926,13 @@
 ## 6.5 MergeSnapshot(合并快照到叶子节点)
 
 **接口功能:**
-	合并快照到叶子节点，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+合并快照到叶子节点，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
+云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinesnapshot.Lifecycle.MergeSnapshot
+io.github.kubestack.client.api.specs.vms.virtualmachinesnapshot.Lifecycle.MergeSnapshot
 
 **参数描述:**
 
@@ -3969,7 +3972,7 @@
 ## **返回值:**
 
 ```
-{"spec":{"domainsnapshot":{"cookie":{"cpu":{"_check":"String","_match":"String","_mode":"String","feature":[{"_name":"String","_policy":"String"},{"_name":"String","_policy":"String"}],"model":{"_fallback":"String","text":"String"}}},"parent":{"name":{"text":"String"}},"memory":{"_file":"String","_snapshot":"String"},"creationTime":{"text":"String"},"disks":{"disk":[{"_snapshot":"String","_name":"String","driver":{"_type":"String"},"source":{"_index":"String","_file":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"},"_type":"String"},{"_snapshot":"String","_name":"String","driver":{"_type":"String"},"source":{"_index":"String","_file":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"},"_type":"String"}]},"domain":{"metadata":{},"memory":{"_unit":"String","text":"String","_dumpCore":"String"},"vcpu":{"_current":"String","_cpuset":"String","_placement":"String","text":"String"},"seclabel":[{"imagelabel":{"text":"String"},"_type":"String","baselabel":{"text":"String"},"_model":"String","label":{"text":"String"},"_relabel":"String"},{"imagelabel":{"text":"String"},"_type":"String","baselabel":{"text":"String"},"_model":"String","label":{"text":"String"},"_relabel":"String"}],"description":{"text":"String"},"title":{"text":"String"},"maxMemory":{"_unit":"String","_slots":"String","text":"String"},"uuid":{"text":"String"},"iothreadids":{"iothread":[{"_id":"String"},{"_id":"String"}]},"features":{"gic":{"_version":"String"},"htm":{"_state":"String"},"capabilities":{"dac_read_Search":{"_state":"String"},"fsetid":{"_state":"String"},"dac_override":{"_state":"String"},"syslog":{"_state":"String"},"_policy":"String","net_raw":{"_state":"String"},"mac_override":{"_state":"String"},"setfcap":{"_state":"String"},"mknod":{"_state":"String"},"sys_time":{"_state":"String"},"sys_tty_config":{"_state":"String"},"net_broadcast":{"_state":"String"},"setpcap":{"_state":"String"},"ipc_lock":{"_state":"String"},"net_bind_service":{"_state":"String"},"wake_alarm":{"_state":"String"},"linux_immutable":{"_state":"String"},"sys_pacct":{"_state":"String"},"ipc_owner":{"_state":"String"},"net_admin":{"_state":"String"},"setgid":{"_state":"String"},"sys_ptrace":{"_state":"String"},"chown":{"_state":"String"},"sys_admin":{"_state":"String"},"sys_module":{"_state":"String"},"sys_nice":{"_state":"String"},"kill":{"_state":"String"},"audit_control":{"_state":"String"},"setuid":{"_state":"String"},"fowner":{"_state":"String"},"sys_resource":{"_state":"String"},"sys_chroot":{"_state":"String"},"sys_rawio":{"_state":"String"},"audit_write":{"_state":"String"},"block_suspend":{"_state":"String"},"lease":{"_state":"String"},"sys_boot":{"_state":"String"},"mac_admin":{"_state":"String"}},"kvm":{"hidden":{"_state":"String"}},"apic":{"_eoi":"String"},"viridian":{},"pvspinlock":{"_state":"String"},"vmport":{"_state":"String"},"vmcoreinfo":{"_state":"String"},"hpt":{"maxpagesize":{"_unit":"String","text":"String"},"_resizing":"String"},"nested_hv":{"_state":"String"},"privnet":{},"smm":{"_state":"String","tseg":{"_unit":"String","text":"String"}},"msrs":{"_unknown":"String"},"pae":{},"acpi":{},"hap":{"_state":"String"},"ioapic":{"_driver":"String"},"pmu":{"_state":"String"},"hyperv":{"vpindex":{"_state":"String"},"ipi":{"_state":"String"},"stimer":{"_state":"String"},"reenlightenment":{"_state":"String"},"runtime":{"_state":"String"},"evmcs":{"_state":"String"},"spinlocks":{"_retries":"String","_state":"String"},"tlbflush":{"_state":"String"},"synic":{"_state":"String"},"relaxed":{"_state":"String"},"vapic":{"_state":"String"},"vendor_id":{"_value":"String"},"reset":{"_state":"String"},"frequencies":{"_state":"String"}}},"on_crash":{"text":"String"},"blkiotune":{"weight":{"text":"String"},"device":[{"path":{"text":"String"},"write_bytes_sec":{"text":"String"},"write_iops_sec":{"text":"String"},"weight":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"}},{"path":{"text":"String"},"write_bytes_sec":{"text":"String"},"write_iops_sec":{"text":"String"},"weight":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"}}]},"bootloader":{"text":"String"},"idmap":{"uid":[{"_count":"String","_start":"String","_target":"String"},{"_count":"String","_start":"String","_target":"String"}],"gid":[{"_count":"String","_start":"String","_target":"String"},{"_count":"String","_start":"String","_target":"String"}]},"sysinfo":{"memory":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}],"system":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"baseBoard":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}],"bios":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"_type":"String","chassis":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"oemStrings":{"entry":{"text":"String"}},"processor":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}]},"memtune":{"soft_limit":{"_unit":"String","text":"String"},"min_guarantee":{"_unit":"String","text":"String"},"swap_hard_limit":{"_unit":"String","text":"String"},"hard_limit":{"_unit":"String","text":"String"}},"numatune":{"memnode":[{"_nodeset":"String","_cellid":"String","_mode":"String"},{"_nodeset":"String","_cellid":"String","_mode":"String"}],"memory":{"_nodeset":"String","_placement":"String","_mode":"String"}},"keywrap":{"cipher":[{"_name":"String","_state":"String"},{"_name":"String","_state":"String"}]},"memoryBacking":{"hugepages":{"page":[{"_size":"String","_unit":"String","_nodeset":"String"},{"_size":"String","_unit":"String","_nodeset":"String"}]},"discard":{},"allocation":{"_mode":"String"},"access":{"_mode":"String"},"nosharepages":{},"source":{"_type":"String"},"locked":{}},"perf":{"event":[{"_name":"String","_enabled":"String"},{"_name":"String","_enabled":"String"}]},"launchSecurity":{},"on_poweroff":{"text":"String"},"bootloader_args":{"text":"String"},"os":{"init":{"text":"String"},"bios":{"_rebootTimeout":"String","_useserial":"String"},"kernel":{"text":"String"},"loader":{"text":"String","_type":"String","_readonly":"String"},"initarg":{"text":"String"},"type":{"_machine":"String","text":"String","_arch":"String"},"initrd":{"text":"String"},"smbios":{"_mode":"String"},"cmdline":{"text":"String"},"dtb":{"text":"String"},"nvram":{"text":"String"},"inituser":{"text":"String"},"acpi":{"table":[{"_type":"String","text":"String"},{"_type":"String","text":"String"}]},"bootmenu":{"_enable":"String","_timeout":"String"},"initgroup":{"text":"String"},"boot":[{"_dev":"String"},{"_dev":"String"}],"initdir":{"text":"String"},"initenv":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"devices":{"memory":[{"_discard":"String","address":{},"_access":"String","alias":{"_name":"String"},"_model":"String","source":{"path":{"text":"String"},"pmem":{},"alignsize":{"_unit":"String","text":"String"},"nodemask":{"text":"String"},"pagesize":{"_unit":"String","text":"String"}},"target":{"node":{"text":"String"},"readonly":{},"size":{"_unit":"String","text":"String"},"label":{"size":{"_unit":"String","text":"String"}}}},{"_discard":"String","address":{},"_access":"String","alias":{"_name":"String"},"_model":"String","source":{"path":{"text":"String"},"pmem":{},"alignsize":{"_unit":"String","text":"String"},"nodemask":{"text":"String"},"pagesize":{"_unit":"String","text":"String"}},"target":{"node":{"text":"String"},"readonly":{},"size":{"_unit":"String","text":"String"},"label":{"size":{"_unit":"String","text":"String"}}}}],"redirfilter":[{"usbdev":[{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"},{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"}]},{"usbdev":[{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"},{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"}]}],"sound":[{"codec":[{"_type":"String"},{"_type":"String"}],"address":{"_type":"String","_slot":"String","_bus":"String","_function":"String","_domain":"String"},"alias":{"_name":"String"},"_model":"String"},{"codec":[{"_type":"String"},{"_type":"String"}],"address":{"_type":"String","_slot":"String","_bus":"String","_function":"String","_domain":"String"},"alias":{"_name":"String"},"_model":"String"}],"channel":[{"_type":"String","protocol":{"_type":"String"},"address":{"_bus":"String","_controller":"String","_port":"String","_type":"String"},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_mode":"String","_path":"String"},"target":{"_name":"String","_state":"String","_type":"String"}},{"_type":"String","protocol":{"_type":"String"},"address":{"_bus":"String","_controller":"String","_port":"String","_type":"String"},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_mode":"String","_path":"String"},"target":{"_name":"String","_state":"String","_type":"String"}}],"memballoon":{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"stats":{"_period":"String"},"alias":{"_name":"String"},"_model":"String","_autodeflate":"String"},"graphics":[{"_autoport":"String","_listen":"String","_port":"String","_type":"String","listen":{"_address":"String","_type":"String"},"image":{"_compression":"String"}},{"_autoport":"String","_listen":"String","_port":"String","_type":"String","listen":{"_address":"String","_type":"String"},"image":{"_compression":"String"}}],"video":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_vgaconf":"String","_iommu":"String","_ats":"String"},"alias":{"_name":"String"},"model":{"_heads":"String","_vgamem":"String","acceleration":{"_accel3d":"String","_accel2d":"String"},"_ram":"String","_vram":"String","_vram64":"String","_type":"String","_primary":"String"}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_vgaconf":"String","_iommu":"String","_ats":"String"},"alias":{"_name":"String"},"model":{"_heads":"String","_vgamem":"String","acceleration":{"_accel3d":"String","_accel2d":"String"},"_ram":"String","_vram":"String","_vram64":"String","_type":"String","_primary":"String"}}],"_interface":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"bandwidth":{"inbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"},"outbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"}},"ip":[{"_address":"String","_prefix":"String","_family":"String","_peer":"String"},{"_address":"String","_prefix":"String","_family":"String","_peer":"String"}],"coalesce":{"rx":{"frames":{"_max":"String"}}},"link":{"_state":"String"},"source":{"_type":"String","_dev":"String","_path":"String","_mode":"String","_bridge":"String","_network":"String"},"filterref":{"parameter":[{"_name":"String","_value":"String"},{"_name":"String","_value":"String"}],"_filter":"String"},"mac":{"_address":"String"},"script":{"_path":"String"},"tune":{"sndbuf":{"text":"String"}},"mtu":{"_size":"String"},"target":{"_dev":"String"},"rom":{"_file":"String","_bar":"String","_enabled":"String"},"route":[{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"},{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"}],"driver":{"_name":"String","_queues":"String","_txmode":"String","_tx_queue_size":"String","_iommu":"String","host":{"_tso4":"String","_ufo":"String","_tso6":"String","_mrg_rxbuf":"String","_gso":"String","_ecn":"String","_csum":"String"},"_ioeventfd":"String","guest":{"_tso4":"String","_ufo":"String","_tso6":"String","_ecn":"String","_csum":"String"},"_event_idx":"String","_ats":"String","_rx_queue_size":"String"},"vlan":{"_trunk":"String","tag":[{"_nativeMode":"String","_id":"String"},{"_nativeMode":"String","_id":"String"}]},"_managed":"String","_trustGuestRxFilters":"String","alias":{"_name":"String"},"backend":{"_vhost":"String","_tap":"String"},"guest":{"_actual":"String","_dev":"String"},"model":{"_type":"String"},"boot":{"_loadparm":"String","_order":"String"},"_type":"String","virtualport":{"_type":"String","parameters":{"__interfaceid":"String","_profileid":"String"}}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"bandwidth":{"inbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"},"outbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"}},"ip":[{"_address":"String","_prefix":"String","_family":"String","_peer":"String"},{"_address":"String","_prefix":"String","_family":"String","_peer":"String"}],"coalesce":{"rx":{"frames":{"_max":"String"}}},"link":{"_state":"String"},"source":{"_type":"String","_dev":"String","_path":"String","_mode":"String","_bridge":"String","_network":"String"},"filterref":{"parameter":[{"_name":"String","_value":"String"},{"_name":"String","_value":"String"}],"_filter":"String"},"mac":{"_address":"String"},"script":{"_path":"String"},"tune":{"sndbuf":{"text":"String"}},"mtu":{"_size":"String"},"target":{"_dev":"String"},"rom":{"_file":"String","_bar":"String","_enabled":"String"},"route":[{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"},{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"}],"driver":{"_name":"String","_queues":"String","_txmode":"String","_tx_queue_size":"String","_iommu":"String","host":{"_tso4":"String","_ufo":"String","_tso6":"String","_mrg_rxbuf":"String","_gso":"String","_ecn":"String","_csum":"String"},"_ioeventfd":"String","guest":{"_tso4":"String","_ufo":"String","_tso6":"String","_ecn":"String","_csum":"String"},"_event_idx":"String","_ats":"String","_rx_queue_size":"String"},"vlan":{"_trunk":"String","tag":[{"_nativeMode":"String","_id":"String"},{"_nativeMode":"String","_id":"String"}]},"_managed":"String","_trustGuestRxFilters":"String","alias":{"_name":"String"},"backend":{"_vhost":"String","_tap":"String"},"guest":{"_actual":"String","_dev":"String"},"model":{"_type":"String"},"boot":{"_loadparm":"String","_order":"String"},"_type":"String","virtualport":{"_type":"String","parameters":{"__interfaceid":"String","_profileid":"String"}}}],"vsock":{"address":{},"alias":{"_name":"String"},"_model":"String","cid":{"_address":"String","_auto":"String"}},"hostdev":[{"rom":{"_file":"String","_bar":"String","_enabled":"String"},"address":{"_bus":"String","_device":"String","_type":"String","_port":"String","_domain":"String","_slot":"String","_function":"String"},"_managed":"String","alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_mode":"String","_type":"String","source":{"address":{"_bus":"String","_device":"String","_domain":"String","_slot":"String","_function":"String"}},"driver":{"_name":"String"}},{"rom":{"_file":"String","_bar":"String","_enabled":"String"},"address":{"_bus":"String","_device":"String","_type":"String","_port":"String","_domain":"String","_slot":"String","_function":"String"},"_managed":"String","alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_mode":"String","_type":"String","source":{"address":{"_bus":"String","_device":"String","_domain":"String","_slot":"String","_function":"String"}},"driver":{"_name":"String"}}],"nvram":{"address":{},"alias":{"_name":"String"}},"iommu":{"driver":{"_caching_mode":"String","_eim":"String","_iotlb":"String","_intremap":"String"},"_model":"String"},"parallel":[{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{},"target":{"_type":"String","_port":"String"}},{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{},"target":{"_type":"String","_port":"String"}}],"console":[{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"_tty":"String","_type":"String","alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","_port":"String"}},{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"_tty":"String","_type":"String","alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","_port":"String"}}],"controller":[{"master":{"_startport":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_multifunction":"String"},"_index":"String","driver":{"_max_sectors":"String","_queues":"String","_iommu":"String","_ioeventfd":"String","_iothread":"String","_cmd_per_lun":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","target":{"_chassis":"String","_chassisNr":"String","_port":"String"},"model":{"model":"String","_name":"String"}},{"master":{"_startport":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_multifunction":"String"},"_index":"String","driver":{"_max_sectors":"String","_queues":"String","_iommu":"String","_ioeventfd":"String","_iothread":"String","_cmd_per_lun":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","target":{"_chassis":"String","_chassisNr":"String","_port":"String"},"model":{"model":"String","_name":"String"}}],"shmem":[{"server":{"_path":"String"},"msi":{"_vectors":"String","_ioeventfd":"String","_enabled":"String"},"address":{},"_name":"String","size":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"model":{"_type":"String"}},{"server":{"_path":"String"},"msi":{"_vectors":"String","_ioeventfd":"String","_enabled":"String"},"address":{},"_name":"String","size":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"model":{"_type":"String"}}],"redirdev":[{"protocol":{"_type":"String"},"address":{"_bus":"String","_type":"String","_port":"String"},"alias":{"_name":"String"},"source":{},"boot":{"_loadparm":"String","_order":"String"},"_bus":"String","_type":"String"},{"protocol":{"_type":"String"},"address":{"_bus":"String","_type":"String","_port":"String"},"alias":{"_name":"String"},"source":{},"boot":{"_loadparm":"String","_order":"String"},"_bus":"String","_type":"String"}],"rng":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"rate":{"_period":"String","_bytes":"String"},"alias":{"_name":"String"},"_model":"String","backend":{"_model":"String","text":"String"}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"rate":{"_period":"String","_bytes":"String"},"alias":{"_name":"String"},"_model":"String","backend":{"_model":"String","text":"String"}}],"smartcard":[{"database":{"text":"String"},"protocol":{"_type":"String"},"address":{},"certificate":[{"text":"String"},{"text":"String"}],"alias":{"_name":"String"},"source":{}},{"database":{"text":"String"},"protocol":{"_type":"String"},"address":{},"certificate":[{"text":"String"},{"text":"String"}],"alias":{"_name":"String"},"source":{}}],"filesystem":[{"_accessmode":"String","address":{},"driver":{"_name":"String","_iommu":"String","_type":"String","_format":"String","_wrpolicy":"String","_ats":"String"},"readonly":{},"space_hard_limit":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"_model":"String","source":{},"space_soft_limit":{"_unit":"String","text":"String"},"target":{"_dir":"String"}},{"_accessmode":"String","address":{},"driver":{"_name":"String","_iommu":"String","_type":"String","_format":"String","_wrpolicy":"String","_ats":"String"},"readonly":{},"space_hard_limit":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"_model":"String","source":{},"space_soft_limit":{"_unit":"String","text":"String"},"target":{"_dir":"String"}}],"panic":[{"address":{},"alias":{"_name":"String"},"_model":"String"},{"address":{},"alias":{"_name":"String"},"_model":"String"}],"tpm":[{"address":{},"alias":{"_name":"String"},"_model":"String","backend":{}},{"address":{},"alias":{"_name":"String"},"_model":"String","backend":{}}],"emulator":{"text":"String"},"input":[{"address":{"_bus":"String","_port":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","source":{"_evdev":"String"},"_bus":"String"},{"address":{"_bus":"String","_port":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","source":{"_evdev":"String"},"_bus":"String"}],"disk":[{"_type":"String","shareable":{},"mirror":{"_job":"String","_ready":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"}},"_snapshot":"String","auth":{"_username":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"blockio":{"_physical_block_size":"String","_logical_block_size":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_controller":"String","_dev":"String"},"_transient":{},"wwn":{"text":"String"},"encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"readonly":{},"vendor":{"text":"String"},"alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_rawio":"String","iotune":{"write_iops_sec_max_length":{"text":"String"},"group_name":{"text":"String"},"write_iops_sec":{"text":"String"},"read_bytes_sec_max":{"text":"String"},"read_bytes_sec_max_length":{"text":"String"},"total_iops_sec":{"text":"String"},"write_iops_sec_max":{"text":"String"},"total_bytes_sec":{"text":"String"},"total_iops_sec_max":{"text":"String"},"total_bytes_sec_max_length":{"text":"String"},"write_bytes_sec":{"text":"String"},"total_bytes_sec_max":{"text":"String"},"write_bytes_sec_max":{"text":"String"},"read_iops_sec_max":{"text":"String"},"read_iops_sec_max_length":{"text":"String"},"size_iops_sec":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"},"total_iops_sec_max_length":{"text":"String"},"write_bytes_sec_max_length":{"text":"String"}},"product":{"text":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_controller":"String","_target":"String","_unit":"String"},"_sgio":"String","_device":"String","target":{"_removable":"String","_tray":"String","_dev":"String","_bus":"String"},"driver":{"_detect_zeroes":"String","_io":"String","_name":"String","_rerror_policy":"String","_queues":"String","_iommu":"String","_type":"String","_ats":"String","_discard":"String","_copy_on_read":"String","_error_policy":"String","_ioeventfd":"String","_iothread":"String","_event_idx":"String","_cache":"String"},"serial":{"_type":"String","text":"String"},"backingStore":{"_index":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_dev":"String"},"_type":"String","_file":"String"},"_model":"String","geometry":{"_heads":"String","_secs":"String","_cyls":"String","_trans":"String"}},{"_type":"String","shareable":{},"mirror":{"_job":"String","_ready":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"}},"_snapshot":"String","auth":{"_username":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"blockio":{"_physical_block_size":"String","_logical_block_size":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_controller":"String","_dev":"String"},"_transient":{},"wwn":{"text":"String"},"encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"readonly":{},"vendor":{"text":"String"},"alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_rawio":"String","iotune":{"write_iops_sec_max_length":{"text":"String"},"group_name":{"text":"String"},"write_iops_sec":{"text":"String"},"read_bytes_sec_max":{"text":"String"},"read_bytes_sec_max_length":{"text":"String"},"total_iops_sec":{"text":"String"},"write_iops_sec_max":{"text":"String"},"total_bytes_sec":{"text":"String"},"total_iops_sec_max":{"text":"String"},"total_bytes_sec_max_length":{"text":"String"},"write_bytes_sec":{"text":"String"},"total_bytes_sec_max":{"text":"String"},"write_bytes_sec_max":{"text":"String"},"read_iops_sec_max":{"text":"String"},"read_iops_sec_max_length":{"text":"String"},"size_iops_sec":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"},"total_iops_sec_max_length":{"text":"String"},"write_bytes_sec_max_length":{"text":"String"}},"product":{"text":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_controller":"String","_target":"String","_unit":"String"},"_sgio":"String","_device":"String","target":{"_removable":"String","_tray":"String","_dev":"String","_bus":"String"},"driver":{"_detect_zeroes":"String","_io":"String","_name":"String","_rerror_policy":"String","_queues":"String","_iommu":"String","_type":"String","_ats":"String","_discard":"String","_copy_on_read":"String","_error_policy":"String","_ioeventfd":"String","_iothread":"String","_event_idx":"String","_cache":"String"},"serial":{"_type":"String","text":"String"},"backingStore":{"_index":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_dev":"String"},"_type":"String","_file":"String"},"_model":"String","geometry":{"_heads":"String","_secs":"String","_cyls":"String","_trans":"String"}}],"watchdog":{"address":{},"alias":{"_name":"String"},"_action":"String","_model":"String"},"hub":[{"address":{"_type":"String","_bus":"String","_port":"String"},"_type":"String","alias":{"_name":"String"}},{"address":{"_type":"String","_bus":"String","_port":"String"},"_type":"String","alias":{"_name":"String"}}],"serial":[{"_type":"String","protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","model":{"_name":"String"},"_port":"String"}},{"_type":"String","protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","model":{"_name":"String"},"_port":"String"}}],"lease":[{"lockspace":{"text":"String"},"key":{"text":"String"},"target":{"_offset":"String","_path":"String"}},{"lockspace":{"text":"String"},"key":{"text":"String"},"target":{"_offset":"String","_path":"String"}}]},"resource":{"partition":{"text":"String"}},"on_reboot":{"text":"String"},"_type":"String","cpu":{"cache":{"_level":"String","_mode":"String"},"feature":[{"_name":"String","_policy":"String"},{"_name":"String","_policy":"String"}],"topology":{"_cores":"String","_sockets":"String","_threads":"String"},"vendor":{"text":"String"},"numa":{"cell":[{"_discard":"String","distances":{"sibling":[{"_value":"String","_id":"String"},{"_value":"String","_id":"String"}]},"_memory":"String","_unit":"String","_cpus":"String","_memAccess":"String","_id":"String"},{"_discard":"String","distances":{"sibling":[{"_value":"String","_id":"String"},{"_value":"String","_id":"String"}]},"_memory":"String","_unit":"String","_cpus":"String","_memAccess":"String","_id":"String"}]},"_check":"String","model":{"_fallback":"String","_vendor_id":"String","text":"String"},"_match":"String","_mode":"String"},"clock":{"_basis":"String","timer":[{"_name":"String","catchup":{"_limit":"String","_slew":"String","_threshold":"String"},"_track":"String","_frequency":"String","_present":"String","_tickpolicy":"String","_mode":"String"},{"_name":"String","catchup":{"_limit":"String","_slew":"String","_threshold":"String"},"_track":"String","_frequency":"String","_present":"String","_tickpolicy":"String","_mode":"String"}],"_offset":"String","_adjustment":"String","_timezone":"String"},"vcpus":{"vcpu":[{"_order":"String","_hotpluggable":"String","_id":"String","_enabled":"String"},{"_order":"String","_hotpluggable":"String","_id":"String","_enabled":"String"}]},"cputune":{"global_quota":{"text":"String"},"iothreadpin":[{"_cpuset":"String","_iothread":"String"},{"_cpuset":"String","_iothread":"String"}],"period":{"text":"String"},"emulator_period":{"text":"String"},"emulatorpin":{"_cpuset":"String"},"vcpusched":[{"_scheduler":"String","_vcpus":"String","_priority":"String"},{"_scheduler":"String","_vcpus":"String","_priority":"String"}],"iothreadsched":[{"_scheduler":"String","_iothreads":"String","_priority":"String"},{"_scheduler":"String","_iothreads":"String","_priority":"String"}],"iothread_period":{"text":"String"},"global_period":{"text":"String"},"emulator_quota":{"text":"String"},"shares":{"text":"String"},"vcpupin":[{"_vcpu":"String","_cpuset":"String"},{"_vcpu":"String","_cpuset":"String"}],"cachetune":[{"cache":[{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"},{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"}],"monitor":[{"_level":"String","_vcpus":"String"},{"_level":"String","_vcpus":"String"}],"_vcpus":"String"},{"cache":[{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"},{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"}],"monitor":[{"_level":"String","_vcpus":"String"},{"_level":"String","_vcpus":"String"}],"_vcpus":"String"}],"quota":{"text":"String"},"iothread_quota":{"text":"String"},"memorytune":[{"node":[{"_bandwidth":"String","_id":"String"},{"_bandwidth":"String","_id":"String"}],"_vcpus":"String"},{"node":[{"_bandwidth":"String","_id":"String"},{"_bandwidth":"String","_id":"String"}],"_vcpus":"String"}]},"genid":{"text":"String"},"iothreads":{"text":"String"},"name":{"text":"String"},"currentMemory":{"_unit":"String","text":"String"},"_id":"String","pm":{"suspend_to_disk":{"_enabled":"String"},"suspend_to_mem":{"_enabled":"String"}}},"name":{"text":"String"},"active":{"text":"String"},"description":{"text":"String"},"state":{"text":"String"}},"lifecycle":{"deleteSnapshot":{"metadata":true,"children":true,"children_only":true,"domain":"String","isExternal":true},"createSnapshot":{"diskspec":"String","no_metadata":true,"disk_only":true,"memspec":"String","description":"String","quiesce":true,"reuse_external":true,"halt":true,"atomic":true,"domain":"String","live":true,"isExternal":true},"revertVirtualMachine":{"domain":"String","running":true,"paused":true,"force":true,"isExternal":true},"copySnapshot":{"isExternal":true,"dest":"String","granularity":"String","buf_size":"String","shallow":true,"reuse_external":true,"blockdev":true,"pivot":true,"finish":true,"transient_job":true},"mergeSnapshot":{"bandwidth":"String","domain":"String","isExternal":true}}}}
+{"spec":{"domainsnapshot":{"cookie":{"cpu":{"_check":"String","_match":"String","_mode":"String","feature":[{"_name":"String","_policy":"String"},{"_name":"String","_policy":"String"}],"model":{"_fallback":"String","text":"String"}}},"parent":{"name":{"text":"String"}},"memory":{"_file":"String","_snapshot":"String"},"creationTime":{"text":"String"},"disks":{"disk":[{"_snapshot":"String","_name":"String","driver":{"_type":"String"},"source":{"_index":"String","_file":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"},"_type":"String"},{"_snapshot":"String","_name":"String","driver":{"_type":"String"},"source":{"_index":"String","_file":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"},"_type":"String"}]},"domain":{"metadata":{},"memory":{"_unit":"String","text":"String","_dumpCore":"String"},"vcpu":{"_current":"String","_cpuset":"String","_placement":"String","text":"String"},"seclabel":[{"imagelabel":{"text":"String"},"_type":"String","baselabel":{"text":"String"},"_model":"String","label":{"text":"String"},"_relabel":"String"},{"imagelabel":{"text":"String"},"_type":"String","baselabel":{"text":"String"},"_model":"String","label":{"text":"String"},"_relabel":"String"}],"description":{"text":"String"},"title":{"text":"String"},"maxMemory":{"_unit":"String","_slots":"String","text":"String"},"uuid":{"text":"String"},"iothreadids":{"iothread":[{"_id":"String"},{"_id":"String"}]},"features":{"gic":{"_version":"String"},"htm":{"_state":"String"},"capabilities":{"dac_read_Search":{"_state":"String"},"fsetid":{"_state":"String"},"dac_override":{"_state":"String"},"syslog":{"_state":"String"},"_policy":"String","net_raw":{"_state":"String"},"mac_override":{"_state":"String"},"setfcap":{"_state":"String"},"mknod":{"_state":"String"},"sys_time":{"_state":"String"},"sys_tty_config":{"_state":"String"},"net_broadcast":{"_state":"String"},"setpcap":{"_state":"String"},"ipc_lock":{"_state":"String"},"net_bind_service":{"_state":"String"},"wake_alarm":{"_state":"String"},"linux_immutable":{"_state":"String"},"sys_pacct":{"_state":"String"},"ipc_owner":{"_state":"String"},"net_admin":{"_state":"String"},"setgid":{"_state":"String"},"sys_ptrace":{"_state":"String"},"chown":{"_state":"String"},"sys_admin":{"_state":"String"},"sys_module":{"_state":"String"},"sys_nice":{"_state":"String"},"kill":{"_state":"String"},"audit_control":{"_state":"String"},"setuid":{"_state":"String"},"fowner":{"_state":"String"},"sys_resource":{"_state":"String"},"sys_chroot":{"_state":"String"},"sys_rawio":{"_state":"String"},"audit_write":{"_state":"String"},"block_suspend":{"_state":"String"},"lease":{"_state":"String"},"sys_boot":{"_state":"String"},"mac_admin":{"_state":"String"}},"kvm":{"hidden":{"_state":"String"}},"apic":{"_eoi":"String"},"viridian":{},"pvspinlock":{"_state":"String"},"vmport":{"_state":"String"},"vmcoreinfo":{"_state":"String"},"hpt":{"maxpagesize":{"_unit":"String","text":"String"},"_resizing":"String"},"nested_hv":{"_state":"String"},"privnet":{},"smm":{"_state":"String","tseg":{"_unit":"String","text":"String"}},"msrs":{"_unknown":"String"},"pae":{},"acpi":{},"hap":{"_state":"String"},"ioapic":{"_driver":"String"},"pmu":{"_state":"String"},"hyperv":{"vpindex":{"_state":"String"},"ipi":{"_state":"String"},"stimer":{"_state":"String"},"reenlightenment":{"_state":"String"},"runtime":{"_state":"String"},"evmcs":{"_state":"String"},"spinlocks":{"_retries":"String","_state":"String"},"tlbflush":{"_state":"String"},"synic":{"_state":"String"},"relaxed":{"_state":"String"},"vapic":{"_state":"String"},"vendor_id":{"_value":"String"},"reset":{"_state":"String"},"frequencies":{"_state":"String"}}},"on_crash":{"text":"String"},"blkiotune":{"weight":{"text":"String"},"device":[{"path":{"text":"String"},"write_bytes_sec":{"text":"String"},"write_iops_sec":{"text":"String"},"weight":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"}},{"path":{"text":"String"},"write_bytes_sec":{"text":"String"},"write_iops_sec":{"text":"String"},"weight":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"}}]},"bootloader":{"text":"String"},"idmap":{"uid":[{"_count":"String","_start":"String","_target":"String"},{"_count":"String","_start":"String","_target":"String"}],"gid":[{"_count":"String","_start":"String","_target":"String"},{"_count":"String","_start":"String","_target":"String"}]},"sysinfo":{"memory":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}],"system":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"baseBoard":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}],"bios":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"_type":"String","chassis":{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"oemStrings":{"entry":{"text":"String"}},"processor":[{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},{"entry":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]}]},"memtune":{"soft_limit":{"_unit":"String","text":"String"},"min_guarantee":{"_unit":"String","text":"String"},"swap_hard_limit":{"_unit":"String","text":"String"},"hard_limit":{"_unit":"String","text":"String"}},"numatune":{"memnode":[{"_nodeset":"String","_cellid":"String","_mode":"String"},{"_nodeset":"String","_cellid":"String","_mode":"String"}],"memory":{"_nodeset":"String","_placement":"String","_mode":"String"}},"keywrap":{"cipher":[{"_name":"String","_state":"String"},{"_name":"String","_state":"String"}]},"memoryBacking":{"hugepages":{"page":[{"_size":"String","_unit":"String","_nodeset":"String"},{"_size":"String","_unit":"String","_nodeset":"String"}]},"discard":{},"allocation":{"_mode":"String"},"access":{"_mode":"String"},"nosharepages":{},"source":{"_type":"String"},"locked":{}},"perf":{"event":[{"_name":"String","_enabled":"String"},{"_name":"String","_enabled":"String"}]},"launchSecurity":{},"on_poweroff":{"text":"String"},"bootloader_args":{"text":"String"},"os":{"init":{"text":"String"},"bios":{"_rebootTimeout":"String","_useserial":"String"},"kernel":{"text":"String"},"loader":{"text":"String","_type":"String","_readonly":"String"},"initarg":{"text":"String"},"type":{"_machine":"String","text":"String","_arch":"String"},"initrd":{"text":"String"},"smbios":{"_mode":"String"},"cmdline":{"text":"String"},"dtb":{"text":"String"},"nvram":{"text":"String"},"inituser":{"text":"String"},"acpi":{"table":[{"_type":"String","text":"String"},{"_type":"String","text":"String"}]},"bootmenu":{"_enable":"String","_timeout":"String"},"initgroup":{"text":"String"},"boot":[{"_dev":"String"},{"_dev":"String"}],"initdir":{"text":"String"},"initenv":[{"_name":"String","text":"String"},{"_name":"String","text":"String"}]},"devices":{"memory":[{"_discard":"String","address":{},"_access":"String","alias":{"_name":"String"},"_model":"String","source":{"path":{"text":"String"},"pmem":{},"alignsize":{"_unit":"String","text":"String"},"nodemask":{"text":"String"},"pagesize":{"_unit":"String","text":"String"}},"target":{"node":{"text":"String"},"readonly":{},"size":{"_unit":"String","text":"String"},"label":{"size":{"_unit":"String","text":"String"}}}},{"_discard":"String","address":{},"_access":"String","alias":{"_name":"String"},"_model":"String","source":{"path":{"text":"String"},"pmem":{},"alignsize":{"_unit":"String","text":"String"},"nodemask":{"text":"String"},"pagesize":{"_unit":"String","text":"String"}},"target":{"node":{"text":"String"},"readonly":{},"size":{"_unit":"String","text":"String"},"label":{"size":{"_unit":"String","text":"String"}}}}],"redirfilter":[{"usbdev":[{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"},{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"}]},{"usbdev":[{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"},{"_vendor":"String","_class":"String","_allow":"String","_product":"String","_version":"String"}]}],"sound":[{"codec":[{"_type":"String"},{"_type":"String"}],"address":{"_type":"String","_slot":"String","_bus":"String","_function":"String","_domain":"String"},"alias":{"_name":"String"},"_model":"String"},{"codec":[{"_type":"String"},{"_type":"String"}],"address":{"_type":"String","_slot":"String","_bus":"String","_function":"String","_domain":"String"},"alias":{"_name":"String"},"_model":"String"}],"channel":[{"_type":"String","protocol":{"_type":"String"},"address":{"_bus":"String","_controller":"String","_port":"String","_type":"String"},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_mode":"String","_path":"String"},"target":{"_name":"String","_state":"String","_type":"String"}},{"_type":"String","protocol":{"_type":"String"},"address":{"_bus":"String","_controller":"String","_port":"String","_type":"String"},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_mode":"String","_path":"String"},"target":{"_name":"String","_state":"String","_type":"String"}}],"memballoon":{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"stats":{"_period":"String"},"alias":{"_name":"String"},"_model":"String","_autodeflate":"String"},"graphics":[{"_autoport":"String","_listen":"String","_port":"String","_type":"String","listen":{"_address":"String","_type":"String"},"image":{"_compression":"String"}},{"_autoport":"String","_listen":"String","_port":"String","_type":"String","listen":{"_address":"String","_type":"String"},"image":{"_compression":"String"}}],"video":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_vgaconf":"String","_iommu":"String","_ats":"String"},"alias":{"_name":"String"},"model":{"_heads":"String","_vgamem":"String","acceleration":{"_accel3d":"String","_accel2d":"String"},"_ram":"String","_vram":"String","_vram64":"String","_type":"String","_primary":"String"}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_vgaconf":"String","_iommu":"String","_ats":"String"},"alias":{"_name":"String"},"model":{"_heads":"String","_vgamem":"String","acceleration":{"_accel3d":"String","_accel2d":"String"},"_ram":"String","_vram":"String","_vram64":"String","_type":"String","_primary":"String"}}],"_interface":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"bandwidth":{"inbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"},"outbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"}},"ip":[{"_address":"String","_prefix":"String","_family":"String","_peer":"String"},{"_address":"String","_prefix":"String","_family":"String","_peer":"String"}],"coalesce":{"rx":{"frames":{"_max":"String"}}},"link":{"_state":"String"},"source":{"_type":"String","_dev":"String","_path":"String","_mode":"String","_bridge":"String","_network":"String"},"filterref":{"parameter":[{"_name":"String","_value":"String"},{"_name":"String","_value":"String"}],"_filter":"String"},"mac":{"_address":"String"},"script":{"_path":"String"},"tune":{"sndbuf":{"text":"String"}},"mtu":{"_size":"String"},"target":{"_dev":"String"},"rom":{"_file":"String","_bar":"String","_enabled":"String"},"route":[{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"},{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"}],"driver":{"_name":"String","_queues":"String","_txmode":"String","_tx_queue_size":"String","_iommu":"String","host":{"_tso4":"String","_ufo":"String","_tso6":"String","_mrg_rxbuf":"String","_gso":"String","_ecn":"String","_csum":"String"},"_ioeventfd":"String","guest":{"_tso4":"String","_ufo":"String","_tso6":"String","_ecn":"String","_csum":"String"},"_event_idx":"String","_ats":"String","_rx_queue_size":"String"},"vlan":{"_trunk":"String"},"_managed":"String","_trustGuestRxFilters":"String","alias":{"_name":"String"},"backend":{"_vhost":"String","_tap":"String"},"guest":{"_actual":"String","_dev":"String"},"model":{"_type":"String"},"boot":{"_loadparm":"String","_order":"String"},"_type":"String","virtualport":{"_type":"String","parameters":{"__interfaceid":"String","_profileid":"String"}}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"bandwidth":{"inbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"},"outbound":{"_floor":"String","_peak":"String","_average":"String","_burst":"String"}},"ip":[{"_address":"String","_prefix":"String","_family":"String","_peer":"String"},{"_address":"String","_prefix":"String","_family":"String","_peer":"String"}],"coalesce":{"rx":{"frames":{"_max":"String"}}},"link":{"_state":"String"},"source":{"_type":"String","_dev":"String","_path":"String","_mode":"String","_bridge":"String","_network":"String"},"filterref":{"parameter":[{"_name":"String","_value":"String"},{"_name":"String","_value":"String"}],"_filter":"String"},"mac":{"_address":"String"},"script":{"_path":"String"},"tune":{"sndbuf":{"text":"String"}},"mtu":{"_size":"String"},"target":{"_dev":"String"},"rom":{"_file":"String","_bar":"String","_enabled":"String"},"route":[{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"},{"_address":"String","_prefix":"String","_netmask":"String","_metric":"String","_family":"String","_gateway":"String"}],"driver":{"_name":"String","_queues":"String","_txmode":"String","_tx_queue_size":"String","_iommu":"String","host":{"_tso4":"String","_ufo":"String","_tso6":"String","_mrg_rxbuf":"String","_gso":"String","_ecn":"String","_csum":"String"},"_ioeventfd":"String","guest":{"_tso4":"String","_ufo":"String","_tso6":"String","_ecn":"String","_csum":"String"},"_event_idx":"String","_ats":"String","_rx_queue_size":"String"},"vlan":{"_trunk":"String"},"_managed":"String","_trustGuestRxFilters":"String","alias":{"_name":"String"},"backend":{"_vhost":"String","_tap":"String"},"guest":{"_actual":"String","_dev":"String"},"model":{"_type":"String"},"boot":{"_loadparm":"String","_order":"String"},"_type":"String","virtualport":{"_type":"String","parameters":{"__interfaceid":"String","_profileid":"String"}}}],"vsock":{"address":{},"alias":{"_name":"String"},"_model":"String","cid":{"_address":"String","_auto":"String"}},"hostdev":[{"rom":{"_file":"String","_bar":"String","_enabled":"String"},"address":{"_bus":"String","_device":"String","_type":"String","_port":"String","_domain":"String","_slot":"String","_function":"String"},"_managed":"String","alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_mode":"String","_type":"String","source":{"address":{"_bus":"String","_device":"String","_domain":"String","_slot":"String","_function":"String"}},"driver":{"_name":"String"}},{"rom":{"_file":"String","_bar":"String","_enabled":"String"},"address":{"_bus":"String","_device":"String","_type":"String","_port":"String","_domain":"String","_slot":"String","_function":"String"},"_managed":"String","alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_mode":"String","_type":"String","source":{"address":{"_bus":"String","_device":"String","_domain":"String","_slot":"String","_function":"String"}},"driver":{"_name":"String"}}],"nvram":{"address":{},"alias":{"_name":"String"}},"iommu":{"driver":{"_caching_mode":"String","_eim":"String","_iotlb":"String","_intremap":"String"},"_model":"String"},"parallel":[{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{},"target":{"_type":"String","_port":"String"}},{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{},"target":{"_type":"String","_port":"String"}}],"console":[{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"_tty":"String","_type":"String","alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","_port":"String"}},{"protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"_tty":"String","_type":"String","alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","_port":"String"}}],"controller":[{"master":{"_startport":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_multifunction":"String"},"_index":"String","driver":{"_max_sectors":"String","_queues":"String","_iommu":"String","_ioeventfd":"String","_iothread":"String","_cmd_per_lun":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","target":{"_chassis":"String","_chassisNr":"String","_port":"String"},"model":{"model":"String","_name":"String"}},{"master":{"_startport":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_multifunction":"String"},"_index":"String","driver":{"_max_sectors":"String","_queues":"String","_iommu":"String","_ioeventfd":"String","_iothread":"String","_cmd_per_lun":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","target":{"_chassis":"String","_chassisNr":"String","_port":"String"},"model":{"model":"String","_name":"String"}}],"shmem":[{"server":{"_path":"String"},"msi":{"_vectors":"String","_ioeventfd":"String","_enabled":"String"},"address":{},"_name":"String","size":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"model":{"_type":"String"}},{"server":{"_path":"String"},"msi":{"_vectors":"String","_ioeventfd":"String","_enabled":"String"},"address":{},"_name":"String","size":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"model":{"_type":"String"}}],"redirdev":[{"protocol":{"_type":"String"},"address":{"_bus":"String","_type":"String","_port":"String"},"alias":{"_name":"String"},"source":{},"boot":{"_loadparm":"String","_order":"String"},"_bus":"String","_type":"String"},{"protocol":{"_type":"String"},"address":{"_bus":"String","_type":"String","_port":"String"},"alias":{"_name":"String"},"source":{},"boot":{"_loadparm":"String","_order":"String"},"_bus":"String","_type":"String"}],"rng":[{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"rate":{"_period":"String","_bytes":"String"},"alias":{"_name":"String"},"_model":"String","backend":{"_model":"String","text":"String"}},{"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"rate":{"_period":"String","_bytes":"String"},"alias":{"_name":"String"},"_model":"String","backend":{"_model":"String","text":"String"}}],"smartcard":[{"database":{"text":"String"},"protocol":{"_type":"String"},"address":{},"certificate":[{"text":"String"},{"text":"String"}],"alias":{"_name":"String"},"source":{}},{"database":{"text":"String"},"protocol":{"_type":"String"},"address":{},"certificate":[{"text":"String"},{"text":"String"}],"alias":{"_name":"String"},"source":{}}],"filesystem":[{"_accessmode":"String","address":{},"driver":{"_name":"String","_iommu":"String","_type":"String","_format":"String","_wrpolicy":"String","_ats":"String"},"readonly":{},"space_hard_limit":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"_model":"String","source":{},"space_soft_limit":{"_unit":"String","text":"String"},"target":{"_dir":"String"}},{"_accessmode":"String","address":{},"driver":{"_name":"String","_iommu":"String","_type":"String","_format":"String","_wrpolicy":"String","_ats":"String"},"readonly":{},"space_hard_limit":{"_unit":"String","text":"String"},"alias":{"_name":"String"},"_model":"String","source":{},"space_soft_limit":{"_unit":"String","text":"String"},"target":{"_dir":"String"}}],"panic":[{"address":{},"alias":{"_name":"String"},"_model":"String"},{"address":{},"alias":{"_name":"String"},"_model":"String"}],"tpm":[{"address":{},"alias":{"_name":"String"},"_model":"String","backend":{}},{"address":{},"alias":{"_name":"String"},"_model":"String","backend":{}}],"emulator":{"text":"String"},"input":[{"address":{"_bus":"String","_port":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","source":{"_evdev":"String"},"_bus":"String"},{"address":{"_bus":"String","_port":"String","_type":"String"},"driver":{"_iommu":"String","_ats":"String"},"_type":"String","alias":{"_name":"String"},"_model":"String","source":{"_evdev":"String"},"_bus":"String"}],"disk":[{"_type":"String","shareable":{},"mirror":{"_job":"String","_ready":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"}},"_snapshot":"String","auth":{"_username":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"blockio":{"_physical_block_size":"String","_logical_block_size":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_controller":"String","_dev":"String"},"_transient":{},"wwn":{"text":"String"},"encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"readonly":{},"vendor":{"text":"String"},"alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_rawio":"String","iotune":{"write_iops_sec_max_length":{"text":"String"},"group_name":{"text":"String"},"write_iops_sec":{"text":"String"},"read_bytes_sec_max":{"text":"String"},"read_bytes_sec_max_length":{"text":"String"},"total_iops_sec":{"text":"String"},"write_iops_sec_max":{"text":"String"},"total_bytes_sec":{"text":"String"},"total_iops_sec_max":{"text":"String"},"total_bytes_sec_max_length":{"text":"String"},"write_bytes_sec":{"text":"String"},"total_bytes_sec_max":{"text":"String"},"write_bytes_sec_max":{"text":"String"},"read_iops_sec_max":{"text":"String"},"read_iops_sec_max_length":{"text":"String"},"size_iops_sec":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"},"total_iops_sec_max_length":{"text":"String"},"write_bytes_sec_max_length":{"text":"String"}},"product":{"text":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_controller":"String","_target":"String","_unit":"String"},"_sgio":"String","_device":"String","target":{"_removable":"String","_tray":"String","_dev":"String","_bus":"String"},"driver":{"_detect_zeroes":"String","_io":"String","_name":"String","_rerror_policy":"String","_queues":"String","_iommu":"String","_type":"String","_ats":"String","_discard":"String","_copy_on_read":"String","_error_policy":"String","_ioeventfd":"String","_iothread":"String","_event_idx":"String","_cache":"String"},"serial":{"_type":"String","text":"String"},"backingStore":{"_index":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_dev":"String"},"_type":"String","_file":"String"},"_model":"String","geometry":{"_heads":"String","_secs":"String","_cyls":"String","_trans":"String"}},{"_type":"String","shareable":{},"mirror":{"_job":"String","_ready":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String"}},"_snapshot":"String","auth":{"_username":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"blockio":{"_physical_block_size":"String","_logical_block_size":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_controller":"String","_dev":"String"},"_transient":{},"wwn":{"text":"String"},"encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"readonly":{},"vendor":{"text":"String"},"alias":{"_name":"String"},"boot":{"_loadparm":"String","_order":"String"},"_rawio":"String","iotune":{"write_iops_sec_max_length":{"text":"String"},"group_name":{"text":"String"},"write_iops_sec":{"text":"String"},"read_bytes_sec_max":{"text":"String"},"read_bytes_sec_max_length":{"text":"String"},"total_iops_sec":{"text":"String"},"write_iops_sec_max":{"text":"String"},"total_bytes_sec":{"text":"String"},"total_iops_sec_max":{"text":"String"},"total_bytes_sec_max_length":{"text":"String"},"write_bytes_sec":{"text":"String"},"total_bytes_sec_max":{"text":"String"},"write_bytes_sec_max":{"text":"String"},"read_iops_sec_max":{"text":"String"},"read_iops_sec_max_length":{"text":"String"},"size_iops_sec":{"text":"String"},"read_bytes_sec":{"text":"String"},"read_iops_sec":{"text":"String"},"total_iops_sec_max_length":{"text":"String"},"write_bytes_sec_max_length":{"text":"String"}},"product":{"text":"String"},"address":{"_bus":"String","_domain":"String","_function":"String","_slot":"String","_type":"String","_controller":"String","_target":"String","_unit":"String"},"_sgio":"String","_device":"String","target":{"_removable":"String","_tray":"String","_dev":"String","_bus":"String"},"driver":{"_detect_zeroes":"String","_io":"String","_name":"String","_rerror_policy":"String","_queues":"String","_iommu":"String","_type":"String","_ats":"String","_discard":"String","_copy_on_read":"String","_error_policy":"String","_ioeventfd":"String","_iothread":"String","_event_idx":"String","_cache":"String"},"serial":{"_type":"String","text":"String"},"backingStore":{"_index":"String","format":{"_type":"String"},"source":{"_index":"String","encryption":{"_format":"String","secret":{"_usage":"String","_type":"String","_uuid":"String"}},"reservations":{"_managed":"String","source":{"_type":"String","_path":"String","_mode":"String","_dev":"String"},"_enabled":"String"},"_startupPolicy":"String","_file":"String","_dev":"String"},"_type":"String","_file":"String"},"_model":"String","geometry":{"_heads":"String","_secs":"String","_cyls":"String","_trans":"String"}}],"watchdog":{"address":{},"alias":{"_name":"String"},"_action":"String","_model":"String"},"hub":[{"address":{"_type":"String","_bus":"String","_port":"String"},"_type":"String","alias":{"_name":"String"}},{"address":{"_type":"String","_bus":"String","_port":"String"},"_type":"String","alias":{"_name":"String"}}],"serial":[{"_type":"String","protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","model":{"_name":"String"},"_port":"String"}},{"_type":"String","protocol":{"_type":"String"},"address":{},"log":{"_file":"String","_append":"String"},"alias":{"_name":"String"},"source":{"_path":"String"},"target":{"_type":"String","model":{"_name":"String"},"_port":"String"}}],"lease":[{"lockspace":{"text":"String"},"key":{"text":"String"},"target":{"_offset":"String","_path":"String"}},{"lockspace":{"text":"String"},"key":{"text":"String"},"target":{"_offset":"String","_path":"String"}}]},"resource":{"partition":{"text":"String"}},"on_reboot":{"text":"String"},"_type":"String","cpu":{"cache":{"_level":"String","_mode":"String"},"feature":[{"_name":"String","_policy":"String"},{"_name":"String","_policy":"String"}],"topology":{"_cores":"String","_sockets":"String","_threads":"String"},"vendor":{"text":"String"},"numa":{"cell":[{"_discard":"String","distances":{"sibling":[{"_value":"String","_id":"String"},{"_value":"String","_id":"String"}]},"_memory":"String","_unit":"String","_cpus":"String","_memAccess":"String","_id":"String"},{"_discard":"String","distances":{"sibling":[{"_value":"String","_id":"String"},{"_value":"String","_id":"String"}]},"_memory":"String","_unit":"String","_cpus":"String","_memAccess":"String","_id":"String"}]},"_check":"String","model":{"_fallback":"String","_vendor_id":"String","text":"String"},"_match":"String","_mode":"String","_migratable":"String"},"clock":{"_basis":"String","timer":[{"_name":"String","catchup":{"_limit":"String","_slew":"String","_threshold":"String"},"_track":"String","_frequency":"String","_present":"String","_tickpolicy":"String","_mode":"String"},{"_name":"String","catchup":{"_limit":"String","_slew":"String","_threshold":"String"},"_track":"String","_frequency":"String","_present":"String","_tickpolicy":"String","_mode":"String"}],"_offset":"String","_adjustment":"String","_timezone":"String"},"vcpus":{"vcpu":[{"_order":"String","_hotpluggable":"String","_id":"String","_enabled":"String"},{"_order":"String","_hotpluggable":"String","_id":"String","_enabled":"String"}]},"cputune":{"global_quota":{"text":"String"},"iothreadpin":[{"_cpuset":"String","_iothread":"String"},{"_cpuset":"String","_iothread":"String"}],"period":{"text":"String"},"emulator_period":{"text":"String"},"emulatorpin":{"_cpuset":"String"},"vcpusched":[{"_scheduler":"String","_vcpus":"String","_priority":"String"},{"_scheduler":"String","_vcpus":"String","_priority":"String"}],"iothreadsched":[{"_scheduler":"String","_iothreads":"String","_priority":"String"},{"_scheduler":"String","_iothreads":"String","_priority":"String"}],"iothread_period":{"text":"String"},"global_period":{"text":"String"},"emulator_quota":{"text":"String"},"shares":{"text":"String"},"vcpupin":[{"_vcpu":"String","_cpuset":"String"},{"_vcpu":"String","_cpuset":"String"}],"cachetune":[{"cache":[{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"},{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"}],"monitor":[{"_level":"String","_vcpus":"String"},{"_level":"String","_vcpus":"String"}],"_vcpus":"String"},{"cache":[{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"},{"_size":"String","_unit":"String","_level":"String","_type":"String","_id":"String"}],"monitor":[{"_level":"String","_vcpus":"String"},{"_level":"String","_vcpus":"String"}],"_vcpus":"String"}],"quota":{"text":"String"},"iothread_quota":{"text":"String"},"memorytune":[{"node":[{"_bandwidth":"String","_id":"String"},{"_bandwidth":"String","_id":"String"}],"_vcpus":"String"},{"node":[{"_bandwidth":"String","_id":"String"},{"_bandwidth":"String","_id":"String"}],"_vcpus":"String"}]},"genid":{"text":"String"},"iothreads":{"text":"String"},"name":{"text":"String"},"currentMemory":{"_unit":"String","text":"String"},"_id":"String","pm":{"suspend_to_disk":{"_enabled":"String"},"suspend_to_mem":{"_enabled":"String"}}},"name":{"text":"String"},"active":{"text":"String"},"description":{"text":"String"},"state":{"text":"String"}},"lifecycle":{"deleteSnapshot":{"metadata":true,"children":true,"children_only":true,"domain":"String","isExternal":true},"createSnapshot":{"diskspec":"String","no_metadata":true,"disk_only":true,"memspec":"String","description":"String","quiesce":true,"reuse_external":true,"halt":true,"atomic":true,"domain":"String","live":true,"isExternal":true},"revertVirtualMachine":{"domain":"String","running":true,"paused":true,"force":true,"isExternal":true},"copySnapshot":{"isExternal":true,"dest":"String","granularity":"String","buf_size":"String","shallow":true,"reuse_external":true,"blockdev":true,"pivot":true,"finish":true,"transient_job":true},"mergeSnapshot":{"bandwidth":"String","domain":"String","isExternal":true}},"status":{"apiVersion":"String","kind":"String","metadata":{},"code":1,"details":{"kind":"String","causes":[{"field":"String","message":"String","reason":"String"},{"field":"String","message":"String","reason":"String"}],"group":"String","name":"String","retryAfterSeconds":1,"uid":"String"},"message":"String","reason":"String","status":"String"}}}
 ```
 # 7 VirtualMachinePool
 
@@ -3978,13 +3981,13 @@
 ## 7.1 AutoStartPool(开机启动存储池)
 
 **接口功能:**
-	开机启动存储池，否则开机该存储池会连接不上，导致不可用。适用libvirt指令创建存储池情况。只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+开机启动存储池，否则开机该存储池会连接不上，导致不可用。适用libvirt指令创建存储池情况。只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存储池存在，即已调用过CreatePool
+虚拟机存储池存在，即已调用过CreatePool
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.AutoStartPool
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.AutoStartPool
 
 **参数描述:**
 
@@ -4024,13 +4027,13 @@
 ## 7.2 CreatePool(创建存储池)
 
 **接口功能:**
-	创建存储池，适用libvirt指令创建存储池情况。只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+创建存储池，适用libvirt指令创建存储池情况。只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	
+
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.CreatePool
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.CreatePool
 
 **参数描述:**
 
@@ -4049,7 +4052,7 @@
 | content|String|true|存储池的内容，用于标识存储池的用途|只能是vmd，vmdi，iso之一|vmd|
 | url|String|true|创建云存储池时的url|建立云存储池时通过cstor-cli pool-list查询出的云存储池路径|uus-iscsi-independent://admin:admin@192.168.3.10:7000/p1/4/2/0/32/0/3|
 | opt|String|false|nfs、gfs挂载参数或uus的创建选项，为存储类型为uus和nfs、gfs时必填，本地存储和vdiskfs不填|当type为nfs、gfs类型时，作为挂载参数|nolock|
-| uuid|String|true|cstor存储池的名字，与挂载路径有关|对所有类型必填，由数字和字母组成|07098ca5fd174fccafed76b0d7fccde4|
+| uuid|String|false|cstor存储池的名字，与挂载路径有关|对所有类型必填，由数字和字母组成|07098ca5fd174fccafed76b0d7fccde4|
 | autostart|boolean|false|创建存储池后是否设置为自动打开|true或false|true|
 | force|String|false|强力创建vdiskfs|True或False|True|
 |  |  |  |  |  |
@@ -4076,13 +4079,13 @@
 ## 7.3 StartPool(启动存储池)
 
 **接口功能:**
-	启动存储池，如果存储池处于Inactive状态，可以启动。适用libvirt指令创建存储池情况。只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+启动存储池，如果存储池处于Inactive状态，可以启动。适用libvirt指令创建存储池情况。只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存储池存在，即已调用过CreatePool
+虚拟机存储池存在，即已调用过CreatePool
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.StartPool
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.StartPool
 
 **参数描述:**
 
@@ -4121,13 +4124,13 @@
 ## 7.4 StopPool(停止存储池)
 
 **接口功能:**
-	停止存储池，将存储池状态设置为Inactive，适用libvirt指令创建存储池情况。只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+停止存储池，将存储池状态设置为Inactive，适用libvirt指令创建存储池情况。只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存储池存在，即已调用过CreatePool
+虚拟机存储池存在，即已调用过CreatePool
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.StopPool
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.StopPool
 
 **参数描述:**
 
@@ -4166,13 +4169,13 @@
 ## 7.5 DeletePool(删除存储池)
 
 **接口功能:**
-	删除存储池，适用libvirt指令创建存储池情况。只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除存储池，适用libvirt指令创建存储池情况。只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存储池存在，即已调用过CreatePool
+虚拟机存储池存在，即已调用过CreatePool
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.DeletePool
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.DeletePool
 
 **参数描述:**
 
@@ -4211,13 +4214,13 @@
 ## 7.6 ShowPool(查询存储池)
 
 **接口功能:**
-	调用本接口后会同步存储池的当前状态并注册到k8s，再使用GetVMPool接口获得当前存储池状态，适用libvirt指令创建存储池情况。只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+调用本接口后会同步存储池的当前状态并注册到k8s，再使用GetVMPool接口获得当前存储池状态，适用libvirt指令创建存储池情况。只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存储池存在，即已调用过CreatePool
+虚拟机存储池存在，即已调用过CreatePool
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.ShowPool
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.ShowPool
 
 **参数描述:**
 
@@ -4256,13 +4259,13 @@
 ## 7.7 RestoreVMBackup(恢复虚拟机)
 
 **接口功能:**
-	恢复虚拟机，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+恢复虚拟机，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.RestoreVMBackup
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.RestoreVMBackup
 
 **参数描述:**
 
@@ -4306,13 +4309,13 @@
 ## 7.8 DeleteRemoteBackup(删除远程备份)
 
 **接口功能:**
-	删除远程备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除远程备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.DeleteRemoteBackup
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.DeleteRemoteBackup
 
 **参数描述:**
 
@@ -4357,13 +4360,13 @@
 ## 7.9 PullRemoteBackup(拉取远程备份)
 
 **接口功能:**
-	拉取远程备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+拉取远程备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.PullRemoteBackup
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.PullRemoteBackup
 
 **参数描述:**
 
@@ -4409,13 +4412,13 @@
 ## 7.10 PushRemoteBackup(上传备份)
 
 **接口功能:**
-	上传备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+上传备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.PushRemoteBackup
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.PushRemoteBackup
 
 **参数描述:**
 
@@ -4461,13 +4464,13 @@
 ## 7.11 DeleteVMBackup(删除本地备份)
 
 **接口功能:**
-	删除本地备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除本地备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.DeleteVMBackup
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.DeleteVMBackup
 
 **参数描述:**
 
@@ -4508,13 +4511,13 @@
 ## 7.12 CleanVMBackup(清理本地备份)
 
 **接口功能:**
-	清理本地备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+清理本地备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.CleanVMBackup
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.CleanVMBackup
 
 **参数描述:**
 
@@ -4557,13 +4560,13 @@
 ## 7.13 CleanVMRemoteBackup(清理远端备份)
 
 **接口功能:**
-	清理远端备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+清理远端备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.CleanVMRemoteBackup
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.CleanVMRemoteBackup
 
 **参数描述:**
 
@@ -4609,13 +4612,13 @@
 ## 7.14 ScanVMBackup(扫描本地备份)
 
 **接口功能:**
-	扫描本地备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+扫描本地备份，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
+虚拟机存在，即已调用过CreatePool, CreateSwitch, CreateDisk/CreateDiskImage, CreateAndStartVMFromISO/CreateAndStartVMFromImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.ScanVMBackup
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.ScanVMBackup
 
 **参数描述:**
 
@@ -4656,13 +4659,13 @@
 ## 7.15 RestoreDisk(恢复云盘)
 
 **接口功能:**
-	从备份恢复云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+从备份恢复云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
+云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.RestoreDisk
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.RestoreDisk
 
 **参数描述:**
 
@@ -4707,13 +4710,13 @@
 ## 7.16 DeleteVMDiskBackup(删除本地云盘)
 
 **接口功能:**
-	删除本地云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除本地云盘，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
+云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.DeleteVMDiskBackup
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.DeleteVMDiskBackup
 
 **参数描述:**
 
@@ -4755,13 +4758,13 @@
 ## 7.17 DeleteRemoteBackupServer(删除远程ftp备份服务器)
 
 **接口功能:**
-	删除远程ftp备份服务器，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除远程ftp备份服务器，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
+云盘存在，即已调用过CreateDisk/CreateDiskFromDiskImage
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.DeleteRemoteBackupServer
+io.github.kubestack.client.api.specs.vms.virtualmachinepool.Lifecycle.DeleteRemoteBackupServer
 
 **参数描述:**
 
@@ -4803,452 +4806,22 @@
 ## **返回值:**
 
 ```
-{"spec":{"pool":{"_type":"String","pooltype":"String","content":"String","name":"String","uuid":"String","free":"String","state":"String","persistent":"String","autostart":"String","capacity":"String","path":"String","poolname":"String","pool":"String","url":"String"},"lifecycle":{"autoStartPool":{"type":"String","disable":true},"createPool":{"type":"String","content":"String","source_host":"String","source_path":"String","url":"String","opt":"String","uuid":"String","source_dev":"String","source_name":"String","force":"String","source_format":"String","auth_type":"String","auth_username":"String","secret_usage":"String","secret_uuid":"String","adapter_name":"String","adapter_wwnn":"String","adapter_wwpn":"String","adapter_parent":"String","adapter_parent_wwnn":"String","adapter_parent_wwpn":"String","adapter_parent_fabric_wwn":"String","build":true,"no_overwrite":true,"overwrite":true,"auto-start":true},"startPool":{"type":"String","build":true,"no_overwrite":true,"overwrite":true},"stopPool":{"type":"String"},"deletePool":{"type":"String"},"showPool":{"type":"String"},"restoreVMBackup":{"domain":"String","pool":"String","version":"String","all":true,"newname":"String","target":"String"},"deleteRemoteBackup":{"domain":"String","vol":"String","version":"String","remote":"String","port":"String","username":"String","password":"String"},"pullRemoteBackup":{"domain":"String","pool":"String","vol":"String","version":"String","remote":"String","port":"String","username":"String","password":"String"},"pushRemoteBackup":{"domain":"String","pool":"String","vol":"String","version":"String","remote":"String","port":"String","username":"String","password":"String"},"deleteVMBackup":{"domain":"String","pool":"String","version":"String"},"cleanVMBackup":{"domain":"String","pool":"String","vol":"String","version":"String","all":true},"cleanVMRemoteBackup":{"domain":"String","vol":"String","version":"String","all":true,"remote":"String","port":"String","username":"String","password":"String"},"scanVMBackup":{"domain":"String","pool":"String","vol":"String"},"restoreDisk":{"domain":"String","pool":"String","vol":"String","version":"String","newname":"String","target":"String","targetDomain":"String"},"deleteVMDiskBackup":{"domain":"String","pool":"String","vol":"String","version":"String"},"deleteRemoteBackupServer":{"remote":"String","port":"String","username":"String","password":"String"}}}}
+{"spec":{"pool":{"_type":"String","pooltype":"String","content":"String","name":"String","uuid":"String","free":"String","state":"String","persistent":"String","autostart":"String","capacity":"String","path":"String","poolname":"String","pool":"String","url":"String"},"lifecycle":{"autoStartPool":{"type":"String","disable":true},"createPool":{"type":"String","content":"String","source_host":"String","source_path":"String","url":"String","opt":"String","uuid":"String","source_dev":"String","source_name":"String","force":"String","source_format":"String","auth_type":"String","auth_username":"String","secret_usage":"String","secret_uuid":"String","adapter_name":"String","adapter_wwnn":"String","adapter_wwpn":"String","adapter_parent":"String","adapter_parent_wwnn":"String","adapter_parent_wwpn":"String","adapter_parent_fabric_wwn":"String","build":true,"no_overwrite":true,"overwrite":true,"auto-start":true},"startPool":{"type":"String","build":true,"no_overwrite":true,"overwrite":true},"stopPool":{"type":"String"},"deletePool":{"type":"String"},"showPool":{"type":"String"},"restoreVMBackup":{"domain":"String","pool":"String","version":"String","all":true,"newname":"String","target":"String"},"deleteRemoteBackup":{"domain":"String","vol":"String","version":"String","remote":"String","port":"String","username":"String","password":"String"},"pullRemoteBackup":{"domain":"String","pool":"String","vol":"String","version":"String","remote":"String","port":"String","username":"String","password":"String"},"pushRemoteBackup":{"domain":"String","pool":"String","vol":"String","version":"String","remote":"String","port":"String","username":"String","password":"String"},"deleteVMBackup":{"domain":"String","pool":"String","version":"String"},"cleanVMBackup":{"domain":"String","pool":"String","vol":"String","version":"String","all":true},"cleanVMRemoteBackup":{"domain":"String","vol":"String","version":"String","all":true,"remote":"String","port":"String","username":"String","password":"String"},"scanVMBackup":{"domain":"String","pool":"String","vol":"String"},"restoreDisk":{"domain":"String","pool":"String","vol":"String","version":"String","newname":"String","target":"String","targetDomain":"String"},"deleteVMDiskBackup":{"domain":"String","pool":"String","vol":"String","version":"String"},"deleteRemoteBackupServer":{"remote":"String","port":"String","username":"String","password":"String"}},"status":{"apiVersion":"String","kind":"String","metadata":{},"code":1,"details":{"kind":"String","causes":[{"field":"String","message":"String","reason":"String"},{"field":"String","message":"String","reason":"String"}],"group":"String","name":"String","retryAfterSeconds":1,"uid":"String"},"message":"String","reason":"String","status":"String"}}}
 ```
 # 8 VirtualMachineNetwork
 
 扩展支持OVN插件.VirtualMachineNetwork所有操作的返回值一样，见**[返回值]**
 
-## 8.1 CreateBridge(创建二层桥接网络，用于vlan场景)
+## 8.1 CreateAddress(创建地址列表)
 
 **接口功能:**
-	创建二层桥接，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+创建地址列表，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	
+
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinenetwork.Lifecycle.CreateBridge
-
-**参数描述:**
-
-| name | type | required | description | exampe |
-| ----- | ------ | ------ | ------ | ------ |
-| name | String | true | 资源名称 | createBridge.name.001|
-| nodeName | String | false | 选择部署的物理机，可以通过kubernetes.nodes().list进行查询 | node22 |
-| createBridge | CreateBridge | true | 创建二层桥接网络，用于vlan场景 | 详细见下 |
-| eventId | String | fasle | 事件ID | createBridge.event.001 |
-
-对象createBridge参数说明:
-
-| name | type | required | description | constraint | example |
-| ----- | ------ | ------ | ------ | ------ | ------ |
-| nic|String|true|被接管的网卡|名称是字符串类型，长度是3到12位，只允许数字、小写字母、中划线、以及圆点|l2bridge|
-| name|String|true|桥接的名字|桥接名，3到12位，只允许数字、小写字母、中划线|l2bridge|
-| vlan|String|false|vlan ID|0~4094|1|
-|  |  |  |  |  |
-
-**接口异常:**
-
-(1)在调用本方法抛出;
-
-| name  | description | 
-| ----- | ----- | 
-| RuntimeException |  重名，或则资源(VirtualMachine, VirtualMachinePool等)不存在   |
-| IllegalFormatException | 传递的参数不符合约束条件    |
-| Exception    | 后台代码异常，比如未安装VM的Kubernets插件    |
-
-(2)调用本方法返回True，因本API是异步处理，开发者需要进一步监听是否正确执行。本文考虑第(2)种情况请查看CreateBridgespec下的status域，从message中获取详细异常信息
-
-| name  | description | 
-| ----- | ----- | 
-| LibvirtError | 因传递错误参数，或者后台缺少软件包导致执行Libvirt命令出错   |
-| VirtctlError | Libvirt不支持的生命周期    |
-| VirtletError | Libvirt监听事件错误，比如绕开Kubernetes,后台执行操作  |
-| Exception    | 后台代码异常退出,比如主机的hostname变化    |
-
-## 8.2 DeleteBridge(删除二层桥接网络)
-
-**接口功能:**
-	删除二层桥接,只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
-
-**接口依赖:**
-	虚拟机网络存在，即已调用过CreateSwitch
-
-**接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinenetwork.Lifecycle.DeleteBridge
-
-**参数描述:**
-
-| name | type | required | description | exampe |
-| ----- | ------ | ------ | ------ | ------ |
-| name | String | true | 资源名称 | deleteBridge.name.001|
-| deleteBridge | DeleteBridge | true | 删除二层桥接网络 | 详细见下 |
-| eventId | String | fasle | 事件ID | deleteBridge.event.001 |
-
-对象deleteBridge参数说明:
-
-| name | type | required | description | constraint | example |
-| ----- | ------ | ------ | ------ | ------ | ------ |
-| nic|String|true|被接管的网卡|名称是字符串类型，长度是3到12位，只允许数字、小写字母、中划线、以及圆点|l2bridge|
-| name|String|true|桥接的名字|桥接名，3到12位，只允许数字、小写字母、中划线|l2bridge|
-|  |  |  |  |  |
-
-**接口异常:**
-
-(1)在调用本方法抛出;
-
-| name  | description | 
-| ----- | ----- | 
-| RuntimeException |  重名，或则资源(VirtualMachine, VirtualMachinePool等)不存在   |
-| IllegalFormatException | 传递的参数不符合约束条件    |
-| Exception    | 后台代码异常，比如未安装VM的Kubernets插件    |
-
-(2)调用本方法返回True，因本API是异步处理，开发者需要进一步监听是否正确执行。本文考虑第(2)种情况请查看DeleteBridgespec下的status域，从message中获取详细异常信息
-
-| name  | description | 
-| ----- | ----- | 
-| LibvirtError | 因传递错误参数，或者后台缺少软件包导致执行Libvirt命令出错   |
-| VirtctlError | Libvirt不支持的生命周期    |
-| VirtletError | Libvirt监听事件错误，比如绕开Kubernetes,后台执行操作  |
-| Exception    | 后台代码异常退出,比如主机的hostname变化    |
-
-## 8.3 SetBridgeVlan(设置二层网桥的vlan ID)
-
-**接口功能:**
-	适用于OpenvSwitch二层网桥，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
-
-**接口依赖:**
-	虚拟机网络存在，即已调用过CreateSwitch
-
-**接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinenetwork.Lifecycle.SetBridgeVlan
-
-**参数描述:**
-
-| name | type | required | description | exampe |
-| ----- | ------ | ------ | ------ | ------ |
-| name | String | true | 资源名称 | setBridgeVlan.name.001|
-| setBridgeVlan | SetBridgeVlan | true | 设置二层网桥的vlan ID | 详细见下 |
-| eventId | String | fasle | 事件ID | setBridgeVlan.event.001 |
-
-对象setBridgeVlan参数说明:
-
-| name | type | required | description | constraint | example |
-| ----- | ------ | ------ | ------ | ------ | ------ |
-| vlan|String|true|vlan ID|0~4094|1|
-| name|String|true|桥接的名字|桥接名，3到12位，只允许数字、小写字母、中划线|l2bridge|
-|  |  |  |  |  |
-
-**接口异常:**
-
-(1)在调用本方法抛出;
-
-| name  | description | 
-| ----- | ----- | 
-| RuntimeException |  重名，或则资源(VirtualMachine, VirtualMachinePool等)不存在   |
-| IllegalFormatException | 传递的参数不符合约束条件    |
-| Exception    | 后台代码异常，比如未安装VM的Kubernets插件    |
-
-(2)调用本方法返回True，因本API是异步处理，开发者需要进一步监听是否正确执行。本文考虑第(2)种情况请查看SetBridgeVlanspec下的status域，从message中获取详细异常信息
-
-| name  | description | 
-| ----- | ----- | 
-| LibvirtError | 因传递错误参数，或者后台缺少软件包导致执行Libvirt命令出错   |
-| VirtctlError | Libvirt不支持的生命周期    |
-| VirtletError | Libvirt监听事件错误，比如绕开Kubernetes,后台执行操作  |
-| Exception    | 后台代码异常退出,比如主机的hostname变化    |
-
-## 8.4 DelBridgeVlan(删除二层网桥的vlan ID)
-
-**接口功能:**
-	适用于OpenvSwitch二层网桥，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
-
-**接口依赖:**
-	虚拟机网络存在，即已调用过CreateSwitch
-
-**接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinenetwork.Lifecycle.DelBridgeVlan
-
-**参数描述:**
-
-| name | type | required | description | exampe |
-| ----- | ------ | ------ | ------ | ------ |
-| name | String | true | 资源名称 | delBridgeVlan.name.001|
-| delBridgeVlan | DelBridgeVlan | true | 删除二层网桥的vlan ID | 详细见下 |
-| eventId | String | fasle | 事件ID | delBridgeVlan.event.001 |
-
-对象delBridgeVlan参数说明:
-
-| name | type | required | description | constraint | example |
-| ----- | ------ | ------ | ------ | ------ | ------ |
-| vlan|String|true|vlan ID|0~4094|1|
-| name|String|true|桥接的名字|桥接名，3到12位，只允许数字、小写字母、中划线|l2bridge|
-|  |  |  |  |  |
-
-**接口异常:**
-
-(1)在调用本方法抛出;
-
-| name  | description | 
-| ----- | ----- | 
-| RuntimeException |  重名，或则资源(VirtualMachine, VirtualMachinePool等)不存在   |
-| IllegalFormatException | 传递的参数不符合约束条件    |
-| Exception    | 后台代码异常，比如未安装VM的Kubernets插件    |
-
-(2)调用本方法返回True，因本API是异步处理，开发者需要进一步监听是否正确执行。本文考虑第(2)种情况请查看DelBridgeVlanspec下的status域，从message中获取详细异常信息
-
-| name  | description | 
-| ----- | ----- | 
-| LibvirtError | 因传递错误参数，或者后台缺少软件包导致执行Libvirt命令出错   |
-| VirtctlError | Libvirt不支持的生命周期    |
-| VirtletError | Libvirt监听事件错误，比如绕开Kubernetes,后台执行操作  |
-| Exception    | 后台代码异常退出,比如主机的hostname变化    |
-
-## 8.5 BindPortVlan(给虚拟机绑定vlan ID)
-
-**接口功能:**
-	适用于OpenvSwitch二层网桥，更换虚拟机的vlan只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
-
-**接口依赖:**
-	虚拟机网络存在，即已调用过CreateSwitch
-
-**接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinenetwork.Lifecycle.BindPortVlan
-
-**参数描述:**
-
-| name | type | required | description | exampe |
-| ----- | ------ | ------ | ------ | ------ |
-| name | String | true | 资源名称 | bindPortVlan.name.001|
-| bindPortVlan | BindPortVlan | true | 给虚拟机绑定vlan ID | 详细见下 |
-| eventId | String | fasle | 事件ID | bindPortVlan.event.001 |
-
-对象bindPortVlan参数说明:
-
-| name | type | required | description | constraint | example |
-| ----- | ------ | ------ | ------ | ------ | ------ |
-| mac|String|true|mac地址|mac地址不能以fe开头|7e:0c:b0:ef:6a:04|
-| domain|String|true|虚拟机名称|4-100位，包含小写字母，数字0-9，中划线，以及圆点|950646e8c17a49d0b83c1c797811e004|
-| vlan|String|false|vlan ID|0~4094|1|
-|  |  |  |  |  |
-
-**接口异常:**
-
-(1)在调用本方法抛出;
-
-| name  | description | 
-| ----- | ----- | 
-| RuntimeException |  重名，或则资源(VirtualMachine, VirtualMachinePool等)不存在   |
-| IllegalFormatException | 传递的参数不符合约束条件    |
-| Exception    | 后台代码异常，比如未安装VM的Kubernets插件    |
-
-(2)调用本方法返回True，因本API是异步处理，开发者需要进一步监听是否正确执行。本文考虑第(2)种情况请查看BindPortVlanspec下的status域，从message中获取详细异常信息
-
-| name  | description | 
-| ----- | ----- | 
-| LibvirtError | 因传递错误参数，或者后台缺少软件包导致执行Libvirt命令出错   |
-| VirtctlError | Libvirt不支持的生命周期    |
-| VirtletError | Libvirt监听事件错误，比如绕开Kubernetes,后台执行操作  |
-| Exception    | 后台代码异常退出,比如主机的hostname变化    |
-
-## 8.6 UnbindPortVlan(解除虚拟机的vlan ID)
-
-**接口功能:**
-	适用于OpenvSwitch二层网桥，更换虚拟机的vlan只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
-
-**接口依赖:**
-	虚拟机网络存在，即已调用过CreateSwitch
-
-**接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinenetwork.Lifecycle.UnbindPortVlan
-
-**参数描述:**
-
-| name | type | required | description | exampe |
-| ----- | ------ | ------ | ------ | ------ |
-| name | String | true | 资源名称 | unbindPortVlan.name.001|
-| unbindPortVlan | UnbindPortVlan | true | 解除虚拟机的vlan ID | 详细见下 |
-| eventId | String | fasle | 事件ID | unbindPortVlan.event.001 |
-
-对象unbindPortVlan参数说明:
-
-| name | type | required | description | constraint | example |
-| ----- | ------ | ------ | ------ | ------ | ------ |
-| mac|String|true|mac地址|mac地址不能以fe开头|7e:0c:b0:ef:6a:04|
-| domain|String|true|虚拟机名称|4-100位，包含小写字母，数字0-9，中划线，以及圆点|950646e8c17a49d0b83c1c797811e004|
-| vlan|String|false|vlan ID|0~4094|1|
-|  |  |  |  |  |
-
-**接口异常:**
-
-(1)在调用本方法抛出;
-
-| name  | description | 
-| ----- | ----- | 
-| RuntimeException |  重名，或则资源(VirtualMachine, VirtualMachinePool等)不存在   |
-| IllegalFormatException | 传递的参数不符合约束条件    |
-| Exception    | 后台代码异常，比如未安装VM的Kubernets插件    |
-
-(2)调用本方法返回True，因本API是异步处理，开发者需要进一步监听是否正确执行。本文考虑第(2)种情况请查看UnbindPortVlanspec下的status域，从message中获取详细异常信息
-
-| name  | description | 
-| ----- | ----- | 
-| LibvirtError | 因传递错误参数，或者后台缺少软件包导致执行Libvirt命令出错   |
-| VirtctlError | Libvirt不支持的生命周期    |
-| VirtletError | Libvirt监听事件错误，比如绕开Kubernetes,后台执行操作  |
-| Exception    | 后台代码异常退出,比如主机的hostname变化    |
-
-## 8.7 CreateSwitch(创建三层网络交换机)
-
-**接口功能:**
-	创建三层网络交换机，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
-
-**接口依赖:**
-	
-
-**接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinenetwork.Lifecycle.CreateSwitch
-
-**参数描述:**
-
-| name | type | required | description | exampe |
-| ----- | ------ | ------ | ------ | ------ |
-| name | String | true | 资源名称 | createSwitch.name.001|
-| nodeName | String | false | 选择部署的物理机，可以通过kubernetes.nodes().list进行查询 | node22 |
-| createSwitch | CreateSwitch | true | 创建三层网络交换机 | 详细见下 |
-| eventId | String | fasle | 事件ID | createSwitch.event.001 |
-
-对象createSwitch参数说明:
-
-| name | type | required | description | constraint | example |
-| ----- | ------ | ------ | ------ | ------ | ------ |
-| subnet|String|true|网段，这里后台只会做形式，不会做逻辑判断，只要符合xx.xx.xx.xx/y形式即可，请确保传入正确的数值, y的取值必须是8,16,24之一|网段和掩码|192.168.5.1/24|
-| dhcp|String|false|DHCP地址|IP|192.168.5.5|
-| gateway|String|true|网关地址|IP|192.168.5.5|
-| mtu|String|false|mtu|10-1000|1500|
-| bridge|String|false|网桥名|网桥|br-ex|
-| vlanId|String|false|vlanID|0-4094|br-ex|
-| excludeIPs|String|false|IP列表黑名单|单个IP之间通过空格分开，IP范围使用..分开|192.168.5.2 192.168.5.10..192.168.5.100|
-| dnsServer|String|false|域名服务器|IP地址，允许多个，以,号分开|192.168.5.5|
-| ipv6|String|false|是否ipv6|true或者false|true|
-|  |  |  |  |  |
-
-**接口异常:**
-
-(1)在调用本方法抛出;
-
-| name  | description | 
-| ----- | ----- | 
-| RuntimeException |  重名，或则资源(VirtualMachine, VirtualMachinePool等)不存在   |
-| IllegalFormatException | 传递的参数不符合约束条件    |
-| Exception    | 后台代码异常，比如未安装VM的Kubernets插件    |
-
-(2)调用本方法返回True，因本API是异步处理，开发者需要进一步监听是否正确执行。本文考虑第(2)种情况请查看CreateSwitchspec下的status域，从message中获取详细异常信息
-
-| name  | description | 
-| ----- | ----- | 
-| LibvirtError | 因传递错误参数，或者后台缺少软件包导致执行Libvirt命令出错   |
-| VirtctlError | Libvirt不支持的生命周期    |
-| VirtletError | Libvirt监听事件错误，比如绕开Kubernetes,后台执行操作  |
-| Exception    | 后台代码异常退出,比如主机的hostname变化    |
-
-## 8.8 DeleteSwitch(删除三层网络交换机)
-
-**接口功能:**
-	删除三层网络交换机，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
-
-**接口依赖:**
-	虚拟机网络存在，即已调用过CreateSwitch
-
-**接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinenetwork.Lifecycle.DeleteSwitch
-
-**参数描述:**
-
-| name | type | required | description | exampe |
-| ----- | ------ | ------ | ------ | ------ |
-| name | String | true | 资源名称 | deleteSwitch.name.001|
-| deleteSwitch | DeleteSwitch | true | 删除三层网络交换机 | 详细见下 |
-| eventId | String | fasle | 事件ID | deleteSwitch.event.001 |
-
-对象deleteSwitch参数说明:
-
-| name | type | required | description | constraint | example |
-| ----- | ------ | ------ | ------ | ------ | ------ |
-| bridge|String|false|网桥名|网桥|br-ex|
-| ipv6|String|false|是否ipv6|true或者false|true|
-|  |  |  |  |  |
-
-**接口异常:**
-
-(1)在调用本方法抛出;
-
-| name  | description | 
-| ----- | ----- | 
-| RuntimeException |  重名，或则资源(VirtualMachine, VirtualMachinePool等)不存在   |
-| IllegalFormatException | 传递的参数不符合约束条件    |
-| Exception    | 后台代码异常，比如未安装VM的Kubernets插件    |
-
-(2)调用本方法返回True，因本API是异步处理，开发者需要进一步监听是否正确执行。本文考虑第(2)种情况请查看DeleteSwitchspec下的status域，从message中获取详细异常信息
-
-| name  | description | 
-| ----- | ----- | 
-| LibvirtError | 因传递错误参数，或者后台缺少软件包导致执行Libvirt命令出错   |
-| VirtctlError | Libvirt不支持的生命周期    |
-| VirtletError | Libvirt监听事件错误，比如绕开Kubernetes,后台执行操作  |
-| Exception    | 后台代码异常退出,比如主机的hostname变化    |
-
-## 8.9 ModifySwitch(修改三层网络交换机配置)
-
-**接口功能:**
-	修改三层网络交换机配置，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
-
-**接口依赖:**
-	
-
-**接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinenetwork.Lifecycle.ModifySwitch
-
-**参数描述:**
-
-| name | type | required | description | exampe |
-| ----- | ------ | ------ | ------ | ------ |
-| name | String | true | 资源名称 | modifySwitch.name.001|
-| modifySwitch | ModifySwitch | true | 修改三层网络交换机配置 | 详细见下 |
-| eventId | String | fasle | 事件ID | modifySwitch.event.001 |
-
-对象modifySwitch参数说明:
-
-| name | type | required | description | constraint | example |
-| ----- | ------ | ------ | ------ | ------ | ------ |
-| gateway|String|false|网关地址|IP|192.168.5.5|
-| mtu|String|false|mtu|10-1000|1500|
-| dnsServer|String|false|域名服务器|IP地址|192.168.5.5|
-| dhcp|String|false|DHCP地址|IP|192.168.5.5|
-| vlanId|String|false|vlanID|0-4094|br-ex|
-| ipv6|String|false|是否ipv6|true或者false|true|
-|  |  |  |  |  |
-
-**接口异常:**
-
-(1)在调用本方法抛出;
-
-| name  | description | 
-| ----- | ----- | 
-| RuntimeException |  重名，或则资源(VirtualMachine, VirtualMachinePool等)不存在   |
-| IllegalFormatException | 传递的参数不符合约束条件    |
-| Exception    | 后台代码异常，比如未安装VM的Kubernets插件    |
-
-(2)调用本方法返回True，因本API是异步处理，开发者需要进一步监听是否正确执行。本文考虑第(2)种情况请查看ModifySwitchspec下的status域，从message中获取详细异常信息
-
-| name  | description | 
-| ----- | ----- | 
-| LibvirtError | 因传递错误参数，或者后台缺少软件包导致执行Libvirt命令出错   |
-| VirtctlError | Libvirt不支持的生命周期    |
-| VirtletError | Libvirt监听事件错误，比如绕开Kubernetes,后台执行操作  |
-| Exception    | 后台代码异常退出,比如主机的hostname变化    |
-
-## 8.10 CreateAddress(创建地址列表)
-
-**接口功能:**
-	创建地址列表，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
-
-**接口依赖:**
-	
-
-**接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinenetwork.Lifecycle.CreateAddress
+io.github.kubestack.client.api.specs.vms.virtualmachinenetwork.Lifecycle.CreateAddress
 
 **参数描述:**
 
@@ -5285,16 +4858,16 @@
 | VirtletError | Libvirt监听事件错误，比如绕开Kubernetes,后台执行操作  |
 | Exception    | 后台代码异常退出,比如主机的hostname变化    |
 
-## 8.11 DeleteAddress(删除地址列表)
+## 8.2 DeleteAddress(删除地址列表)
 
 **接口功能:**
-	删除地址列表，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+删除地址列表，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	虚拟机网络存在，即已调用过CreateSwitch
+虚拟机网络存在，即已调用过CreateSwitch
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinenetwork.Lifecycle.DeleteAddress
+io.github.kubestack.client.api.specs.vms.virtualmachinenetwork.Lifecycle.DeleteAddress
 
 **参数描述:**
 
@@ -5329,16 +4902,16 @@
 | VirtletError | Libvirt监听事件错误，比如绕开Kubernetes,后台执行操作  |
 | Exception    | 后台代码异常退出,比如主机的hostname变化    |
 
-## 8.12 ModifyAddress(修改地址列表)
+## 8.3 ModifyAddress(修改地址列表)
 
 **接口功能:**
-	修改地址列表，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
+修改地址列表，只会返回True或者异常返回True意味着提交到Kubernetes成功，并不代表执行成功(异步设计)。开发人员需要通过监听Event和Watcher方法获取更详细信息；如果提交到Kubernetes后执行错误，请查看[接口异常]
 
 **接口依赖:**
-	
+
 
 **接口所属:**
-	io.github.kubestack.client.api.specs.vms.virtualmachinenetwork.Lifecycle.ModifyAddress
+io.github.kubestack.client.api.specs.vms.virtualmachinenetwork.Lifecycle.ModifyAddress
 
 **参数描述:**
 
@@ -5377,5 +4950,5 @@
 ## **返回值:**
 
 ```
-{"spec":{"type":"String","data":{"switchInfo":{"id":"String","name":"String","ports":[{"name":"String","tag":"String","type":"String","addresses":{},"router_port":"String"},{"name":"String","tag":"String","type":"String","addresses":{},"router_port":"String"}]},"routerInfo":{"id":"String","name":"String","ports":[{"name":"String","mac":"String","networks":"String","gateway":"String"},{"name":"String","mac":"String","networks":"String","gateway":"String"}],"nat":[{"name":"String","externalIP":"String","logicalIP":"String","type":"String","gateway":"String"},{"name":"String","externalIP":"String","logicalIP":"String","type":"String","gateway":"String"}]},"gatewayInfo":{"id":"String","server_mac":"String","server_id":"String","router":"String","lease_time":"String"},"bridgeInfo":{"name":"String","ports":[{"name":"String","uuid":"String","vlan":"String","interfaces":[{"name":"String","uuid":"String","mac":"String"},{"name":"String","uuid":"String","mac":"String"}]},{"name":"String","uuid":"String","vlan":"String","interfaces":[{"name":"String","uuid":"String","mac":"String"},{"name":"String","uuid":"String","mac":"String"}]}],"uuid":"String"},"addressInfo":{"_uuid":"String","addresses":"String","external_ids":"String","name":"String"}},"lifecycle":{"createBridge":{"nic":"String","name":"String","vlan":"String"},"deleteBridge":{"nic":"String","name":"String"},"setBridgeVlan":{"vlan":"String","name":"String"},"delBridgeVlan":{},"bindPortVlan":{"mac":"String","domain":"String","vlan":"String"},"unbindPortVlan":{},"createSwitch":{"subnet":"String","dhcp":"String","gateway":"String","mtu":"String","bridge":"String","vlanId":"String","excludeIPs":"String","dnsServer":"String","ipv6":"String"},"deleteSwitch":{"bridge":"String","ipv6":"String"},"modifySwitch":{"gateway":"String","mtu":"String","dnsServer":"String","dhcp":"String","vlanId":"String","ipv6":"String"},"createAddress":{"address":"String"},"deleteAddress":{},"modifyAddress":{}}}}
+{"spec":{"type":"String","data":{"switchInfo":{"id":"String","name":"String","ports":[{"name":"String","tag":"String","type":"String","addresses":{},"router_port":"String"},{"name":"String","tag":"String","type":"String","addresses":{},"router_port":"String"}]},"routerInfo":{"id":"String","name":"String","ports":[{"name":"String","mac":"String","networks":"String","gateway":"String"},{"name":"String","mac":"String","networks":"String","gateway":"String"}],"nat":[{"name":"String","externalIP":"String","logicalIP":"String","type":"String","gateway":"String"},{"name":"String","externalIP":"String","logicalIP":"String","type":"String","gateway":"String"}]},"gatewayInfo":{"id":"String","server_mac":"String","server_id":"String","router":"String","lease_time":"String"},"bridgeInfo":{"name":"String","ports":[{"name":"String","uuid":"String","vlan":"String","interfaces":[{"name":"String","uuid":"String","mac":"String"},{"name":"String","uuid":"String","mac":"String"}]},{"name":"String","uuid":"String","vlan":"String","interfaces":[{"name":"String","uuid":"String","mac":"String"},{"name":"String","uuid":"String","mac":"String"}]}],"uuid":"String"},"addressInfo":{"_uuid":"String","addresses":"String","external_ids":"String","name":"String"}},"lifecycle":{"createAddress":{"address":"String"},"deleteAddress":{},"modifyAddress":{}},"status":{"apiVersion":"String","kind":"String","metadata":{},"code":1,"details":{"kind":"String","causes":[{"field":"String","message":"String","reason":"String"},{"field":"String","message":"String","reason":"String"}],"group":"String","name":"String","retryAfterSeconds":1,"uid":"String"},"message":"String","reason":"String","status":"String"}}}
 ```
