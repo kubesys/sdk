@@ -30,18 +30,21 @@ public class MigrateVMTest {
 		KubeStackClient client = AbstractTest.getClient();
 		String vmName = "openeuler";
 		List<String> migrateNodes = getMigrateNodes(vmName);
+		String vmStatus = client.virtualMachines().get(vmName).getSpec().getPowerstate();
 		// 替换成前端选IP的逻辑
 		String migrateNodeIp = migrateNodes.get(0);
 		boolean successful = client.virtualMachines()
-				.migrateVM(vmName, migrateVM(migrateNodeIp));
+				.migrateVM(vmName, migrateVM(migrateNodeIp, vmStatus));
 		System.out.println(successful);
 	}
 
-	public static Lifecycle.MigrateVM migrateVM(String migrateNodeIp) throws Exception {
+	public static Lifecycle.MigrateVM migrateVM(String migrateNodeIp, String vmStatus) throws Exception {
 
 		Lifecycle.MigrateVM migrateVM = new Lifecycle.MigrateVM();
 		migrateVM.setIp(migrateNodeIp);
-//		migrateVM.setOffline(true);
+		if (vmStatus.equals("Shutdown")) {
+			migrateVM.setOffline(true);
+		}
 		return migrateVM;
 	}
 
