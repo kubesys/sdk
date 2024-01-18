@@ -33,9 +33,13 @@ public class MigrateVMTest {
 		String vmStatus = client.virtualMachines().get(vmName).getSpec().getPowerstate();
 		// 替换成前端选IP的逻辑
 		String migrateNodeIp = migrateNodes.get(0);
-		boolean successful = client.virtualMachines()
-				.migrateVM(vmName, migrateVM(migrateNodeIp, vmStatus));
-		System.out.println(successful);
+		if (vmStatus.equals("Running") || vmStatus.equals("Shutdown")) {
+			boolean successful = client.virtualMachines()
+					.migrateVM(vmName, migrateVM(migrateNodeIp, vmStatus));
+			System.out.println(successful);
+		} else {
+			System.out.println("迁移失败，虚拟机必须是“运行中”或“已停止”状态。");
+		}
 	}
 
 	public static Lifecycle.MigrateVM migrateVM(String migrateNodeIp, String vmStatus) throws Exception {
