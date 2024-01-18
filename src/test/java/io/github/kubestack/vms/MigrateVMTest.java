@@ -29,16 +29,9 @@ public class MigrateVMTest {
 
 		KubeStackClient client = AbstractTest.getClient();
 		String vmName = "openeuler";
-		String nodeName = client.virtualMachines().get(vmName).getMetadata().getLabels().get("host");
-		String nodeIp = client.nodes().get(nodeName).getMetadata().getAnnotations().get("THISIP");
-		List<String> migrateNodes = getMigrateNodes();
+		List<String> migrateNodes = getMigrateNodes(vmName);
 		// 替换成前端选IP的逻辑
-		String migrateNodeIp = "";
-		for (String migrateNode : migrateNodes) {
-			if (!migrateNode.equals(nodeIp)) {
-				migrateNodeIp = migrateNode;
-			}
-		}
+		String migrateNodeIp = migrateNodes.get(0);
 		boolean successful = client.virtualMachines()
 				.migrateVM(vmName, migrateVM(migrateNodeIp));
 		System.out.println(successful);
@@ -52,7 +45,7 @@ public class MigrateVMTest {
 		return migrateVM;
 	}
 
-	public static List<String> getMigrateNodes() throws Exception {
+	public static List<String> getMigrateNodes(String vmName) throws Exception {
 		KubeStackClient client = AbstractTest.getClient();
 		List<String> migrateNodes = new ArrayList<String>();
 		for (Node no : client.nodes().list()) {
@@ -60,8 +53,10 @@ public class MigrateVMTest {
 				String nodeIp = no.getMetadata().getAnnotations().get("THISIP");
 				NodeStatus nodeStatus = no.getStatus();
 				List<NodeCondition> nodeStatusConditions = nodeStatus.getConditions();
+				String vmNodeName = client.virtualMachines().get(vmName).getMetadata().getLabels().get("host");
+				String vmNodeIp = client.nodes().get(vmNodeName).getMetadata().getAnnotations().get("THISIP");
 //				System.out.println(nodeStatusConditions.toString().contains("reason=NodeStatusUnknown"));
-				if (!nodeIp.isEmpty() && !nodeStatusConditions.toString().contains("reason=NodeStatusUnknown")) {
+				if (!nodeIp.isEmpty() && !nodeIp.equals(vmNodeIp) && !nodeStatusConditions.toString().contains("reason=NodeStatusUnknown")) {
 					migrateNodes.add(nodeIp);
 				}
 			}
