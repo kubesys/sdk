@@ -3,23 +3,9 @@
  */
 package io.github.kubestack.core.generators.vms;
 
-import io.github.kubestack.client.api.models.vms.VirtualMachine;
-import io.github.kubestack.client.api.models.vms.VirtualMachineDisk;
-import io.github.kubestack.client.api.models.vms.VirtualMachineDiskImage;
-import io.github.kubestack.client.api.models.vms.VirtualMachineDiskSnapshot;
-import io.github.kubestack.client.api.models.vms.VirtualMachineImage;
-import io.github.kubestack.client.api.models.vms.VirtualMachineNetwork;
-import io.github.kubestack.client.api.models.vms.VirtualMachinePool;
-import io.github.kubestack.client.api.models.vms.VirtualMachineSnapshot;
+import io.github.kubestack.client.api.models.vms.*;
 import io.github.kubestack.client.impl.AbstractImpl;
-import io.github.kubestack.client.impl.vms.VirtualMachineDiskImageImpl;
-import io.github.kubestack.client.impl.vms.VirtualMachineDiskImpl;
-import io.github.kubestack.client.impl.vms.VirtualMachineDiskSnapshotImpl;
-import io.github.kubestack.client.impl.vms.VirtualMachineImageImpl;
-import io.github.kubestack.client.impl.vms.VirtualMachineImpl;
-import io.github.kubestack.client.impl.vms.VirtualMachineNetworkImpl;
-import io.github.kubestack.client.impl.vms.VirtualMachinePoolImpl;
-import io.github.kubestack.client.impl.vms.VirtualMachineSnapshotImpl;
+import io.github.kubestack.client.impl.vms.*;
 
 /**
  * @author wuheng@otcaix.iscas.ac.cn
@@ -120,14 +106,15 @@ public class ImplGenerator {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		System.out.println(generate(new VirtualMachineDiskImpl(null, VirtualMachineDisk.class.getSimpleName())));
-		System.out.println(generate(new VirtualMachineDiskSnapshotImpl(null, VirtualMachineDiskSnapshot.class.getSimpleName())));
-		System.out.println(generate(new VirtualMachineImpl(null, VirtualMachine.class.getSimpleName())));
-		System.out.println(generate(new VirtualMachinePoolImpl(null, VirtualMachinePool.class.getSimpleName())));
-		System.out.println(generate(new VirtualMachineImageImpl(null, VirtualMachineImage.class.getSimpleName())));
-		System.out.println(generate(new VirtualMachineSnapshotImpl(null, VirtualMachineSnapshot.class.getSimpleName())));
-		System.out.println(generate(new VirtualMachineNetworkImpl(null, VirtualMachineNetwork.class.getSimpleName())));
-		System.out.println(generate(new VirtualMachineDiskImageImpl(null, VirtualMachineDiskImage.class.getSimpleName())));
+		//System.out.println(generate(new VirtualMachineDiskImpl(null, VirtualMachineDisk.class.getSimpleName())));
+		//System.out.println(generate(new VirtualMachineDiskSnapshotImpl(null, VirtualMachineDiskSnapshot.class.getSimpleName())));
+		//System.out.println(generate(new VirtualMachineImpl(null, VirtualMachine.class.getSimpleName())));
+		//System.out.println(generate(new VirtualMachinePoolImpl(null, VirtualMachinePool.class.getSimpleName())));
+		//System.out.println(generate(new VirtualMachineImageImpl(null, VirtualMachineImage.class.getSimpleName())));
+		//System.out.println(generate(new VirtualMachineSnapshotImpl(null, VirtualMachineSnapshot.class.getSimpleName())));
+		//System.out.println(generate(new VirtualMachineNetworkImpl(null, VirtualMachineNetwork.class.getSimpleName())));
+		//System.out.println(generate(new VirtualMachineDiskImageImpl(null, VirtualMachineDiskImage.class.getSimpleName())));
+		System.out.println(generate(new VirtualMachineGPUImpl(null, VirtualMachineGPU.class.getSimpleName())));
 	}
 	
 	public static String getClassName(String name) {

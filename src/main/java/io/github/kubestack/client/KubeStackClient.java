@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import io.github.kubestack.client.api.models.k8s.*;
 import io.github.kubestack.client.api.models.openstack.OpenstackServer;
 import io.github.kubestack.client.api.models.vms.*;
+import io.github.kubestack.client.api.specs.vms.VirtualMachineGPUSpec;
 import io.github.kubestack.client.impl.k8s.*;
 import io.github.kubestack.client.impl.openstack.OpenstackServerImpl;
 import io.github.kubestack.client.impl.vms.*;
@@ -199,6 +200,10 @@ public class KubeStackClient extends KubernetesClient {
      */
     public VirtualMachineSnapshotImpl virtualMachineSnapshots() {
         return new VirtualMachineSnapshotImpl(this, VirtualMachineSnapshot.class.getSimpleName());
+    }
+
+    public VirtualMachineGPUImpl virtualMachineGPUs() {
+        return new VirtualMachineGPUImpl(this, VirtualMachineGPU.class.getSimpleName()) ;
     }
 
     /**
