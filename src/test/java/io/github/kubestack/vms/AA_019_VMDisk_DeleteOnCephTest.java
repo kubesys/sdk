@@ -29,8 +29,7 @@ public class AA_019_VMDisk_DeleteOnCephTest {
 	
 	public static DeleteDisk getDeleteDisk() {
 		DeleteDisk deleteDisk = new DeleteDisk();
-		deleteDisk.setPool("migratepoolnodepool22");
-		deleteDisk.setType("ceph");
+		deleteDisk.setPool("m\t\tdeleteDisk.setType(\"ceph\");\nigratepoolnodepool22");
 		return deleteDisk;
 	}
 }

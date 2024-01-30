@@ -4,6 +4,7 @@
 package io.github.kubestack.vms;
 
 import io.github.kubestack.client.KubeStackClient;
+import io.github.kubestack.client.api.models.vms.VirtualMachineGPU;
 
 
 /**
@@ -18,7 +19,12 @@ public class AA_026_VMGPU_ListAllTest {
 	public static void main(String[] args) throws Exception {
 
 		KubeStackClient client = io.github.kubestack.AbstractTest.getClient();
-		System.out.println(client.virtualMachineGPUs().list());
+		for (VirtualMachineGPU vmgpu: client.virtualMachineGPUs().list()) {
+			System.out.println(vmgpu.getMetadata().getName() + ", " + vmgpu.getSpec().getGpu().getType()+
+					", " + vmgpu.getSpec().getGpu().getId() + ", " + vmgpu.getSpec().getGpu().getInUse() +
+					", " + vmgpu.getSpec().getGpu().getUseMode() + ", " + vmgpu.getSpec().getGpu().getKernelDriverInUse() +
+					", " + vmgpu.getSpec().getNodeName() + ", " + vmgpu.getSpec().getGpu().getKernelModules());
+		}
 	}
 	
 }
