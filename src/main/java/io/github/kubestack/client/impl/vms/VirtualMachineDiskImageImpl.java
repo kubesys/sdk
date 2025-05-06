@@ -17,6 +17,7 @@ import io.github.kubestack.core.utils.RegExpUtils;
 
 /**
  * @author  wuheng@otcaix.iscas.ac.cn
+ * @author liujiexin@otcaix.iscas.ac.cn
  * 
  * @version 2.0.0
  * @since   2022/10/22
